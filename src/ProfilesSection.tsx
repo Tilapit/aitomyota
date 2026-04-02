@@ -1,235 +1,128 @@
 import React, { useEffect, useRef } from 'react';
 
-const profiles = [
-  {
-    name: 'Emilia Korhonen',
-    title: 'Psykoterapeutti',
-    specialties: ['Ahdistus', 'Ihmissuhteet', 'Itsetunto'],
-    approach: 'Kognitiivinen käyttäytymisterapia (KKT)',
-    matchReason: 'Sopii sinulle, koska olet hakenut apua ahdistukseen ja arvostat selkeää rakennetta.',
-    initials: 'EK',
-    color: '#C4674A',
-  },
-  {
-    name: 'Markus Leinonen',
-    title: 'Psykologi',
-    specialties: ['Trauma', 'Masennus', 'Elämänmuutokset'],
-    approach: 'EMDR & Hyväksymis- ja omistautumisterapia',
-    matchReason: 'Sopii sinulle, koska hän on erikoistunut traumoihin ja työskentelee kehon kanssa.',
-    initials: 'ML',
-    color: '#5C4E3D',
-  },
-  {
-    name: 'Saara Virtanen',
-    title: 'Psykoterapeutti',
-    specialties: ['Kasvu', 'Parisuhde', 'Vanhemmuus'],
-    approach: 'Ratkaisukeskeinen terapia',
-    matchReason: 'Sopii sinulle, koska haluat konkreettisia välineitä arjen muutoksiin.',
-    initials: 'SV',
-    color: '#9C8C7A',
-  },
-];
-
 const ProfilesSection: React.FC = () => {
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).style.animation = 'fadeUp 0.6s ease forwards';
+            (entry.target as HTMLElement).style.opacity = '1';
+          }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
-    refs.current.forEach((el) => { if (el) observer.observe(el); });
+    cardRefs.current.forEach((el) => { if (el) observer.observe(el); });
     return () => observer.disconnect();
   }, []);
 
+  const WaveSVG = () => (
+    <svg
+      style={{ position: 'absolute', bottom: 0, right: 0, opacity: 0.08, pointerEvents: 'none' }}
+      width="72" height="36" viewBox="0 0 72 36" fill="none"
+    >
+      <path d="M2 28 C9 22,14 19,20 24 C26 30,31 31,37 26 C42 21,47 19,53 23 C57 26,60 27,64 26" stroke="#C4674A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="67" cy="26" r="2.5" fill="#C4674A"/>
+    </svg>
+  );
+
   return (
     <section
-      id="therapists"
-      style={{ padding: '100px 32px', background: 'var(--cream)' }}
+      id="terapeutit"
+      className="profiles-sec"
     >
-      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
-        {/* Header */}
+      <div className="s-label">Terapeutit</div>
+      <h2>Esimerkkejä suosituksistamme</h2>
+      <p className="s-sub">Jokainen suositus on valittu sinua varten. Näet myös, miksi terapeutti sopii juuri sinulle.</p>
+
+      <div className="profiles-grid">
+
+        {/* Card 1 — Featured / Paras match */}
         <div
-          ref={(el) => { refs.current[0] = el; }}
-          className="reveal"
-          style={{ textAlign: 'center', marginBottom: '64px' }}
+          ref={(el) => { cardRefs.current[0] = el; }}
+          className="p-card featured"
+          style={{ opacity: 0 }}
         >
-          <span
-            style={{
-              display: 'inline-block',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '1.5px',
-              textTransform: 'uppercase',
-              color: 'var(--terra)',
-              marginBottom: '16px',
-            }}
-          >
-            Näyttely
-          </span>
-          <h2
-            style={{
-              fontFamily: 'Lora, serif',
-              fontSize: 'clamp(26px, 4vw, 38px)',
-              fontWeight: 600,
-              color: 'var(--ink)',
-              lineHeight: 1.25,
-              letterSpacing: '-0.5px',
-            }}
-          >
-            Näin suositukset näyttävät
-          </h2>
-          <p style={{ fontSize: '16px', color: 'var(--ink-mid)', marginTop: '16px', maxWidth: '420px', margin: '16px auto 0' }}>
-            Jokainen suositus kertoo <em>miksi juuri sinulle</em> — ei vain tittelin.
-          </p>
-        </div>
-
-        {/* Profile cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '24px',
-          }}
-        >
-          {profiles.map((profile, i) => (
-            <div
-              key={profile.name}
-              ref={(el) => { refs.current[i + 1] = el; }}
-              className="reveal"
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
-              <div
-                style={{
-                  background: 'white',
-                  borderRadius: '20px',
-                  padding: '32px',
-                  height: '100%',
-                  boxShadow: '0 2px 20px rgba(30,22,16,0.06)',
-                  border: '1px solid rgba(30,22,16,0.06)',
-                  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                  cursor: 'default',
-                }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.transform = 'translateY(-4px)';
-                  el.style.boxShadow = '0 16px 40px rgba(30,22,16,0.1)';
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.transform = 'translateY(0)';
-                  el.style.boxShadow = '0 2px 20px rgba(30,22,16,0.06)';
-                }}
-              >
-                {/* Avatar + name */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
-                  <div
-                    style={{
-                      width: '56px',
-                      height: '56px',
-                      borderRadius: '50%',
-                      background: profile.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontFamily: 'Lora, serif',
-                      fontSize: '18px',
-                      fontWeight: 600,
-                      color: 'white',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {profile.initials}
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: 'Lora, serif', fontSize: '17px', fontWeight: 600, color: 'var(--ink)' }}>
-                      {profile.name}
-                    </div>
-                    <div style={{ fontFamily: 'Nunito, sans-serif', fontSize: '13px', color: 'var(--ink-light)', marginTop: '2px' }}>
-                      {profile.title}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Specialties */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
-                  {profile.specialties.map((s) => (
-                    <span
-                      key={s}
-                      style={{
-                        background: 'var(--terra-pale)',
-                        color: 'var(--terra)',
-                        borderRadius: '50px',
-                        padding: '4px 12px',
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        fontFamily: 'Nunito, sans-serif',
-                      }}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Approach */}
-                <div style={{ fontSize: '13px', color: 'var(--ink-light)', fontFamily: 'Nunito, sans-serif', marginBottom: '20px' }}>
-                  {profile.approach}
-                </div>
-
-                {/* Match reason — the core feature */}
-                <div
-                  style={{
-                    background: 'var(--terra-wash)',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    borderLeft: '3px solid var(--terra)',
-                  }}
-                >
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--terra)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '6px' }}>
-                    Miksi juuri sinulle
-                  </div>
-                  <p style={{ fontFamily: 'Nunito, sans-serif', fontSize: '14px', color: 'var(--ink-mid)', lineHeight: 1.6 }}>
-                    {profile.matchReason}
-                  </p>
-                </div>
-
-                {/* CTA */}
-                <button
-                  style={{
-                    marginTop: '20px',
-                    width: '100%',
-                    padding: '12px',
-                    borderRadius: '12px',
-                    border: '1.5px solid var(--terra)',
-                    background: 'transparent',
-                    color: 'var(--terra)',
-                    fontFamily: 'Nunito, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: 'background 0.2s ease, color 0.2s ease',
-                  }}
-                  onMouseEnter={e => {
-                    const btn = e.currentTarget as HTMLButtonElement;
-                    btn.style.background = 'var(--terra)';
-                    btn.style.color = 'white';
-                  }}
-                  onMouseLeave={e => {
-                    const btn = e.currentTarget as HTMLButtonElement;
-                    btn.style.background = 'transparent';
-                    btn.style.color = 'var(--terra)';
-                  }}
-                >
-                  Varaa aika
-                </button>
-              </div>
+          <WaveSVG />
+          <div className="feat-badge">Paras match</div>
+          <div className="p-top">
+            <div className="p-av" style={{ background: 'var(--terra-pale)', color: 'var(--terra)' }}>AM</div>
+            <div>
+              <div className="p-name">Anna Mäkinen</div>
+              <div className="p-role">Kognitiivinen psykoterapeutti</div>
+              <div className="m-pill">✦ Erikoistunut ahdistukseen</div>
             </div>
-          ))}
+          </div>
+          <div className="p-why">
+            <div className="p-why-lbl">Miksi juuri sinulle</div>
+            <div className="p-why-txt">Anna on erikoistunut ahdistukseen ja käyttänyt KBT-menetelmää kahdeksan vuotta. Hänen lähestymistapansa on käytännönläheinen ja ratkaisukeskeinen, juuri niin kuin toivoit.</div>
+          </div>
+          <div className="p-tags">
+            <span className="p-tag">Ahdistus</span>
+            <span className="p-tag">KBT</span>
+            <span className="p-tag">Etä</span>
+            <span className="p-tag">Suomi / Englanti</span>
+          </div>
+          <button className="bk-btn fill">Varaa aika →</button>
         </div>
+
+        {/* Card 2 */}
+        <div
+          ref={(el) => { cardRefs.current[1] = el; }}
+          className="p-card"
+          style={{ opacity: 0, transitionDelay: '0.15s' }}
+        >
+          <WaveSVG />
+          <div className="p-top">
+            <div className="p-av" style={{ background: 'var(--cream-dark)', color: 'var(--ink-mid)' }}>JL</div>
+            <div>
+              <div className="p-name">Juhani Leppänen</div>
+              <div className="p-role">Psykodynaaminen terapeutti</div>
+              <div className="m-pill">✦ Pitkäaikainen terapia</div>
+            </div>
+          </div>
+          <div className="p-why">
+            <div className="p-why-lbl">Miksi juuri sinulle</div>
+            <div className="p-why-txt">Juhanilla on kokemusta pitkäaikaisesta työskentelystä, mikä sopii tilanteesi syvyyteen. Lämmin ja empaattinen tyyli.</div>
+          </div>
+          <div className="p-tags">
+            <span className="p-tag">Masennus</span>
+            <span className="p-tag">Psykodynamiikka</span>
+            <span className="p-tag">Lähi & Etä</span>
+          </div>
+          <button className="bk-btn outline">Varaa aika →</button>
+        </div>
+
+        {/* Card 3 */}
+        <div
+          ref={(el) => { cardRefs.current[2] = el; }}
+          className="p-card"
+          style={{ opacity: 0, transitionDelay: '0.3s' }}
+        >
+          <WaveSVG />
+          <div className="p-top">
+            <div className="p-av" style={{ background: 'var(--terra-wash)', color: 'var(--ink-light)' }}>SR</div>
+            <div>
+              <div className="p-name">Sari Rantanen</div>
+              <div className="p-role">Hyväksymis- ja omistautumisterapia</div>
+              <div className="m-pill">✦ Käytännön työkalut</div>
+            </div>
+          </div>
+          <div className="p-why">
+            <div className="p-why-lbl">Miksi juuri sinulle</div>
+            <div className="p-why-txt">ACT-lähestymistapa sopii erityisesti jos haluat käytännön työkaluja arjen hallintaan terapiatuntien välille.</div>
+          </div>
+          <div className="p-tags">
+            <span className="p-tag">ACT</span>
+            <span className="p-tag">Burnout</span>
+            <span className="p-tag">Etä</span>
+          </div>
+          <button className="bk-btn outline">Varaa aika →</button>
+        </div>
+
       </div>
     </section>
   );

@@ -2,120 +2,71 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer
-      style={{
-        background: 'var(--ink)',
-        color: 'var(--cream)',
-        padding: '56px 32px 40px',
-      }}
-    >
-      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '40px',
-            marginBottom: '48px',
-          }}
-        >
-          {/* Brand */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <svg width="32" height="32" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-                <rect width="56" height="56" rx="14" fill="#C4674A" />
-                <path
-                  d="M8 34 C13 29,17 27,22 31 C27 36,31 37,36 32 C40 28,44 27,48 30"
-                  stroke="white"
-                  strokeWidth="2.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-                <circle cx="50" cy="31" r="3.2" fill="white" />
-              </svg>
-              <span style={{ fontFamily: 'Lora, serif', fontSize: '20px', fontWeight: 600, color: 'var(--cream)' }}>
-                Myötä
-              </span>
-            </div>
-            <p style={{ fontFamily: 'Nunito, sans-serif', fontSize: '14px', color: 'rgba(250,246,240,0.55)', lineHeight: 1.65, maxWidth: '240px' }}>
-              Autamme sinua löytämään oikean terapeutin ensimmäisellä kerralla.
-            </p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h4 style={{ fontFamily: 'Nunito, sans-serif', fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', textTransform: 'uppercase', color: 'rgba(250,246,240,0.4)', marginBottom: '16px' }}>
-              Palvelu
-            </h4>
-            {['Miten toimii', 'Terapeutit', 'Hinnasto', 'Usein kysyttyä'].map((link) => (
-              <a
-                key={link}
-                href="#"
-                style={{
-                  display: 'block',
-                  fontFamily: 'Nunito, sans-serif',
-                  fontSize: '14px',
-                  color: 'rgba(250,246,240,0.65)',
-                  textDecoration: 'none',
-                  marginBottom: '10px',
-                  transition: 'color 0.2s ease',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--terra-light)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(250,246,240,0.65)')}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 style={{ fontFamily: 'Nunito, sans-serif', fontSize: '12px', fontWeight: 700, letterSpacing: '1.2px', textTransform: 'uppercase', color: 'rgba(250,246,240,0.4)', marginBottom: '16px' }}>
-              Juridinen
-            </h4>
-            {['Tietosuojaseloste', 'Käyttöehdot', 'Evästeet'].map((link) => (
-              <a
-                key={link}
-                href="#"
-                style={{
-                  display: 'block',
-                  fontFamily: 'Nunito, sans-serif',
-                  fontSize: '14px',
-                  color: 'rgba(250,246,240,0.65)',
-                  textDecoration: 'none',
-                  marginBottom: '10px',
-                  transition: 'color 0.2s ease',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--terra-light)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(250,246,240,0.65)')}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          style={{
-            borderTop: '1px solid rgba(250,246,240,0.1)',
-            paddingTop: '24px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '12px',
-          }}
-        >
-          <p style={{ fontFamily: 'Nunito, sans-serif', fontSize: '13px', color: 'rgba(250,246,240,0.35)' }}>
-            © 2026 Myötä. Kaikki oikeudet pidätetään.
-          </p>
-          <p style={{ fontFamily: 'Nunito, sans-serif', fontSize: '13px', color: 'rgba(250,246,240,0.35)' }}>
-            Turku, Suomi
-          </p>
-        </div>
+    <>
+      {/* Wave into footer */}
+      <div style={{ lineHeight: 0, background: '#2A1F18' }}>
+        <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '70px' }}>
+          <path d="M0,35 C360,70 720,0 1080,35 C1260,52 1380,25 1440,35 L1440,70 L0,70 Z" fill="#FAF6F0"/>
+        </svg>
       </div>
-    </footer>
+
+      <footer style={{
+        background: '#2A1F18',
+        padding: '60px 72px 40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+      }}>
+        {/* Logo */}
+        <a href="#" style={{ marginBottom: '20px', textDecoration: 'none' }}>
+          <svg width="130" height="42" viewBox="0 0 130 42" fill="none">
+            <text x="0" y="25" fontFamily="Georgia,serif" fontSize="23" fontWeight="600" fill="#FAF6F0" letterSpacing="-0.6">Myötä</text>
+            <path d="M1 36 C9 30,15 27,23 32 C31 39,37 40,45 35 C53 29,59 27,67 31 C73 34,77 36,83 35" stroke="#E0957C" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+            <circle cx="88" cy="35" r="2.6" fill="#E0957C"/>
+          </svg>
+        </a>
+
+        {/* Quote */}
+        <p style={{
+          fontFamily: 'Lora, serif',
+          fontStyle: 'italic',
+          fontSize: '18px',
+          color: 'rgba(250,246,240,0.75)',
+          maxWidth: '440px',
+          lineHeight: 1.6,
+          margin: '0 0 32px',
+        }}>
+          "Ensimmäisen terapiakerran pitäisi tuntua turvalliselta, ei arvaukselta."
+        </p>
+
+        {/* Links */}
+        <div style={{ display: 'flex', gap: '32px', marginBottom: '40px' }}>
+          {['Tietosuoja', 'Terapeuteille', 'Yhteystiedot'].map((link) => (
+            <a
+              key={link}
+              href="#"
+              style={{
+                fontSize: '13px',
+                color: 'rgba(250,246,240,0.4)',
+                textDecoration: 'none',
+                fontWeight: 500,
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'rgba(250,246,240,0.8)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(250,246,240,0.4)')}
+            >
+              {link}
+            </a>
+          ))}
+        </div>
+
+        {/* Copyright */}
+        <div style={{ fontSize: '11px', color: 'rgba(250,246,240,0.2)', letterSpacing: '0.05em' }}>
+          © 2026 Myötä · Helsinki, Suomi
+        </div>
+      </footer>
+    </>
   );
 };
 
