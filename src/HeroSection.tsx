@@ -1,3 +1,4 @@
+import heroBg from './assets/hero-bg.webp';
 import React, { useEffect, useRef } from 'react';
 
 interface HeroSectionProps {
@@ -26,6 +27,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
         style={{
           minHeight: '100vh',
           width: '100%',
+          backgroundImage: `url(${heroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 60%',
           backgroundColor: '#FBF0EC',
           position: 'relative',
           display: 'flex',
