@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import HeroSection from './HeroSection';
 import HowItWorksSection from './HowItWorksSection';
 import ComparisonSection from './ComparisonSection';
-import ProfilesSection from './ProfilesSection'; 
+import ProfilesSection from './ProfilesSection';
 import QuizTeaserSection from './QuizTeaserSection';
 import Footer from './Footer';
 import QuizModal from './QuizModal';
@@ -12,10 +12,9 @@ const App: React.FC = () => {
   const [quizOpen, setQuizOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ background: 'var(--cream)' }}>
       <Navbar onOpenQuiz={() => setQuizOpen(true)} />
-        <main>
-        <HeroSection onOpenQuiz={() => setQuizOpen(true)} />
+      <main>
         <HeroSection onOpenQuiz={() => setQuizOpen(true)} />
         <HowItWorksSection />
         <ComparisonSection />
