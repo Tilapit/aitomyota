@@ -1,16 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-const rows = [
-  { label: 'Tulos', others: 'Lista terapeuteista', myota: '3 suositusta selityksineen' },
-  { label: 'Prosessi', others: 'Selaa ja arvaa', myota: 'Ohjattu kysely' },
-  { label: 'Päätös', others: 'Sinä valitset puolisokeasti', myota: 'Me ehdotamme, sinä päätät' },
-  { label: 'Tieto terapeutista', others: 'Nimi ja erikoistuminen', myota: 'Miksi juuri sinulle -selitys' },
-  { label: 'Rekisteröityminen', others: 'Ennen kuin näet mitään', myota: 'Vasta tuloksien jälkeen' },
-];
-
 const ComparisonSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,120 +13,86 @@ const ComparisonSection: React.FC = () => {
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    if (tableRef.current) observer.observe(tableRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="reveal"
-      style={{ padding: '100px 32px', background: 'var(--sand-pale)' }}
-    >
-      <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <span
-            style={{
-              display: 'inline-block',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '1.5px',
-              textTransform: 'uppercase',
-              color: 'var(--terra)',
-              marginBottom: '16px',
-            }}
-          >
-            Vertailu
-          </span>
-          <h2
-            style={{
-              fontFamily: 'Lora, serif',
-              fontSize: 'clamp(26px, 4vw, 38px)',
-              fontWeight: 600,
-              color: 'var(--ink)',
-              lineHeight: 1.25,
-              letterSpacing: '-0.5px',
-            }}
-          >
-            Muut palvelut auttavat löytämään terapeutin.
-            <br />
-            <em style={{ color: 'var(--terra)' }}>Myötä auttaa löytämään oikean.</em>
-          </h2>
-        </div>
+    <>
+      {/* Wave before comparison */}
+      <div style={{ lineHeight: 0, background: 'white' }}>
+        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '60px' }}>
+          <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,60 L0,60 Z" fill="#FAF6F0"/>
+        </svg>
+      </div>
 
-        {/* Comparison table */}
-        <div
-          ref={tableRef}
-          className="reveal"
-          style={{
-            background: 'white',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 32px rgba(30,22,16,0.07)',
-          }}
-        >
-          {/* Table header */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr 1fr',
-              background: 'var(--terra-wash)',
-              padding: '20px 28px',
-              borderBottom: '1px solid rgba(196,103,74,0.12)',
-            }}
-          >
-            <div style={{ fontFamily: 'Nunito, sans-serif', fontSize: '13px', fontWeight: 700, color: 'var(--ink-light)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
-              &nbsp;
-            </div>
-            <div style={{ fontFamily: 'Nunito, sans-serif', fontSize: '13px', fontWeight: 700, color: 'var(--ink-light)', textTransform: 'uppercase', letterSpacing: '0.8px', textAlign: 'center' }}>
-              Muut palvelut
-            </div>
-            <div style={{ fontFamily: 'Lora, serif', fontSize: '16px', fontWeight: 600, color: 'var(--terra)', textAlign: 'center' }}>
-              Myötä
-            </div>
+      <section
+        ref={sectionRef}
+        style={{ padding: '80px 72px 100px', background: 'white' }}
+      >
+        <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+          {/* Header */}
+          <div style={{ textAlign: 'center', marginBottom: '52px' }}>
+            <div className="s-label" style={{ justifyContent: 'center' }}>Miksi Myötä</div>
+            <h2 style={{ maxWidth: '100%', textAlign: 'center' }}>
+              Erilainen kuin tavallinen hakemisto
+            </h2>
           </div>
 
-          {/* Rows */}
-          {rows.map((row, i) => (
-            <div
-              key={row.label}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1fr',
-                padding: '18px 28px',
-                borderBottom: i < rows.length - 1 ? '1px solid rgba(30,22,16,0.06)' : 'none',
-                alignItems: 'center',
-                background: i % 2 === 0 ? 'white' : 'rgba(250,246,240,0.5)',
-              }}
-            >
-              <div style={{ fontFamily: 'Nunito, sans-serif', fontSize: '14px', fontWeight: 600, color: 'var(--ink)' }}>
-                {row.label}
+          {/* Two columns */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+
+            {/* Tavallinen hakemisto */}
+            <div style={{ background: '#F7F5F2', borderRadius: '24px', padding: '36px', border: '1px solid #EDE8E1' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9C8C7A', marginBottom: '24px', paddingTop: '6px', lineHeight: '38px' }}>
+                Tavallinen hakemisto
               </div>
-              <div style={{ fontFamily: 'Nunito, sans-serif', fontSize: '14px', color: 'var(--ink-light)', textAlign: 'center' }}>
-                {row.others}
-              </div>
-              <div
-                style={{
-                  fontFamily: 'Nunito, sans-serif',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: 'var(--terra)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px',
-                }}
-              >
-                <span style={{ color: 'var(--terra)', fontSize: '16px' }}>✓</span>
-                {row.myota}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {[
+                  'Satoja profiileja, mutta et tiedä mistä aloittaa',
+                  'Et saa selitystä sille, miksi juuri tämä terapeutti sopisi sinulle',
+                  'Ensimmäinen tapaaminen on arvaus, joka maksaa jo rahaa',
+                  'Oikean löytäminen voi kestää kuukausia',
+                ].map((text, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                    <span style={{ color: '#C4A882', fontSize: '16px', marginTop: '1px', flexShrink: 0 }}>✕</span>
+                    <span style={{ fontSize: '14px', color: '#7A6E65', lineHeight: 1.5 }}>{text}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+
+            {/* Myötä */}
+            <div style={{ background: 'linear-gradient(135deg, #FBF0EC 0%, #FAF6F0 100%)', borderRadius: '24px', padding: '36px', border: '2px solid rgba(196,103,74,0.2)', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '120px', background: 'radial-gradient(circle, rgba(196,103,74,0.08) 0%, transparent 70%)' }} />
+              {/* Myötä logo inline */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                <svg width="110" height="38" viewBox="0 0 130 42" fill="none">
+                  <text x="0" y="28" fontFamily="Georgia,serif" fontSize="28" fontWeight="600" fill="#1E1610" letterSpacing="-0.5">Myötä</text>
+                  <path d="M1 38 C9 32,15 29,23 34 C31 41,37 42,45 37 C53 31,59 29,67 33 C73 36,77 38,83 37" stroke="#C4674A" strokeWidth="2" strokeLinecap="round" fill="none"/>
+                  <circle cx="87" cy="37" r="2.8" fill="#C4674A"/>
+                </svg>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {[
+                  { text: '8 minuutin kysely — saat 3 henkilökohtaista suositusta' },
+                  { text: 'Jokainen suositus selitetään: ', em: 'miksi juuri sinulle' },
+                  { text: 'Ensimmäinen tapaaminen on jo hyvä match — ei arvaus' },
+                  { text: 'Ensimmäinen tapaaminen on suunniteltu sopimaan juuri sinulle' },
+                ].map((item, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                    <span style={{ color: '#C4674A', fontSize: '16px', marginTop: '1px', flexShrink: 0 }}>✓</span>
+                    <span style={{ fontSize: '14px', color: 'var(--ink)', lineHeight: 1.5, fontWeight: 500 }}>
+                      {item.text}{item.em && <em>{item.em}</em>}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
