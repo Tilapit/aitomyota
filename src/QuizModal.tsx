@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { quizQuestions } from './QuizData';
+import { quizQuestions } from "./Quizdata";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -225,7 +225,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
 
               {/* Options */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
-                {question.options.map((option) => {
+                {question.options.map((option: any) => {
                   const isSelected = selectedOption === option.value;
                   return (
                     <button
