@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { shortQuiz, longQuiz, type Quiz, type QuizQuestion, type QuizAnswer } from "./quizData.ts";
+import { shortQuiz, longQuiz } from "./quizData";
+import type { Quiz, QuizQuestion, QuizAnswer } from "./quizData";
 
 type QuizPageProps = {
   onClose: () => void;
