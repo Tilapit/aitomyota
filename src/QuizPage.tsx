@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { shortQuiz, longQuiz, type Quiz, type QuizQuestion } from "./quizData";
+import { shortQuiz, longQuiz, type Quiz, type QuizQuestion, type QuizAnswer } from "./quizData";
 
 type QuizPageProps = {
   onClose: () => void;
@@ -91,7 +91,7 @@ function QuestionStep({
         />
       ) : (
         <div className="flex flex-col gap-3">
-          {question.answers?.map((answer) => {
+          {question.answers?.map((answer: QuizAnswer) => {
             const isSelected = question.multiSelect
               ? Array.isArray(selected) && selected.includes(answer.id)
               : selected === answer.id;
