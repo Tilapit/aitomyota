@@ -115,7 +115,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
               textShadow: '0 2px 12px rgba(250,246,240,1)',
             }}
           >
-            Terapeutin löytäminen voi tuntua ylivoimaiselta. Me teemme sen puolestasi — pehmeästi,
+            Terapeutin löytäminen voi tuntua ylivoimaiselta. Me teemme sen puolestasi huolellisesti,
             henkilökohtaisesti ja juuri sinulle sopivalla tavalla.
           </p>
 

@@ -1,30 +1,29 @@
-import React, { useState } from 'react';
-import Navbar from './Navbar';
-import HeroSection from './HeroSection';
-import HowItWorksSection from './HowItWorksSection';
-import ComparisonSection from './ComparisonSection';
-import ProfilesSection from './ProfilesSection';
-import QuizTeaserSection from './QuizTeaserSection';
-import Footer from './Footer';
-import QuizModal from './QuizModal';
+import { useState } from "react";
+import Navbar from "./Navbar";
+import HeroSection from "./HeroSection";
+import HowItWorksSection from "./HowItWorksSection";
+import ComparisonSection from "./ComparisonSection";
+import ProfilesSection from "./ProfilesSection";
+import QuizTeaserSection from "./QuizTeaserSection";
+import Footer from "./Footer";
+import QuizPage from "./QuizPage";
 
-const App: React.FC = () => {
+export default function App() {
   const [quizOpen, setQuizOpen] = useState(false);
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--cream)' }}>
-      <Navbar onOpenQuiz={() => setQuizOpen(true)} />
-      <main>
+    <>
+      {quizOpen && <QuizPage onClose={() => setQuizOpen(false)} />}
+
+      <div className={quizOpen ? "hidden" : ""}>
+        <Navbar onOpenQuiz={() => setQuizOpen(true)} />
         <HeroSection onOpenQuiz={() => setQuizOpen(true)} />
         <HowItWorksSection />
         <ComparisonSection />
         <ProfilesSection />
         <QuizTeaserSection onOpenQuiz={() => setQuizOpen(true)} />
-      </main>
-      <Footer />
-      <QuizModal isOpen={quizOpen} onClose={() => setQuizOpen(false)} />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
-};
-
-export default App;
+}
