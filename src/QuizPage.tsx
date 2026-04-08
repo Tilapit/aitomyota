@@ -1,338 +1,635 @@
 import { useState } from "react";
-import { shortQuiz, longQuiz } from "./quizData";
-import type { Quiz, QuizQuestion, QuizAnswer } from "./quizData";
+import type {
+  QuizAnswer,
+  QuizAnswerValue,
+  QuizId,
+  QuizQuestion,
+} from "./quizData";
+import { useQuiz } from "./useQuiz";
+import Logo from "./Logo";
 
 type QuizPageProps = {
-  onClose: () => void;
+  quizId: QuizId;
+  onGoHome: () => void;
+  onSelectQuiz: (quizId: QuizId) => void;
 };
 
-type Answers = Record<string, string | string[]>;
+const recommendationMoments = {
+  "Anna Mäkinen": {
+    duration: "1:34",
+    preview: "A calm first meeting focused on practical relief and emotional clarity.",
+    videoIntro:
+      "Anna opens with a grounded introduction to how she works: warm, clear, and gently practical. Her short intro is a good fit if you want to feel understood quickly without losing structure.",
+    videoPoints: [
+      "How she helps people who feel overloaded by daily life",
+      "What a first session looks like in practice",
+      "Why clarity and warmth can coexist",
+    ],
+    contactCopy:
+      "If Anna feels like the right first direction, the next step is simply a brief message. You do not need to explain everything yet.",
+  },
+  "Juhani Leppänen": {
+    duration: "1:48",
+    preview: "A slower, more reflective introduction for people who want more depth.",
+    videoIntro:
+      "Juhani's introduction is thoughtful and unhurried. He speaks about long-form work, reflective conversations, and how therapy can help when something deeper has been building for a while.",
+    videoPoints: [
+      "What deeper therapeutic work can feel like at the beginning",
+      "How he creates room for reflection without pressure",
+      "Why longer patterns sometimes need a slower rhythm",
+    ],
+    contactCopy:
+      "A first message to Juhani can be short and simple. It is enough to say what has been feeling heavy and that you are looking for an opening.",
+  },
+  "Sari Rantanen": {
+    duration: "1:22",
+    preview: "A gentle, practical style with tools you can carry into daily life.",
+    videoIntro:
+      "Sari's intro feels light, reassuring, and practical. She explains how she helps people begin with a low threshold while still building movement and confidence over time.",
+    videoPoints: [
+      "How practical tools are introduced without overwhelm",
+      "Why remote appointments can still feel personal",
+      "What a low-pressure first step can look like",
+    ],
+    contactCopy:
+      "If Sari seems like a strong fit, you can begin with a short note or book a brief call to see how the first session might feel.",
+  },
+} satisfies Record<
+  string,
+  {
+    duration: string;
+    preview: string;
+    videoIntro: string;
+    videoPoints: string[];
+    contactCopy: string;
+  }
+>;
 
-const categoryColors: Record<string, string> = {
-  tilanne: "bg-[#E1F5EE] text-[#085041]",
-  kieli: "bg-[#9FE1CB] text-[#04342C]",
-  "tuen muoto": "bg-[#E1F5EE] text-[#085041]",
-  ammattilainen: "bg-[#EEEDFE] text-[#3C3489]",
-  tyyli: "bg-[#EEEDFE] text-[#3C3489]",
-  käytäntö: "bg-[#FAEEDA] text-[#633806]",
-  historia: "bg-[#FAECE7] text-[#712B13]",
-  sinä: "bg-[#E6F1FB] text-[#0C447C]",
-};
+type RecommendationMomentName = keyof typeof recommendationMoments;
+
+const quizTone = {
+  short: {
+    eyebrow: "A gentler first step",
+    title: "Begin with a lighter introduction.",
+    description:
+      "This shorter path is meant to feel calm, clear, and easy to begin. It gives you a meaningful direction without asking too much of you all at once.",
+    switchLabel: "If you have a little more time",
+    switchCta: "Take the deeper quiz",
+    switchDescription:
+      "The longer version gives us more nuance about your situation, your preferred pace, and the kind of therapeutic relationship that may feel right.",
+  },
+  long: {
+    eyebrow: "A deeper introduction",
+    title: "Take a little more space with this.",
+    description:
+      "This version moves more slowly and gathers more detail, so the recommendations can feel more grounded, more personal, and less generic.",
+    switchLabel: "If you would rather keep it lighter",
+    switchCta: "Return to the shorter quiz",
+    switchDescription:
+      "You can always begin with the lighter version and come back to the deeper path later, when the timing feels better.",
+  },
+} satisfies Record<
+  QuizId,
+  {
+    eyebrow: string;
+    title: string;
+    description: string;
+    switchLabel: string;
+    switchCta: string;
+    switchDescription: string;
+  }
+>;
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
-  const pct = Math.round((current / total) * 100);
+  const pct = Math.max(8, Math.round((current / total) * 100));
+
   return (
-    <div className="w-full h-1 bg-[#F8F2EA] rounded-full overflow-hidden">
+    <div className="h-2 w-full overflow-hidden rounded-full bg-[rgba(196,103,74,0.12)]">
       <div
-        className="h-full bg-[#C4674A] rounded-full transition-all duration-500 ease-out"
+        className="h-full rounded-full bg-[color:var(--terra)] transition-[width] duration-500 ease-out"
         style={{ width: `${pct}%` }}
       />
     </div>
   );
 }
 
-function QuestionStep({
-  question,
-  answers,
-  onAnswer,
-  onMultiToggle,
-  onTextChange,
-  onNext,
-  onBack,
-  isFirst,
-  isLast,
+function QuizAside({
+  quizTitle,
+  quizDescription,
+  totalQuestions,
+  currentStep,
+  isComplete,
+  tone,
+  alternateQuizId,
+  onSelectQuiz,
+  quizId,
 }: {
-  question: QuizQuestion;
-  answers: Answers;
-  onAnswer: (questionId: string, answerId: string) => void;
-  onMultiToggle: (questionId: string, answerId: string) => void;
-  onTextChange: (questionId: string, text: string) => void;
-  onNext: () => void;
-  onBack: () => void;
-  isFirst: boolean;
-  isLast: boolean;
+  quizTitle: string;
+  quizDescription: string;
+  totalQuestions: number;
+  currentStep: number;
+  isComplete: boolean;
+  tone: (typeof quizTone)[QuizId];
+  alternateQuizId: QuizId;
+  onSelectQuiz: (quizId: QuizId) => void;
+  quizId: QuizId;
 }) {
-  const selected = answers[question.id];
-  const categoryColor =
-    categoryColors[question.category] ?? "bg-[#F1EFE8] text-[#5F5E5A]";
-
-  const canProceed = question.openText
-    ? true
-    : question.multiSelect
-    ? Array.isArray(selected) && selected.length > 0
-    : !!selected;
-
   return (
-    <div className="flex flex-col gap-6 animate-fade-in">
-      <div className="flex items-center gap-3">
-        <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${categoryColor}`}>
-          {question.category}
-        </span>
-        <span className="text-[12px] text-[#888780]">
-          {question.multiSelect ? "Voit valita useamman" : ""}
-        </span>
+    <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
+      <div>
+        <div className="s-label">{tone.eyebrow}</div>
+        <div className="font-serif text-[28px] leading-[1.18] text-[color:var(--ink)]">
+          {tone.title}
+        </div>
+        <p className="mt-4 text-[15px] leading-7 text-[color:var(--ink-mid)]">
+          {tone.description}
+        </p>
       </div>
 
-      <h2
-        className="font-serif text-2xl text-[#1E1610] leading-snug"
-        style={{ fontFamily: "Lora, serif" }}
-      >
-        {question.question}
-      </h2>
+      <div className="space-y-3 border-t border-[rgba(196,103,74,0.12)] pt-5">
+        <div className="font-serif text-[22px] text-[color:var(--ink)]">{quizTitle}</div>
+        <p className="text-[14px] leading-6 text-[color:var(--ink-light)]">
+          {quizDescription}
+        </p>
+        <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+          {totalQuestions} questions
+        </div>
+        {!isComplete && (
+          <>
+            <ProgressBar current={currentStep + 1} total={totalQuestions} />
+            <div className="text-[13px] text-[color:var(--ink-light)]">
+              {currentStep + 1} / {totalQuestions} completed
+            </div>
+          </>
+        )}
+      </div>
 
-      {question.openText ? (
-        <textarea
-          className="w-full rounded-2xl border border-[#e8ddd6] bg-[#FAF6F0] px-5 py-4 text-[15px] text-[#1E1610] placeholder:text-[#b4a89e] resize-none focus:outline-none focus:border-[#C4674A] transition-colors"
-          rows={5}
-          placeholder="Kirjoita tähän..."
-          value={(answers[question.id] as string) ?? ""}
-          onChange={(e) => onTextChange(question.id, e.target.value)}
-        />
-      ) : (
-        <div className="flex flex-col gap-3">
-          {question.answers?.map((answer: QuizAnswer) => {
-            const isSelected = question.multiSelect
-              ? Array.isArray(selected) && selected.includes(answer.id)
-              : selected === answer.id;
-            return (
-              <button
-                key={answer.id}
-                onClick={() =>
-                  question.multiSelect
-                    ? onMultiToggle(question.id, answer.id)
-                    : onAnswer(question.id, answer.id)
-                }
-                className={`text-left px-5 py-4 rounded-2xl border text-[15px] transition-all duration-150 ${
-                  isSelected
-                    ? "border-[#C4674A] bg-[#FBF0EC] text-[#1E1610]"
-                    : "border-[#e8ddd6] bg-[#FAF6F0] text-[#4a3728] hover:border-[#C4674A] hover:bg-[#FBF0EC]"
-                }`}
-              >
-                {answer.text}
-              </button>
-            );
-          })}
+      <div className="space-y-3 border-t border-[rgba(196,103,74,0.12)] pt-5">
+        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--terra)]">
+          {tone.switchLabel}
+        </div>
+        <p className="text-[14px] leading-6 text-[color:var(--ink-mid)]">
+          {tone.switchDescription}
+        </p>
+        <button
+          type="button"
+          onClick={() => onSelectQuiz(alternateQuizId)}
+          className="inline-flex items-center justify-center rounded-full border border-[rgba(196,103,74,0.18)] px-4 py-2 text-sm font-semibold text-[color:var(--terra)] transition hover:bg-[color:var(--terra-wash)]"
+        >
+          {tone.switchCta}
+        </button>
+      </div>
+
+      <div className="space-y-3 border-t border-[rgba(196,103,74,0.12)] pt-5">
+        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--terra)]">
+          A gentle reminder
+        </div>
+        <p className="text-[14px] leading-6 text-[color:var(--ink-mid)]">
+          You do not need perfect words to continue. A good match often begins with
+          a few honest signals, not a complete explanation.
+        </p>
+        <p className="text-[12px] text-[color:var(--ink-light)]">
+          {quizId === "short"
+            ? "You can always move into the deeper version later."
+            : "You can always return to the lighter version if that feels easier."}
+        </p>
+      </div>
+    </aside>
+  );
+}
+
+function RecommendationActions({
+  name,
+}: {
+  name: RecommendationMomentName;
+}) {
+  const [openPanel, setOpenPanel] = useState<"video" | "contact" | "call" | null>(null);
+  const details = recommendationMoments[name];
+
+  return (
+    <div className="space-y-4">
+      <button
+        type="button"
+        onClick={() => setOpenPanel(openPanel === "video" ? null : "video")}
+        className="therapist-video w-full text-left"
+        aria-expanded={openPanel === "video"}
+      >
+        <div className="therapist-video-top">
+          <span className="therapist-video-badge">Intro video</span>
+          <span className="therapist-video-length">{details.duration}</span>
+        </div>
+        <div className="therapist-video-center">
+          <span className="therapist-play-btn" aria-hidden="true">
+            <span className="therapist-play-icon">▶</span>
+          </span>
+        </div>
+        <div className="therapist-video-name">{name}</div>
+      </button>
+
+      {openPanel === "video" && (
+        <div className="therapist-inline-panel">
+          <div className="therapist-inline-kicker">Intro preview</div>
+          <p className="therapist-inline-copy">{details.videoIntro}</p>
+          <div className="therapist-inline-points">
+            {details.videoPoints.map((point: string) => (
+              <div key={point} className="therapist-inline-point">
+                <span aria-hidden="true">•</span>
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
+      <p className="text-[13px] leading-6 text-[color:var(--ink-light)]">{details.preview}</p>
+
+      <div className="therapist-actions">
+        <button
+          type="button"
+          onClick={() => setOpenPanel(openPanel === "contact" ? null : "contact")}
+          className="bk-btn fill"
+        >
+          Contact therapist
+        </button>
+        <button
+          type="button"
+          onClick={() => setOpenPanel(openPanel === "call" ? null : "call")}
+          className="bk-btn outline"
+        >
+          Book a call
+        </button>
+      </div>
+
+      {openPanel === "contact" && (
+        <div className="therapist-inline-panel therapist-inline-panel-soft">
+          <div className="therapist-inline-kicker">Contact therapist</div>
+          <p className="therapist-inline-copy">{details.contactCopy}</p>
+          <div className="therapist-contact-actions">
+            <button type="button" className="therapist-contact-btn">
+              Write a short introduction
+            </button>
+            <button type="button" className="therapist-contact-btn">
+              Ask about the next opening
+            </button>
+          </div>
+        </div>
+      )}
+
+      {openPanel === "call" && (
+        <div className="therapist-inline-panel therapist-inline-panel-soft">
+          <div className="therapist-inline-kicker">Book a call</div>
+          <p className="therapist-inline-copy">
+            A short first call can help you hear their tone, ask about availability,
+            and decide whether the first session feels right.
+          </p>
+          <div className="therapist-contact-actions">
+            <button type="button" className="therapist-contact-btn">
+              Reserve a short intro call
+            </button>
+            <button type="button" className="therapist-contact-btn">
+              See available times
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+type QuestionCardProps = {
+  question: QuizQuestion;
+  currentIndex: number;
+  total: number;
+  selectedValue: QuizAnswerValue | undefined;
+  onSingleSelect: (answerId: string) => void;
+  onMultiToggle: (answerId: string) => void;
+  onTextChange: (value: string) => void;
+  onBack: () => void;
+  onNext: () => void;
+  canProceed: boolean;
+  isFirst: boolean;
+  isLast: boolean;
+};
+
+function QuestionCard({
+  question,
+  currentIndex,
+  total,
+  selectedValue,
+  onSingleSelect,
+  onMultiToggle,
+  onTextChange,
+  onBack,
+  onNext,
+  canProceed,
+  isFirst,
+  isLast,
+}: QuestionCardProps) {
+  return (
+    <section className="rounded-[30px] bg-white px-8 py-10 shadow-[0_26px_80px_rgba(30,22,16,0.08)] sm:px-10 sm:py-12">
+      <div className="mb-8 flex flex-wrap items-center gap-3">
+        <span className="rounded-full bg-[color:var(--terra-wash)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--terra)]">
+          {question.category}
+        </span>
+        <span className="text-sm text-[color:var(--ink-light)]">
+          Question {currentIndex + 1} / {total}
+        </span>
+        {question.multiSelect && (
+          <span className="rounded-full bg-[color:var(--sand-pale)] px-3 py-1 text-[11px] font-medium text-[color:var(--ink-mid)]">
+            Choose more than one if needed
+          </span>
+        )}
+      </div>
+
+      <h1 className="max-w-3xl text-balance font-serif text-[clamp(30px,4vw,48px)] leading-[1.08] text-[color:var(--ink)]">
+        {question.question}
+      </h1>
+
       {question.note && (
-        <p className="text-[12px] text-[#888780] italic leading-relaxed">
+        <p className="mt-5 max-w-2xl text-[14px] leading-7 text-[color:var(--ink-light)]">
           {question.note}
         </p>
       )}
 
-      <div className="flex items-center justify-between pt-2">
-        <button
-          onClick={onBack}
-          disabled={isFirst}
-          className="text-[14px] text-[#888780] hover:text-[#4a3728] disabled:opacity-0 transition-colors px-2 py-1"
-        >
-          Takaisin
-        </button>
-        <button
-          onClick={onNext}
-          disabled={!canProceed}
-          className={`px-8 py-3 rounded-full text-[14px] font-medium transition-all duration-200 ${
-            canProceed
-              ? "bg-[#C4674A] text-white hover:bg-[#b05a3e] active:scale-95"
-              : "bg-[#e8ddd6] text-[#b4a89e] cursor-not-allowed"
-          }`}
-        >
-          {isLast ? "Valmis" : "Seuraava"}
-        </button>
-      </div>
-    </div>
-  );
-}
+      <div className="mt-8">
+        {question.openText ? (
+          <label className="block">
+            <span className="mb-3 block text-sm font-medium text-[color:var(--ink-mid)]">
+              In your own words
+            </span>
+            <textarea
+              value={(selectedValue as string) ?? ""}
+              onChange={(event) => onTextChange(event.target.value)}
+              rows={8}
+              className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
+              placeholder="Write as much or as little as you want."
+            />
+          </label>
+        ) : (
+          <div className="grid gap-3">
+            {question.answers?.map((answer: QuizAnswer) => {
+              const isSelected = question.multiSelect
+                ? Array.isArray(selectedValue) && selectedValue.includes(answer.id)
+                : selectedValue === answer.id;
 
-function QuizComplete({ onClose }: { onClose: () => void }) {
-  return (
-    <div className="flex flex-col items-center gap-6 text-center animate-fade-in py-8">
-      <div className="w-16 h-16 rounded-full bg-[#E1F5EE] flex items-center justify-center">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path
-            d="M8 16l6 6 10-12"
-            stroke="#1D9E75"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-      <div>
-        <h2
-          className="font-serif text-2xl text-[#1E1610] mb-2"
-          style={{ fontFamily: "Lora, serif" }}
-        >
-          Kiitos vastauksistasi
-        </h2>
-        <p className="text-[15px] text-[#888780] leading-relaxed max-w-sm mx-auto">
-          Etsimme sinulle sopivimmat ammattilaiset vastauksiesi perusteella.
-          Tulokset ovat valmiina hetken kuluttua.
-        </p>
-      </div>
-      <button
-        onClick={onClose}
-        className="mt-4 px-8 py-3 rounded-full bg-[#C4674A] text-white text-[14px] font-medium hover:bg-[#b05a3e] transition-colors"
-      >
-        Näytä ehdotukset
-      </button>
-    </div>
-  );
-}
-
-export default function QuizPage({ onClose }: QuizPageProps) {
-  const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
-  const [currentStep, setCurrentStep] = useState<number>(0);
-  const [answers, setAnswers] = useState<Answers>({});
-  const [done, setDone] = useState<boolean>(false);
-
-  const questions = selectedQuiz?.questions ?? [];
-  const currentQuestion = questions[currentStep];
-  const isLast = currentStep === questions.length - 1;
-  const isFirst = currentStep === 0;
-
-  const handleAnswer = (questionId: string, answerId: string) => {
-    setAnswers((prev: Answers) => ({ ...prev, [questionId]: answerId }));
-  };
-
-  const handleMultiToggle = (questionId: string, answerId: string) => {
-    setAnswers((prev: Answers) => {
-      const current = (prev[questionId] as string[]) ?? [];
-      const exists = current.includes(answerId);
-      return {
-        ...prev,
-        [questionId]: exists
-          ? current.filter((id: string) => id !== answerId)
-          : [...current, answerId],
-      };
-    });
-  };
-
-  const handleTextChange = (questionId: string, text: string) => {
-    setAnswers((prev: Answers) => ({ ...prev, [questionId]: text }));
-  };
-
-  const handleNext = () => {
-    if (isLast) {
-      setDone(true);
-    } else {
-      setCurrentStep((s: number) => s + 1);
-    }
-  };
-
-  const handleBack = () => {
-    if (currentStep > 0) setCurrentStep((s: number) => s - 1);
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 bg-[#FAF6F0] flex flex-col overflow-y-auto">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-[#e8ddd6] sticky top-0 bg-[#FAF6F0] z-10">
-        <span
-          className="text-[18px] font-medium text-[#C4674A]"
-          style={{ fontFamily: "Lora, serif" }}
-        >
-          Myötä
-        </span>
-        {selectedQuiz && !done && (
-          <div className="flex-1 mx-8">
-            <ProgressBar current={currentStep + 1} total={questions.length} />
+              return (
+                <button
+                  key={answer.id}
+                  type="button"
+                  onClick={() =>
+                    question.multiSelect
+                      ? onMultiToggle(answer.id)
+                      : onSingleSelect(answer.id)
+                  }
+                  className={[
+                    "group flex w-full items-start justify-between gap-4 rounded-[18px] border px-5 py-4 text-left transition duration-200",
+                    isSelected
+                      ? "border-[color:var(--terra)] bg-[color:var(--terra-wash)] shadow-[0_18px_40px_rgba(196,103,74,0.12)]"
+                      : "border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] hover:border-[color:var(--terra-light)] hover:bg-white",
+                  ].join(" ")}
+                >
+                  <span className="text-[15px] leading-7 text-[color:var(--ink)]">
+                    {answer.text}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={[
+                      "mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold transition",
+                      isSelected
+                        ? "border-[color:var(--terra)] bg-[color:var(--terra)] text-white"
+                        : "border-[color:var(--cream-dark)] text-transparent group-hover:border-[color:var(--terra-light)]",
+                    ].join(" ")}
+                  >
+                    ✓
+                  </span>
+                </button>
+              );
+            })}
           </div>
         )}
+      </div>
+
+      <div className="mt-10 flex flex-col gap-3 border-t border-[rgba(196,103,74,0.08)] pt-6 sm:flex-row sm:items-center sm:justify-between">
         <button
-          onClick={onClose}
-          className="text-[#888780] hover:text-[#1E1610] transition-colors p-1"
-          aria-label="Sulje"
+          type="button"
+          onClick={onBack}
+          disabled={isFirst}
+          className="inline-flex items-center justify-center rounded-full border border-[color:var(--cream-dark)] px-5 py-3 text-sm font-medium text-[color:var(--ink-mid)] transition hover:border-[color:var(--ink-light)] hover:text-[color:var(--ink)] disabled:pointer-events-none disabled:opacity-40"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M5 5l10 10M15 5L5 15"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
+          Back
+        </button>
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!canProceed}
+          className="inline-flex items-center justify-center rounded-full bg-[color:var(--terra)] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_36px_rgba(196,103,74,0.25)] transition hover:bg-[color:var(--terra-mid)] disabled:cursor-not-allowed disabled:bg-[color:var(--cream-dark)] disabled:text-[color:var(--ink-light)]"
+        >
+          {isLast ? "Show recommendations" : "Next question"}
         </button>
       </div>
+    </section>
+  );
+}
 
-      <div className="flex-1 flex items-start justify-center px-6 py-12">
-        <div className="w-full max-w-lg">
-          {!selectedQuiz && !done && (
-            <div className="flex flex-col gap-8 animate-fade-in">
-              <div>
-                <p className="text-[12px] font-medium uppercase tracking-widest text-[#888780] mb-3">
-                  Löydä sopiva ammattilainen
+function WaveDivider({ fill }: { fill: string }) {
+  return (
+    <div style={{ lineHeight: 0, background: fill }}>
+      <svg
+        viewBox="0 0 1440 70"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        style={{ display: "block", width: "100%", height: "70px" }}
+      >
+        <path
+          d="M0,35 C220,78 420,4 720,38 C1020,72 1230,10 1440,35 L1440,70 L0,70 Z"
+          fill={fill}
+        />
+      </svg>
+    </div>
+  );
+}
+
+export default function QuizPage({
+  quizId,
+  onGoHome,
+  onSelectQuiz,
+}: QuizPageProps) {
+  const {
+    quiz,
+    currentStep,
+    totalQuestions,
+    isComplete,
+    questionState,
+    recommendations,
+    restart,
+  } = useQuiz(quizId);
+
+  const tone = quizTone[quizId];
+  const alternateQuizId = quizId === "short" ? "long" : "short";
+
+  return (
+    <div className="min-h-screen bg-[color:var(--cream)]">
+      <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b border-[rgba(196,103,74,0.1)] bg-[rgba(250,246,240,0.88)] px-6 py-4 backdrop-blur-[16px] sm:px-10 lg:px-[60px]">
+        <button
+          type="button"
+          onClick={onGoHome}
+          className="flex items-center text-2xl tracking-tight text-[color:var(--ink)]"
+        >
+          <Logo />
+        </button>
+        <button
+          type="button"
+          onClick={onGoHome}
+          className="rounded-full border border-[color:var(--cream-dark)] bg-white/60 px-4 py-2 text-sm font-medium text-[color:var(--ink-mid)] transition hover:border-[color:var(--ink-light)] hover:text-[color:var(--ink)]"
+        >
+          Back to home
+        </button>
+      </header>
+
+      <main className="pt-[74px]">
+
+        {!isComplete && (
+          <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
+            <div className="mx-auto max-w-[980px]">
+              <div className="mb-14 text-center">
+                <div className="s-label justify-center">
+                  {tone.eyebrow}
+                </div>
+                <h2 className="max-w-full text-center">{tone.title}</h2>
+                <p className="s-sub mx-auto max-w-[560px] text-center">{tone.description}</p>
+              </div>
+
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
+                <div>{questionState && <QuestionCard {...questionState} />}</div>
+                <QuizAside
+                  quizTitle={quiz.title}
+                  quizDescription={quiz.description}
+                  totalQuestions={totalQuestions}
+                  currentStep={currentStep}
+                  isComplete={isComplete}
+                  tone={tone}
+                  alternateQuizId={alternateQuizId}
+                  onSelectQuiz={onSelectQuiz}
+                  quizId={quizId}
+                />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {isComplete && (
+          <>
+            <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
+              <div className="mx-auto max-w-[980px]">
+                <div className="mb-14 text-center">
+                  <div className="s-label justify-center">
+                    Your recommendations
+                  </div>
+                  <h2 className="max-w-full text-center">Three professionals worth beginning with</h2>
+                  <p className="s-sub mx-auto max-w-[620px] text-center">
+                    These are not random names from a directory. Each recommendation is
+                    tied to the kind of support, pace, and first impression you told us
+                    you were hoping for.
+                  </p>
+                </div>
+
+                <div className="space-y-5">
+                  {recommendations.map((recommendation, index) => (
+                    <article
+                      key={recommendation.name}
+                      className="rounded-[28px] border border-[rgba(196,103,74,0.12)] bg-white p-7 shadow-[0_24px_70px_rgba(30,22,16,0.06)]"
+                    >
+                      <div className="mb-5 flex flex-wrap items-center gap-3">
+                        <span className="rounded-full bg-[color:var(--terra)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+                          {index === 0 ? "Best first recommendation" : `Option ${index + 1}`}
+                        </span>
+                        <span className="text-[13px] text-[color:var(--ink-light)]">
+                          {recommendation.availability}
+                        </span>
+                      </div>
+
+                      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+                        <div>
+                          <div className="font-serif text-[32px] leading-[1.08] text-[color:var(--ink)]">
+                            {recommendation.name}
+                          </div>
+                          <div className="mt-2 text-[14px] text-[color:var(--ink-light)]">
+                            {recommendation.title}
+                          </div>
+
+                          <div className="mt-6 rounded-[16px] bg-[color:var(--sand-pale)] p-5">
+                            <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                              Why this could fit
+                            </div>
+                            <div className="text-[14px] leading-7 text-[color:var(--ink-mid)]">
+                              {recommendation.reason}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-5">
+                          <div>
+                            <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                              Match notes
+                            </div>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                              {recommendation.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-full border border-[color:var(--cream-dark)] bg-white px-3 py-1 text-[12px] font-medium text-[color:var(--ink-mid)]"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <RecommendationActions
+                            name={recommendation.name as RecommendationMomentName}
+                          />
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <WaveDivider fill="#2A1F18" />
+
+            <section className="bg-[#2A1F18] px-6 py-14 sm:px-10 lg:px-[72px] lg:py-20">
+              <div className="mx-auto max-w-[980px] rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-8 text-center">
+                <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--terra-light)]">
+                  Continue from here
+                </div>
+                <div className="mt-4 font-serif text-[clamp(30px,4vw,46px)] leading-[1.1] text-[color:var(--cream)]">
+                  A good first step should feel more grounded than random.
+                </div>
+                <p className="mx-auto mt-5 max-w-[620px] text-[15px] leading-7 text-white/72">
+                  You can take the quiz again, compare your recommendations once more, or
+                  head back to the homepage and continue from there when it feels right.
                 </p>
-                <h1
-                  className="text-3xl text-[#1E1610] leading-snug"
-                  style={{ fontFamily: "Lora, serif" }}
-                >
-                  Minkä verran sinulla on aikaa?
-                </h1>
+                <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={restart}
+                    className="inline-flex items-center justify-center rounded-full bg-[color:var(--terra)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--terra-mid)]"
+                  >
+                    Take the quiz again
+                  </button>
+                  <button
+                    type="button"
+                    onClick={onGoHome}
+                    className="inline-flex items-center justify-center rounded-full border border-white/14 bg-white/8 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/12"
+                  >
+                    Return home
+                  </button>
+                </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <button
-                  onClick={() => setSelectedQuiz(shortQuiz)}
-                  className="text-left p-6 rounded-3xl border border-[#e8ddd6] bg-white hover:border-[#C4674A] hover:bg-[#FBF0EC] transition-all group"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[16px] font-medium text-[#1E1610] mb-1">
-                        Nopea kartoitus
-                      </p>
-                      <p className="text-[14px] text-[#888780] leading-relaxed">
-                        7 kysymystä, noin 2 minuuttia. Saat välittömästi ehdotukset.
-                      </p>
-                    </div>
-                    <span className="text-[#C4674A] opacity-0 group-hover:opacity-100 transition-opacity mt-1">
-                      →
-                    </span>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setSelectedQuiz(longQuiz)}
-                  className="text-left p-6 rounded-3xl border border-[#e8ddd6] bg-white hover:border-[#C4674A] hover:bg-[#FBF0EC] transition-all group"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[16px] font-medium text-[#1E1610] mb-1">
-                        Tarkempi kartoitus
-                      </p>
-                      <p className="text-[14px] text-[#888780] leading-relaxed">
-                        16 kysymystä, noin 5 minuuttia. Tarkempi matchaus juuri sinulle.
-                      </p>
-                    </div>
-                    <span className="text-[#C4674A] opacity-0 group-hover:opacity-100 transition-opacity mt-1">
-                      →
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
-          )}
-
-          {selectedQuiz && !done && currentQuestion && (
-            <div>
-              <p className="text-[12px] text-[#888780] mb-8">
-                {currentStep + 1} / {questions.length}
-              </p>
-              <QuestionStep
-                question={currentQuestion}
-                answers={answers}
-                onAnswer={handleAnswer}
-                onMultiToggle={handleMultiToggle}
-                onTextChange={handleTextChange}
-                onNext={handleNext}
-                onBack={handleBack}
-                isFirst={isFirst}
-                isLast={isLast}
-              />
-            </div>
-          )}
-
-          {done && <QuizComplete onClose={onClose} />}
-        </div>
-      </div>
+            </section>
+          </>
+        )}
+      </main>
     </div>
   );
 }
