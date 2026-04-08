@@ -22,9 +22,11 @@ export function useQuiz(quizId: QuizId) {
   const canProceed = question
     ? question.openText
       ? true
-      : question.multiSelect
-        ? Array.isArray(selectedValue) && selectedValue.length > 0
-        : typeof selectedValue === "string" && selectedValue.length > 0
+      : question.slider
+        ? true
+        : question.multiSelect
+          ? Array.isArray(selectedValue) && selectedValue.length > 0
+          : typeof selectedValue === "string" && selectedValue.length > 0
     : false;
 
   const restart = () => {
@@ -34,66 +36,44 @@ export function useQuiz(quizId: QuizId) {
   };
 
   const onSingleSelect = (answerId: string) => {
-    if (!question) {
-      return;
-    }
-
-    setAnswers((current) => ({
-      ...current,
-      [question.id]: answerId,
-    }));
+    if (!question) return;
+    setAnswers((current) => ({ ...current, [question.id]: answerId }));
   };
 
   const onMultiToggle = (answerId: string) => {
-    if (!question) {
-      return;
-    }
-
+    if (!question) return;
     setAnswers((current) => {
       const existing = Array.isArray(current[question.id])
         ? (current[question.id] as string[])
         : [];
-
       const next = existing.includes(answerId)
         ? existing.filter((item) => item !== answerId)
         : [...existing, answerId];
-
-      return {
-        ...current,
-        [question.id]: next,
-      };
+      return { ...current, [question.id]: next };
     });
   };
 
   const onTextChange = (value: string) => {
-    if (!question) {
-      return;
-    }
+    if (!question) return;
+    setAnswers((current) => ({ ...current, [question.id]: value }));
+  };
 
-    setAnswers((current) => ({
-      ...current,
-      [question.id]: value,
-    }));
+  const onSliderChange = (value: number) => {
+    if (!question) return;
+    setAnswers((current) => ({ ...current, [question.id]: value }));
   };
 
   const onBack = () => {
-    if (isFirst) {
-      return;
-    }
-
+    if (isFirst) return;
     setCurrentStep((current) => current - 1);
   };
 
   const onNext = () => {
-    if (!canProceed) {
-      return;
-    }
-
+    if (!canProceed) return;
     if (isLast) {
       setIsComplete(true);
       return;
     }
-
     setCurrentStep((current) => current + 1);
   };
 
@@ -111,6 +91,7 @@ export function useQuiz(quizId: QuizId) {
         onSingleSelect,
         onMultiToggle,
         onTextChange,
+        onSliderChange,
         onBack,
         onNext,
         canProceed,

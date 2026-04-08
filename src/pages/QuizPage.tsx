@@ -102,13 +102,94 @@ const quizTone = {
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = Math.max(8, Math.round((current / total) * 100));
-
   return (
     <div className="h-2 w-full overflow-hidden rounded-full bg-[rgba(196,103,74,0.12)]">
       <div
         className="h-full rounded-full bg-[color:var(--terra)] transition-[width] duration-500 ease-out"
         style={{ width: `${pct}%` }}
       />
+    </div>
+  );
+}
+
+function SliderInput({
+  value,
+  onChange,
+  labelMin,
+  labelMax,
+  words,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+  labelMin: string;
+  labelMax: string;
+  words: string[];
+}) {
+  const wordIdx = Math.min(Math.floor((value / 100) * words.length), words.length - 1);
+  const currentWord = words[wordIdx];
+
+  return (
+    <div className="mt-2">
+      <div className="mb-4 flex justify-between">
+        <span className="max-w-[44%] text-[13px] leading-5 text-[color:var(--ink-light)]">
+          {labelMin}
+        </span>
+        <span className="max-w-[44%] text-right text-[13px] leading-5 text-[color:var(--ink-light)]">
+          {labelMax}
+        </span>
+      </div>
+
+      <div className="relative px-1">
+        <input
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className="slider-input w-full"
+          style={{
+            WebkitAppearance: "none",
+            appearance: "none",
+            height: "4px",
+            borderRadius: "2px",
+            outline: "none",
+            cursor: "pointer",
+            background: `linear-gradient(to right, var(--terra) ${value}%, rgba(196,103,74,0.18) ${value}%)`,
+          }}
+        />
+      </div>
+
+      <div className="mt-5 text-center">
+        <span
+          className="inline-block rounded-full bg-[color:var(--terra-wash)] px-4 py-1.5 font-serif text-[15px] italic text-[color:var(--terra)]"
+        >
+          {currentWord}
+        </span>
+      </div>
+
+      <style>{`
+        .slider-input::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--terra);
+          border: 3px solid white;
+          box-shadow: 0 0 0 1.5px var(--terra);
+          cursor: pointer;
+        }
+        .slider-input::-moz-range-thumb {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--terra);
+          border: 3px solid white;
+          box-shadow: 0 0 0 1.5px var(--terra);
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 }
@@ -148,9 +229,7 @@ function QuizAside({
 
       <div className="space-y-3 border-t border-[rgba(196,103,74,0.12)] pt-5">
         <div className="font-serif text-[22px] text-[color:var(--ink)]">{quizTitle}</div>
-        <p className="text-[14px] leading-6 text-[color:var(--ink-light)]">
-          {quizDescription}
-        </p>
+        <p className="text-[14px] leading-6 text-[color:var(--ink-light)]">{quizDescription}</p>
         <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[color:var(--terra)]">
           {totalQuestions} questions
         </div>
@@ -185,8 +264,8 @@ function QuizAside({
           A gentle reminder
         </div>
         <p className="text-[14px] leading-6 text-[color:var(--ink-mid)]">
-          You do not need perfect words to continue. A good match often begins with
-          a few honest signals, not a complete explanation.
+          You do not need perfect words to continue. A good match often begins with a few
+          honest signals, not a complete explanation.
         </p>
         <p className="text-[12px] text-[color:var(--ink-light)]">
           {quizId === "short"
@@ -198,11 +277,7 @@ function QuizAside({
   );
 }
 
-function RecommendationActions({
-  name,
-}: {
-  name: RecommendationMomentName;
-}) {
+function RecommendationActions({ name }: { name: RecommendationMomentName }) {
   const [openPanel, setOpenPanel] = useState<"video" | "contact" | "call" | null>(null);
   const details = recommendationMoments[name];
 
@@ -279,8 +354,8 @@ function RecommendationActions({
         <div className="therapist-inline-panel therapist-inline-panel-soft">
           <div className="therapist-inline-kicker">Book a call</div>
           <p className="therapist-inline-copy">
-            A short first call can help you hear their tone, ask about availability,
-            and decide whether the first session feels right.
+            A short first call can help you hear their tone, ask about availability, and decide
+            whether the first session feels right.
           </p>
           <div className="therapist-contact-actions">
             <button type="button" className="therapist-contact-btn">
@@ -304,6 +379,7 @@ type QuestionCardProps = {
   onSingleSelect: (answerId: string) => void;
   onMultiToggle: (answerId: string) => void;
   onTextChange: (value: string) => void;
+  onSliderChange: (value: number) => void;
   onBack: () => void;
   onNext: () => void;
   canProceed: boolean;
@@ -319,12 +395,15 @@ function QuestionCard({
   onSingleSelect,
   onMultiToggle,
   onTextChange,
+  onSliderChange,
   onBack,
   onNext,
   canProceed,
   isFirst,
   isLast,
 }: QuestionCardProps) {
+  const sliderValue = typeof selectedValue === "number" ? selectedValue : 50;
+
   return (
     <section className="rounded-[30px] bg-white px-8 py-10 shadow-[0_26px_80px_rgba(30,22,16,0.08)] sm:px-10 sm:py-12">
       <div className="mb-8 flex flex-wrap items-center gap-3">
@@ -365,6 +444,14 @@ function QuestionCard({
               placeholder="Write as much or as little as you want."
             />
           </label>
+        ) : question.slider ? (
+          <SliderInput
+            value={sliderValue}
+            onChange={onSliderChange}
+            labelMin={question.slider.labelMin}
+            labelMax={question.slider.labelMax}
+            words={question.slider.words}
+          />
         ) : (
           <div className="grid gap-3">
             {question.answers?.map((answer: QuizAnswer) => {
@@ -449,11 +536,7 @@ function WaveDivider({ fill }: { fill: string }) {
   );
 }
 
-export default function QuizPage({
-  quizId,
-  onGoHome,
-  onSelectQuiz,
-}: QuizPageProps) {
+export default function QuizPage({ quizId, onGoHome, onSelectQuiz }: QuizPageProps) {
   const {
     quiz,
     currentStep,
@@ -487,14 +570,11 @@ export default function QuizPage({
       </header>
 
       <main className="pt-[74px]">
-
         {!isComplete && (
           <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
             <div className="page-shell-tight">
               <div className="mb-14 text-center">
-                <div className="s-label justify-center">
-                  {tone.eyebrow}
-                </div>
+                <div className="s-label justify-center">{tone.eyebrow}</div>
                 <h2 className="max-w-full text-center">{tone.title}</h2>
                 <p className="s-sub mx-auto max-w-[560px] text-center">{tone.description}</p>
               </div>
@@ -522,14 +602,14 @@ export default function QuizPage({
             <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
               <div className="page-shell-tight">
                 <div className="mb-14 text-center">
-                  <div className="s-label justify-center">
-                    Your recommendations
-                  </div>
-                  <h2 className="max-w-full text-center">Three professionals worth beginning with</h2>
+                  <div className="s-label justify-center">Your recommendations</div>
+                  <h2 className="max-w-full text-center">
+                    Three professionals worth beginning with
+                  </h2>
                   <p className="s-sub mx-auto max-w-[620px] text-center">
-                    These are not random names from a directory. Each recommendation is
-                    tied to the kind of support, pace, and first impression you told us
-                    you were hoping for.
+                    These are not random names from a directory. Each recommendation is tied to
+                    the kind of support, pace, and first impression you told us you were hoping
+                    for.
                   </p>
                 </div>
 
@@ -606,8 +686,8 @@ export default function QuizPage({
                   A good first step should feel more grounded than random.
                 </div>
                 <p className="mx-auto mt-5 max-w-[620px] text-[15px] leading-7 text-white/72">
-                  You can take the quiz again, compare your recommendations once more, or
-                  head back to the homepage and continue from there when it feels right.
+                  You can take the quiz again, compare your recommendations once more, or head
+                  back to the homepage and continue from there when it feels right.
                 </p>
                 <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
                   <button
