@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import ComparisonSection from "./ComparisonSection";
-import FAQSection from "./FAQSection";
-import Footer from "./Footer";
-import HeroSection from "./HeroSection";
-import HowItWorksSection from "./HowItWorksSection";
-import Navbar from "./Navbar";
-import QuizPage from "./QuizPage";
-import TestimonialsSection from "./TestimonialsSection";
-import type { QuizId } from "./quizData";
+import type { QuizId } from "./features/quiz/quizData";
+import LandingPage from "./pages/LandingPage";
+import QuizPage from "./pages/QuizPage";
 
 type PageState =
   | { name: "landing" }
@@ -32,17 +26,9 @@ export default function App() {
   }
 
   return (
-    <>
-      <Navbar onOpenQuiz={() => setPage({ name: "quiz", quizId: "short" })} />
-      <HeroSection onOpenQuiz={() => setPage({ name: "quiz", quizId: "short" })} />
-      <HowItWorksSection />
-      <ComparisonSection />
-      <TestimonialsSection />
-      <FAQSection
-        onOpenQuiz={() => setPage({ name: "quiz", quizId: "short" })}
-        onOpenLongQuiz={() => setPage({ name: "quiz", quizId: "long" })}
-      />
-      <Footer />
-    </>
+    <LandingPage
+      onOpenQuiz={() => setPage({ name: "quiz", quizId: "short" })}
+      onOpenLongQuiz={() => setPage({ name: "quiz", quizId: "long" })}
+    />
   );
 }

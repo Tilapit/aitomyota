@@ -72,6 +72,21 @@ textarea {
   min-height: 100vh;
 }
 
+.page-shell {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.page-shell-tight {
+  width: min(980px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.page-shell-narrow {
+  width: min(820px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
 h1 {
   font-family: "Lora", serif;
 }
@@ -171,6 +186,62 @@ h2 {
 .compare-copy-strong {
   color: var(--ink);
   font-weight: 500;
+}
+
+.comparison-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.comparison-side {
+  padding: 8px 0;
+}
+
+.comparison-side-strong {
+  position: relative;
+  padding: 0 0 0 32px;
+}
+
+.comparison-side-strong::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(196, 103, 74, 0.06), rgba(196, 103, 74, 0.28), rgba(196, 103, 74, 0.06));
+}
+
+.comparison-brand {
+  margin-bottom: 24px;
+}
+
+.comparison-list {
+  display: grid;
+  gap: 18px;
+}
+
+.comparison-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.comparison-mark {
+  color: var(--terra);
+  font-size: 16px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.comparison-mark-muted {
+  color: #c4a882;
+}
+
+.comparison-row-muted {
+  opacity: 0.9;
 }
 
 .profiles-sec {
@@ -509,6 +580,33 @@ h2 {
   margin-bottom: 12px;
 }
 
+.testimonial-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 36px;
+  align-items: end;
+}
+
+.testimonial-intro {
+  margin-bottom: 14px;
+}
+
+.testimonial-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) minmax(0, 0.85fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+
+.testimonial-entry {
+  position: relative;
+  opacity: 0;
+}
+
+.testimonial-entry.is-featured {
+  padding-right: 16px;
+}
+
 .testimonial-quote {
   font-size: 16px;
   line-height: 1.8;
@@ -699,6 +797,12 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  .page-shell,
+  .page-shell-tight,
+  .page-shell-narrow {
+    width: min(100% - 32px, 100%);
+  }
+
   nav {
     padding: 14px 24px !important;
   }
@@ -714,6 +818,20 @@ h2 {
 
   .profiles-sec {
     padding: 64px 24px;
+  }
+
+  .comparison-layout,
+  .testimonial-heading,
+  .testimonial-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-side-strong {
+    padding-left: 0;
+  }
+
+  .comparison-side-strong::before {
+    display: none;
   }
 
   .profiles-grid {

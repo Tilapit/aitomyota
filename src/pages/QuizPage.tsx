@@ -4,9 +4,9 @@ import type {
   QuizAnswerValue,
   QuizId,
   QuizQuestion,
-} from "./quizData";
-import { useQuiz } from "./useQuiz";
-import Logo from "./Logo";
+} from "../features/quiz/quizData";
+import { useQuiz } from "../features/quiz/useQuiz";
+import Logo from "../components/layout/Logo";
 
 type QuizPageProps = {
   quizId: QuizId;
@@ -69,24 +69,24 @@ type RecommendationMomentName = keyof typeof recommendationMoments;
 
 const quizTone = {
   short: {
-    eyebrow: "A gentler first step",
-    title: "Begin with a lighter introduction.",
+    eyebrow: "Start here",
+    title: "A short match, then a clearer next step.",
     description:
-      "This shorter path is meant to feel calm, clear, and easy to begin. It gives you a meaningful direction without asking too much of you all at once.",
-    switchLabel: "If you have a little more time",
-    switchCta: "Take the deeper quiz",
+      "This version keeps things light and gets you to a thoughtful recommendation quickly.",
+    switchLabel: "Want more context?",
+    switchCta: "Take the longer version",
     switchDescription:
-      "The longer version gives us more nuance about your situation, your preferred pace, and the kind of therapeutic relationship that may feel right.",
+      "The longer path adds more detail about pace, preferences, and how you want the work to feel.",
   },
   long: {
-    eyebrow: "A deeper introduction",
-    title: "Take a little more space with this.",
+    eyebrow: "Longer version",
+    title: "A fuller picture for a more precise match.",
     description:
-      "This version moves more slowly and gathers more detail, so the recommendations can feel more grounded, more personal, and less generic.",
-    switchLabel: "If you would rather keep it lighter",
-    switchCta: "Return to the shorter quiz",
+      "This version asks a little more so the recommendation can be more specific.",
+    switchLabel: "Prefer the shorter path?",
+    switchCta: "Go back to the short version",
     switchDescription:
-      "You can always begin with the lighter version and come back to the deeper path later, when the timing feels better.",
+      "You can always return to the shorter version if you want to move faster.",
   },
 } satisfies Record<
   QuizId,
@@ -190,8 +190,8 @@ function QuizAside({
         </p>
         <p className="text-[12px] text-[color:var(--ink-light)]">
           {quizId === "short"
-            ? "You can always move into the deeper version later."
-            : "You can always return to the lighter version if that feels easier."}
+            ? "You can always add more detail later."
+            : "You can always switch back to the shorter path."}
         </p>
       </div>
     </aside>
@@ -490,7 +490,7 @@ export default function QuizPage({
 
         {!isComplete && (
           <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
-            <div className="mx-auto max-w-[980px]">
+            <div className="page-shell-tight">
               <div className="mb-14 text-center">
                 <div className="s-label justify-center">
                   {tone.eyebrow}
@@ -520,7 +520,7 @@ export default function QuizPage({
         {isComplete && (
           <>
             <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
-              <div className="mx-auto max-w-[980px]">
+              <div className="page-shell-tight">
                 <div className="mb-14 text-center">
                   <div className="s-label justify-center">
                     Your recommendations
@@ -598,7 +598,7 @@ export default function QuizPage({
             <WaveDivider fill="#2A1F18" />
 
             <section className="bg-[#2A1F18] px-6 py-14 sm:px-10 lg:px-[72px] lg:py-20">
-              <div className="mx-auto max-w-[980px] rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-8 text-center">
+              <div className="page-shell-tight rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-8 text-center">
                 <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--terra-light)]">
                   Continue from here
                 </div>

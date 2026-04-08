@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import heroBg from "./assets/hero-bg.webp";
+import heroBg from "../../assets/hero-bg.webp";
 
 interface HeroSectionProps {
   onOpenQuiz: () => void;
@@ -56,13 +56,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
         />
 
         <div
+          className="page-shell"
           style={{
             position: "relative",
             zIndex: 1,
-            maxWidth: "700px",
-            width: "100%",
-            margin: "0 auto",
-            padding: "60px 40px 0 40px",
+            paddingTop: "60px",
             textAlign: "center",
             display: "flex",
             flexDirection: "column",
@@ -70,6 +68,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
             animation: "fadeUp 0.8s ease both",
           }}
         >
+          <div style={{ maxWidth: "700px", width: "100%" }}>
           <div
             style={{
               display: "inline-flex",
@@ -125,15 +124,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
             style={{
               fontSize: "15.5px",
               color: "#5C4E3D",
-              maxWidth: "480px",
+              maxWidth: "440px",
               marginBottom: "28px",
               lineHeight: 1.65,
               textAlign: "center",
               textShadow: "0 2px 12px rgba(250,246,240,1)",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
-            Finding a therapist can feel overwhelming. We make it careful,
-            personal, and tailored to you, so the first step feels clearer.
+            A calmer way to find someone who fits, before the first appointment turns
+            into guesswork.
           </p>
 
           <button
@@ -176,8 +177,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
           >
             {[
               { num: "99+", lbl: "Therapists" },
-              { num: "5 min", lbl: "For the deeper quiz" },
-              { num: "3", lbl: "Recommendations with reasons" },
+              { num: "5 min", lbl: "Detailed match path" },
+              { num: "3", lbl: "Curated matches" },
             ].map((stat, index) => (
               <React.Fragment key={stat.lbl}>
                 {index > 0 && (
@@ -215,6 +216,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
               </React.Fragment>
             ))}
           </div>
+        </div>
         </div>
       </section>
 

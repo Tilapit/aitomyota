@@ -31,20 +31,19 @@ const HowItWorksSection: React.FC = () => {
         id="how"
         style={{ padding: "80px 72px 100px", background: "var(--sand-pale)" }}
       >
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div className="page-shell">
           <div style={{ textAlign: "center", marginBottom: "64px" }}>
             <div className="s-label" style={{ justifyContent: "center" }}>
               How it works
             </div>
             <h2 style={{ maxWidth: "100%", textAlign: "center" }}>
-              Three steps to the right therapist
+              Three clear steps
             </h2>
             <p
               className="s-sub"
               style={{ maxWidth: "480px", margin: "0 auto", textAlign: "center" }}
             >
-              You do not need to know where to start. We ask, we listen, and we
-              help you find the right person.
+              A short path from uncertainty to a first conversation that actually feels considered.
             </p>
           </div>
 
@@ -107,10 +106,9 @@ const HowItWorksSection: React.FC = () => {
               </div>
               <div style={{ paddingTop: "12px" }}>
                 <div className="step-kicker">Step 01</div>
-                <div className="step-title">Tell us about your situation</div>
+                <div className="step-title">Share what feels most important</div>
                 <p className="step-text">
-                  A few thoughtful questions about how life feels right now. No
-                  right or wrong answers, just a gentler way to begin.
+                  A few questions help us understand your pace, preferences, and what kind of support would feel right.
                 </p>
                 <div className="step-pill">About 2 to 5 minutes</div>
               </div>
@@ -166,12 +164,11 @@ const HowItWorksSection: React.FC = () => {
               </div>
               <div style={{ paddingTop: "12px" }}>
                 <div className="step-kicker">Step 02</div>
-                <div className="step-title">Receive 3 personal recommendations</div>
+                <div className="step-title">See three strong matches</div>
                 <p className="step-text">
-                  You get three therapist recommendations chosen with care for you,
-                  and we explain <em>why</em> each one could be a good fit.
+                  We narrow the field and explain why each person stands out, so you are not scanning a directory alone.
                 </p>
-                <div className="step-pill">Explained recommendations</div>
+                <div className="step-pill">Reasons included</div>
               </div>
             </div>
 
@@ -218,12 +215,11 @@ const HowItWorksSection: React.FC = () => {
               </div>
               <div style={{ paddingTop: "12px" }}>
                 <div className="step-kicker">Step 03</div>
-                <div className="step-title">Choose how you want to continue</div>
+                <div className="step-title">Reach out when one feels right</div>
                 <p className="step-text">
-                  Start with the lighter quiz or move into the deeper version if you
-                  have more time and want more nuance in the match.
+                  Watch a short intro, send a first message, or book a quick call from the recommendation itself.
                 </p>
-                <div className="step-pill">A gentler first step</div>
+                <div className="step-pill">Move only when ready</div>
               </div>
             </div>
           </div>

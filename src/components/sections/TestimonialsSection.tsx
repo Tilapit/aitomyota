@@ -54,32 +54,37 @@ const TestimonialsSection: React.FC = () => {
 
   return (
     <section id="stories" className="profiles-sec">
-      <div className="s-label">Testimonials</div>
-      <h2>What people say about starting here</h2>
-      <p className="s-sub">
-        The first step matters. These are the kinds of things people tell us after
-        they have moved from uncertainty into a match that actually felt right.
-      </p>
+      <div className="page-shell">
+        <div className="testimonial-heading">
+          <div>
+            <div className="s-label">Testimonials</div>
+            <h2>What people say after they finally start</h2>
+          </div>
+          <p className="s-sub testimonial-intro">
+            A few voices from people who moved from browsing to a more considered first step.
+          </p>
+        </div>
 
-      <div className="profiles-grid">
-        {testimonials.map((item, index) => (
-          <article
-            key={item.name}
-            ref={(element) => {
-              cardRefs.current[index] = element;
-            }}
-            className={`p-card${index === 0 ? " featured" : ""}`}
-            style={{ opacity: 0, transitionDelay: `${index * 0.15}s` }}
-          >
-            {index === 0 && <div className="feat-badge">Most loved</div>}
-            <div className="testimonial-mark">“</div>
-            <div className="testimonial-quote">{item.quote}</div>
-            <div className="testimonial-meta">
-              <div className="testimonial-name">{item.name}</div>
-              <div className="testimonial-context">{item.context}</div>
-            </div>
-          </article>
-        ))}
+        <div className="testimonial-layout">
+          {testimonials.map((item, index) => (
+            <article
+              key={item.name}
+              ref={(element) => {
+                cardRefs.current[index] = element;
+              }}
+              className={`testimonial-entry${index === 0 ? " is-featured" : ""}`}
+              style={{ opacity: 0, transitionDelay: `${index * 0.15}s` }}
+            >
+              {index === 0 && <div className="feat-badge">Most loved</div>}
+              <div className="testimonial-mark">“</div>
+              <div className="testimonial-quote">{item.quote}</div>
+              <div className="testimonial-meta">
+                <div className="testimonial-name">{item.name}</div>
+                <div className="testimonial-context">{item.context}</div>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
