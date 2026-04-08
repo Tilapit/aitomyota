@@ -7,22 +7,25 @@ import ProfilesSection from "./ProfilesSection";
 import QuizTeaserSection from "./QuizTeaserSection";
 import Footer from "./Footer";
 import QuizPage from "./QuizPage";
+import TherapistPage from "./TherapistPage";
 
 export default function App() {
   const [quizOpen, setQuizOpen] = useState(false);
+  const [therapistPageOpen, setTherapistPageOpen] = useState(false);
 
   return (
     <>
       {quizOpen && <QuizPage onClose={() => setQuizOpen(false)} />}
+      {therapistPageOpen && <TherapistPage onClose={() => setTherapistPageOpen(false)} />}
 
-      <div className={quizOpen ? "hidden" : ""}>
+      <div className={quizOpen || therapistPageOpen ? "hidden" : ""}>
         <Navbar onOpenQuiz={() => setQuizOpen(true)} />
         <HeroSection onOpenQuiz={() => setQuizOpen(true)} />
         <HowItWorksSection />
         <ComparisonSection />
         <ProfilesSection />
         <QuizTeaserSection onOpenQuiz={() => setQuizOpen(true)} />
-        <Footer />
+        <Footer onOpenTherapistPage={() => setTherapistPageOpen(true)} />
       </div>
     </>
   );

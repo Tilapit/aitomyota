@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenTherapistPage: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onOpenTherapistPage }) => {
+  const links = [
+    { label: 'Tietosuoja', onClick: () => {} },
+    { label: 'Terapeuteille', onClick: onOpenTherapistPage },
+    { label: 'Yhteystiedot', onClick: () => {} },
+  ];
+
   return (
     <>
       {/* Wave into footer */}
@@ -42,22 +52,27 @@ const Footer: React.FC = () => {
 
         {/* Links */}
         <div style={{ display: 'flex', gap: '32px', marginBottom: '40px' }}>
-          {['Tietosuoja', 'Terapeuteille', 'Yhteystiedot'].map((link) => (
-            <a
-              key={link}
-              href="#"
+          {links.map((link) => (
+            <button
+              key={link.label}
+              onClick={link.onClick}
               style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
                 fontSize: '13px',
                 color: 'rgba(250,246,240,0.4)',
                 textDecoration: 'none',
                 fontWeight: 500,
+                cursor: 'pointer',
+                fontFamily: 'Nunito, sans-serif',
                 transition: 'color 0.2s',
               }}
               onMouseEnter={e => (e.currentTarget.style.color = 'rgba(250,246,240,0.8)')}
               onMouseLeave={e => (e.currentTarget.style.color = 'rgba(250,246,240,0.4)')}
             >
-              {link}
-            </a>
+              {link.label}
+            </button>
           ))}
         </div>
 
