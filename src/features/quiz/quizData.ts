@@ -40,7 +40,7 @@ export type Recommendation = {
   tags: string[];
 };
 
-const shortQuiz: Quiz = {
+export const shortQuiz: Quiz = {
   id: "short",
   title: "Short introduction",
   description:
@@ -148,7 +148,7 @@ const shortQuiz: Quiz = {
   ],
 };
 
-const longQuiz: Quiz = {
+export const longQuiz: Quiz = {
   id: "long",
   title: "Deeper introduction",
   description:
