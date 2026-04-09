@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
+import { useLanguage } from "../../context/LanguageContext";
 
 interface NavbarProps {
   onOpenQuiz: () => void;
@@ -7,6 +8,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
   const [scrolled, setScrolled] = useState(false);
+  const { language, t, toggleLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -35,7 +37,10 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
         transition: "background 0.4s",
       }}
     >
-      <div className="page-shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div
+        className="page-shell"
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+      >
         <a href="#" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Logo />
         </a>
@@ -61,16 +66,16 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 opacity: 0.85,
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.color = "var(--terra)";
-                event.currentTarget.style.opacity = "1";
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--terra)";
+                e.currentTarget.style.opacity = "1";
               }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.color = "var(--ink)";
-                event.currentTarget.style.opacity = "0.85";
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--ink)";
+                e.currentTarget.style.opacity = "0.85";
               }}
             >
-              How it works
+              {t.nav.howItWorks}
             </a>
           </li>
           <li>
@@ -84,18 +89,48 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 opacity: 0.85,
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.color = "var(--terra)";
-                event.currentTarget.style.opacity = "1";
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--terra)";
+                e.currentTarget.style.opacity = "1";
               }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.color = "var(--ink)";
-                event.currentTarget.style.opacity = "0.85";
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--ink)";
+                e.currentTarget.style.opacity = "0.85";
               }}
             >
-              Stories
+              {t.nav.stories}
             </a>
           </li>
+
+          <li>
+            <button
+              onClick={toggleLanguage}
+              style={{
+                background: "transparent",
+                border: "1px solid rgba(196,103,74,0.25)",
+                borderRadius: "100px",
+                padding: "6px 14px",
+                fontFamily: "Nunito, sans-serif",
+                fontSize: "13px",
+                fontWeight: 700,
+                cursor: "pointer",
+                color: "var(--terra)",
+                letterSpacing: "0.04em",
+                transition: "background 0.2s, border-color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(196,103,74,0.08)";
+                e.currentTarget.style.borderColor = "rgba(196,103,74,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.borderColor = "rgba(196,103,74,0.25)";
+              }}
+            >
+              {language === "fi" ? "EN" : "FI"}
+            </button>
+          </li>
+
           <li>
             <button
               onClick={onOpenQuiz}
@@ -112,16 +147,16 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 boxShadow: "0 3px 14px rgba(196,103,74,0.35)",
                 transition: "background 0.2s, transform 0.15s",
               }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.background = "var(--terra-mid)";
-                event.currentTarget.style.transform = "translateY(-1px)";
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--terra-mid)";
+                e.currentTarget.style.transform = "translateY(-1px)";
               }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.background = "var(--terra)";
-                event.currentTarget.style.transform = "translateY(0)";
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "var(--terra)";
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              Start matching
+              {t.nav.startMatching}
             </button>
           </li>
         </ul>

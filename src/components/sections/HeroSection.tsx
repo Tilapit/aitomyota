@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import heroBg from "../../assets/hero-bg.webp";
+import { useLanguage } from "../../context/LanguageContext";
 
 interface HeroSectionProps {
   onOpenQuiz: () => void;
@@ -7,12 +8,11 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
   const statsRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const element = statsRef.current;
-    if (!element) {
-      return;
-    }
+    if (!element) return;
 
     element.style.opacity = "0";
     element.style.transform = "translateY(10px)";
@@ -69,154 +69,133 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
           }}
         >
           <div style={{ maxWidth: "700px", width: "100%" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "10px",
-              fontSize: "11.5px",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#C4674A",
-              marginBottom: "12px",
-            }}
-          >
-            <span
+            <div
               style={{
-                display: "block",
-                width: "20px",
-                height: "1.5px",
-                background: "#C4674A",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                fontSize: "11.5px",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "#C4674A",
+                marginBottom: "12px",
               }}
-            />
-            Matching service
-            <span
+            >
+              <span style={{ display: "block", width: "20px", height: "1.5px", background: "#C4674A" }} />
+              {t.hero.eyebrow}
+              <span style={{ display: "block", width: "20px", height: "1.5px", background: "#C4674A" }} />
+            </div>
+
+            <h1
               style={{
-                display: "block",
-                width: "20px",
-                height: "1.5px",
-                background: "#C4674A",
+                fontFamily: "Lora, serif",
+                fontSize: "clamp(36px, 4vw, 58px)",
+                lineHeight: 1.08,
+                fontWeight: 600,
+                letterSpacing: "-0.025em",
+                color: "#1E1610",
+                marginBottom: "14px",
+                textShadow: "0 2px 16px rgba(250,246,240,1), 0 0 40px rgba(250,246,240,0.9)",
               }}
-            />
-          </div>
+            >
+              {t.hero.title1}
+              <br />
+              <em style={{ fontStyle: "italic", color: "#C4674A" }}>{t.hero.title2}</em>
+            </h1>
 
-          <h1
-            style={{
-              fontFamily: "Lora, serif",
-              fontSize: "clamp(36px, 4vw, 58px)",
-              lineHeight: 1.08,
-              fontWeight: 600,
-              letterSpacing: "-0.025em",
-              color: "#1E1610",
-              marginBottom: "14px",
-              textShadow: "0 2px 16px rgba(250,246,240,1), 0 0 40px rgba(250,246,240,0.9)",
-            }}
-          >
-            Find the right therapist
-            <br />
-            <em style={{ fontStyle: "italic", color: "#C4674A" }}>
-              the first time.
-            </em>
-          </h1>
+            <p
+              style={{
+                fontSize: "15.5px",
+                color: "#5C4E3D",
+                maxWidth: "440px",
+                marginBottom: "28px",
+                lineHeight: 1.65,
+                textAlign: "center",
+                textShadow: "0 2px 12px rgba(250,246,240,1)",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              {t.hero.subtitle}
+            </p>
 
-          <p
-            style={{
-              fontSize: "15.5px",
-              color: "#5C4E3D",
-              maxWidth: "440px",
-              marginBottom: "28px",
-              lineHeight: 1.65,
-              textAlign: "center",
-              textShadow: "0 2px 12px rgba(250,246,240,1)",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            A calmer way to find someone who fits, before the first appointment turns
-            into guesswork.
-          </p>
+            <button
+              onClick={onOpenQuiz}
+              style={{
+                background: "#C4674A",
+                color: "white",
+                border: "none",
+                padding: "16px 32px",
+                borderRadius: "100px",
+                fontFamily: "Nunito, sans-serif",
+                fontSize: "15px",
+                fontWeight: 700,
+                cursor: "pointer",
+                boxShadow: "0 5px 24px rgba(196,103,74,0.38)",
+                transition: "background 0.2s, transform 0.15s, box-shadow 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#B05840";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#C4674A";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              {t.hero.cta}
+            </button>
 
-          <button
-            onClick={onOpenQuiz}
-            style={{
-              background: "#C4674A",
-              color: "white",
-              border: "none",
-              padding: "16px 32px",
-              borderRadius: "100px",
-              fontFamily: "Nunito, sans-serif",
-              fontSize: "15px",
-              fontWeight: 700,
-              cursor: "pointer",
-              boxShadow: "0 5px 24px rgba(196,103,74,0.38)",
-              transition: "background 0.2s, transform 0.15s, box-shadow 0.2s",
-            }}
-            onMouseEnter={(event) => {
-              event.currentTarget.style.background = "#B05840";
-              event.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(event) => {
-              event.currentTarget.style.background = "#C4674A";
-              event.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            Start matching →
-          </button>
-
-          <div
-            ref={statsRef}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "32px",
-              justifyContent: "center",
-              marginTop: "60px",
-              width: "100%",
-            }}
-          >
-            {[
-              { num: "99+", lbl: "Therapists" },
-              { num: "5 min", lbl: "Detailed match path" },
-              { num: "3", lbl: "Curated matches" },
-            ].map((stat, index) => (
-              <React.Fragment key={stat.lbl}>
-                {index > 0 && (
-                  <div
-                    style={{
-                      width: "1px",
-                      height: "28px",
-                      background: "rgba(196,103,74,0.18)",
-                      flexShrink: 0,
-                    }}
-                  />
-                )}
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      fontFamily: "Lora, serif",
-                      fontSize: "26px",
-                      fontWeight: 600,
-                      color: "#1E1610",
-                    }}
-                  >
-                    {stat.num}
+            <div
+              ref={statsRef}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "32px",
+                justifyContent: "center",
+                marginTop: "60px",
+                width: "100%",
+              }}
+            >
+              {t.hero.stats.map((stat, index) => (
+                <React.Fragment key={stat.lbl}>
+                  {index > 0 && (
+                    <div
+                      style={{
+                        width: "1px",
+                        height: "28px",
+                        background: "rgba(196,103,74,0.18)",
+                        flexShrink: 0,
+                      }}
+                    />
+                  )}
+                  <div style={{ textAlign: "center" }}>
+                    <div
+                      style={{
+                        fontFamily: "Lora, serif",
+                        fontSize: "26px",
+                        fontWeight: 600,
+                        color: "#1E1610",
+                      }}
+                    >
+                      {stat.num}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#5C4E3D",
+                        marginTop: "1px",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {stat.lbl}
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#5C4E3D",
-                      marginTop: "1px",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {stat.lbl}
-                  </div>
-                </div>
-              </React.Fragment>
-            ))}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
-        </div>
         </div>
       </section>
 
