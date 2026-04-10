@@ -42,107 +42,91 @@ export type Recommendation = {
 
 export const shortQuiz: Quiz = {
   id: "short",
-  title: "Short introduction",
+  title: "Nopea kartoitus",
   description:
-    "8 questions, about 2 minutes. A lighter first step when you simply want to get moving.",
+    "Tavoite on löytää sopivin ammattilainen ilman, että sinun täytyy selittää kaikkea heti alussa.",
   questions: [
     {
       id: "s1",
       number: 1,
-      category: "situation",
-      question: "What feels heaviest for you right now?",
+      category: "tilanne",
+      question: "Mikä kuvaa parhaiten sitä, mikä sinua juuri nyt kuormittaa?",
       answers: [
-        { id: "s1a", text: "Everyday life or work feels heavy and my energy is under strain" },
-        { id: "s1b", text: "There is one specific thing on my mind that I want to talk about" },
-        { id: "s1c", text: "A big life change is happening and I need support around it" },
-        { id: "s1d", text: "I cannot quite name it yet, it just feels unclear and heavy" },
+        { id: "s1a", text: "Arki tai työ tuntuu raskaalta ja jaksaminen on koetuksella" },
+        { id: "s1b", text: "Jokin tietty asia pyörii mielessä ja haluaisin puhua siitä" },
+        { id: "s1c", text: "Elämässä on iso muutos käynnissä ja kaipaan tukea" },
+        { id: "s1d", text: "En osaa vielä nimetä, tunne on epämääräinen" },
       ],
     },
     {
       id: "s2",
       number: 2,
-      category: "goal",
-      question: "What do you want most from therapy right now?",
+      category: "kieli",
+      question: "Millä kielellä haluaisit tavata ammattilaisen?",
       answers: [
-        { id: "s2a", text: "To feel lighter and better in myself" },
-        { id: "s2b", text: "To understand myself better" },
-        { id: "s2c", text: "To work through a specific problem" },
-        { id: "s2d", text: "To create real change in my life" },
+        { id: "s2a", text: "Suomi" },
+        { id: "s2b", text: "Ruotsi" },
+        { id: "s2c", text: "Englanti" },
       ],
     },
     {
       id: "s3",
       number: 3,
-      category: "personality",
-      question: "What kind of person helps you most in difficult moments?",
+      category: "tuen muoto",
+      question: "Minkälaista tukea kaipaat juuri nyt eniten?",
       answers: [
-        { id: "s3a", text: "Calm and gentle" },
-        { id: "s3b", text: "Honest and direct" },
-        { id: "s3c", text: "Warm and encouraging" },
-        { id: "s3d", text: "Analytical and structured" },
+        { id: "s3a", text: "Turvallinen tila purkaa ajatuksia ilman paineita" },
+        { id: "s3b", text: "Konkreettisia keinoja, joita voin kokeilla arjessa" },
+        { id: "s3c", text: "Apua ymmärtää, miksi reagoin niin kuin reagoin" },
+        { id: "s3d", text: "Selkeä tavoite ja suunta, haluan muutosta" },
       ],
     },
     {
       id: "s4",
       number: 4,
-      category: "working style",
-      question: "How do you want your therapist to work with you?",
-      slider: {
-        min: 0,
-        max: 100,
-        labelMin: "Mostly listening",
-        labelMax: "Actively guiding and giving direction",
-        words: ["Mostly listening", "More listening", "Balanced", "More guiding", "Actively guiding"],
-      },
+      category: "ammattilainen",
+      question: "Onko ammattilaisen sukupuolella sinulle merkitystä?",
+      answers: [
+        { id: "s4a", text: "Nainen" },
+        { id: "s4b", text: "Mies" },
+        { id: "s4c", text: "Muu tai ei-binäärinen" },
+        { id: "s4d", text: "Ei ole väliä" },
+      ],
     },
     {
       id: "s5",
       number: 5,
-      category: "therapist",
-      question: "Does your therapist's gender matter to you?",
+      category: "ammattilainen",
+      question: "Onko ammattilaisen iällä merkitystä sinulle?",
       answers: [
-        { id: "s5a", text: "Woman" },
-        { id: "s5b", text: "Man" },
-        { id: "s5c", text: "Non-binary or another identity" },
-        { id: "s5d", text: "No preference" },
+        { id: "s5a", text: "Nuorempi, alle 40-vuotias" },
+        { id: "s5b", text: "Kokenut, yli 45-vuotias" },
+        { id: "s5c", text: "Ei ole väliä" },
       ],
     },
     {
       id: "s6",
       number: 6,
-      category: "therapist",
-      question: "How important is it that your therapist has a lot of life experience?",
-      slider: {
-        min: 0,
-        max: 100,
-        labelMin: "Not important at all",
-        labelMax: "Very important",
-        words: ["Not important", "Slightly important", "Somewhat important", "Quite important", "Very important"],
-      },
+      category: "käytäntö",
+      question: "Mikä hintaluokka tuntuu sinulle sopivalta per tapaaminen?",
+      note: "Hinnat ovat suuntaa-antavia ja vaihtelevat ammattilaisittain.",
+      answers: [
+        { id: "s6a", text: "alle 80 €" },
+        { id: "s6b", text: "80–120 €" },
+        { id: "s6c", text: "120–160 €" },
+        { id: "s6d", text: "Hinta ei ole minulle ratkaiseva" },
+      ],
     },
     {
       id: "s7",
       number: 7,
-      category: "practicalities",
-      question: "What price range feels realistic to you per session?",
-      note: "These ranges are indicative and may vary by professional.",
+      category: "käytäntö",
+      question: "Haluatko hyödyntää Kela-korvauksen?",
+      note: "Kela korvaa osan psykoterapian kustannuksista tietyin edellytyksin.",
       answers: [
-        { id: "s7a", text: "Under 80 EUR" },
-        { id: "s7b", text: "80 to 120 EUR" },
-        { id: "s7c", text: "120 to 160 EUR" },
-        { id: "s7d", text: "Price is not the deciding factor for me" },
-      ],
-    },
-    {
-      id: "s8",
-      number: 8,
-      category: "practicalities",
-      question: "Would you like to use Kela reimbursement if possible?",
-      note: "Kela may reimburse part of psychotherapy costs under certain conditions in Finland.",
-      answers: [
-        { id: "s8a", text: "Yes, show only therapists who fit that path" },
-        { id: "s8b", text: "It is helpful, but not essential" },
-        { id: "s8c", text: "I am not sure yet, tell me more later" },
+        { id: "s7a", text: "Kyllä, näytä vain Kela-korvattavat terapeutit" },
+        { id: "s7b", text: "Ei ole minulle välttämätöntä" },
+        { id: "s7c", text: "En tiedä vielä, kerro lisää" },
       ],
     },
   ],
@@ -150,200 +134,197 @@ export const shortQuiz: Quiz = {
 
 export const longQuiz: Quiz = {
   id: "long",
-  title: "Deeper introduction",
+  title: "Tarkempi kartoitus",
   description:
-    "16 questions, about 5 minutes. More nuance, more detail, and a softer path toward a more precise match.",
+    "Tarkempi kartoitus auttaa löytämään ammattilaiselta juuri sinulle sopivan lähestymistavan. Voit vastata omaan tahtiisi, ei ole oikeita tai vääriä vastauksia.",
   questions: [
     {
       id: "l1",
       number: 1,
-      category: "situation",
-      question: "What feels heaviest for you right now?",
+      category: "tilanne",
+      question: "Mikä kuvaa parhaiten sitä, mikä sinua juuri nyt kuormittaa?",
       answers: [
-        { id: "l1a", text: "Everyday life or work feels heavy and my energy is under strain" },
-        { id: "l1b", text: "There is one specific thing on my mind that I want to talk about" },
-        { id: "l1c", text: "A big life change is happening and I need support around it" },
-        { id: "l1d", text: "I cannot quite name it yet, it just feels unclear and heavy" },
+        { id: "l1a", text: "Arki tai työ tuntuu raskaalta ja jaksaminen on koetuksella" },
+        { id: "l1b", text: "Jokin tietty asia pyörii mielessä ja haluaisin puhua siitä" },
+        { id: "l1c", text: "Elämässä on iso muutos käynnissä ja kaipaan tukea" },
+        { id: "l1d", text: "En osaa vielä nimetä, tunne on epämääräinen" },
       ],
     },
     {
       id: "l2",
       number: 2,
-      category: "goal",
-      question: "What do you want most from therapy right now?",
+      category: "kieli",
+      question: "Millä kielellä haluaisit tavata ammattilaisen?",
       answers: [
-        { id: "l2a", text: "To feel lighter and better in myself" },
-        { id: "l2b", text: "To understand myself better" },
-        { id: "l2c", text: "To work through a specific problem" },
-        { id: "l2d", text: "To create real change in my life" },
+        { id: "l2a", text: "Suomi" },
+        { id: "l2b", text: "Ruotsi" },
+        { id: "l2c", text: "Englanti" },
       ],
     },
     {
       id: "l3",
       number: 3,
-      category: "situation",
-      question: "How long has this been weighing on you?",
+      category: "tilanne",
+      question: "Kuinka kauan tämä asia on painanut mieltäsi?",
       answers: [
-        { id: "l3a", text: "Quite recently, it still feels new" },
-        { id: "l3b", text: "For a few months" },
-        { id: "l3c", text: "For a longer time, more than a year" },
-        { id: "l3d", text: "For as long as I can remember, it has always been there in some way" },
+        { id: "l3a", text: "Vasta hiljattain, asia on tuore" },
+        { id: "l3b", text: "Muutaman kuukauden ajan" },
+        { id: "l3c", text: "Pidemmän aikaa, yli vuoden" },
+        { id: "l3d", text: "Niin kauan kuin muistan, se on ollut aina taustalla" },
       ],
     },
     {
       id: "l4",
       number: 4,
-      category: "situation",
-      question: "What area of life would you most want to talk about? You can choose more than one.",
+      category: "tilanne",
+      question: "Mistä elämän alueesta haluaisit ensisijaisesti puhua? Voit valita useamman.",
       multiSelect: true,
       answers: [
-        { id: "l4a", text: "Work, career, or studies" },
-        { id: "l4b", text: "Relationships, partnership, or family" },
-        { id: "l4c", text: "Identity or life direction" },
-        { id: "l4d", text: "Mood, anxiety, or burnout" },
-        { id: "l4e", text: "Something else, I can explain it in my own words later" },
+        { id: "l4a", text: "Työ, ura tai opiskelu" },
+        { id: "l4b", text: "Ihmissuhteet, parisuhde tai perhe" },
+        { id: "l4c", text: "Oma identiteetti tai elämänsuunta" },
+        { id: "l4d", text: "Mieliala, ahdistus tai uupumus" },
+        { id: "l4e", text: "Jokin muu, voin kertoa lisää ammattilaiselle itse" },
       ],
     },
     {
       id: "l5",
       number: 5,
-      category: "situation",
-      question: "How disruptive does this feel in your everyday life right now?",
-      note: "If you feel in crisis, the fastest available support is always the most important next step.",
+      category: "tilanne",
+      question: "Miten kuormittava olo tuntuu juuri nyt arjessa?",
+      note: "Jos tilanne tuntuu kriisiltä, ohjaamme sinut nopeimmin saatavilla olevan avun piiriin.",
       answers: [
-        { id: "l5a", text: "I am coping, but I wanted to seek support early" },
-        { id: "l5b", text: "Daily life still works somehow, but my energy is running low" },
-        { id: "l5c", text: "It feels quite heavy and I need help now" },
-        { id: "l5d", text: "It feels overwhelming" },
+        { id: "l5a", text: "Pärjään, mutta halusin hakea tukea ajoissa" },
+        { id: "l5b", text: "Arki sujuu jotenkin, mutta energia ei riitä" },
+        { id: "l5c", text: "Olo on melko raskas ja tarvitsen apua nyt" },
+        { id: "l5d", text: "Tilanne tuntuu ylivoimaiselta" },
       ],
     },
     {
       id: "l6",
       number: 6,
-      category: "personality",
-      question: "What kind of person helps you most in difficult moments?",
+      category: "tyyli",
+      question: "Miten yleensä käsittelet vaikeita asioita?",
       answers: [
-        { id: "l6a", text: "Calm and gentle" },
-        { id: "l6b", text: "Honest and direct" },
-        { id: "l6c", text: "Warm and encouraging" },
-        { id: "l6d", text: "Analytical and structured" },
+        { id: "l6a", text: "Puhun läheisille, yhteisöllisyys auttaa" },
+        { id: "l6b", text: "Jään miettimään yksin, prosessoin rauhassa" },
+        { id: "l6c", text: "Teen jotain konkreettista, toiminta auttaa" },
+        { id: "l6d", text: "Vaihtelen tilanteen mukaan" },
       ],
     },
     {
       id: "l7",
       number: 7,
-      category: "working style",
-      question: "How do you want your therapist to work with you?",
-      slider: {
-        min: 0,
-        max: 100,
-        labelMin: "Mostly listening",
-        labelMax: "Actively guiding and giving direction",
-        words: ["Mostly listening", "More listening", "Balanced", "More guiding", "Actively guiding"],
-      },
+      category: "tyyli",
+      question: "Millainen ammattilainen tuntuisi sinulle luontevalta?",
+      answers: [
+        { id: "l7a", text: "Lämmin ja empaattinen, tärkeintä on tulla kuulluksi" },
+        { id: "l7b", text: "Asiantunteva ja jäsennelty, haluan ymmärtää mistä on kyse" },
+        { id: "l7c", text: "Suorasukainen, kuulen mielelläni myös haastavia havaintoja" },
+        { id: "l7d", text: "En osaa sanoa, kokeilen ensin" },
+      ],
     },
     {
       id: "l8",
       number: 8,
-      category: "approach",
-      question: "How do you usually work through difficult things?",
+      category: "tyyli",
+      question: "Millaisella tahdilla haluaisit edetä?",
       answers: [
-        { id: "l8a", text: "I talk to people close to me, connection helps" },
-        { id: "l8b", text: "I think about things quietly on my own" },
-        { id: "l8c", text: "I do something concrete, action helps" },
-        { id: "l8d", text: "It depends on the situation" },
+        { id: "l8a", text: "Rauhallisesti ja omaan tahtiin, ei kiirettä" },
+        { id: "l8b", text: "Tavoitteellisesti, haluan nähdä edistystä" },
+        { id: "l8c", text: "Kumpi vain sopii, olen joustava" },
       ],
     },
     {
       id: "l9",
       number: 9,
-      category: "approach",
-      question: "What pace would feel right for you?",
+      category: "käytäntö",
+      question: "Haluatko tavata etänä vai kasvokkain?",
       answers: [
-        { id: "l9a", text: "Slowly and at my own pace, no rush" },
-        { id: "l9b", text: "Goal-oriented, I want to feel progress" },
-        { id: "l9c", text: "Either can work, I am flexible" },
+        { id: "l9a", text: "Etänä, videovastaanotto sopii hyvin" },
+        { id: "l9b", text: "Kasvokkain, läsnäolo on minulle tärkeää" },
+        { id: "l9c", text: "Kumpi vain käy" },
       ],
     },
     {
       id: "l10",
       number: 10,
-      category: "practicalities",
-      question: "Would you prefer to meet remotely or in person?",
+      category: "käytäntö",
+      question: "Mikä tapaamistiheys kuulostaisi sinulle sopivalta?",
       answers: [
-        { id: "l10a", text: "Remote, video sessions would work well for me" },
-        { id: "l10b", text: "In person, physical presence matters to me" },
-        { id: "l10c", text: "Either works" },
+        { id: "l10a", text: "Kerran viikossa, haluan edetä aktiivisesti" },
+        { id: "l10b", text: "Pari kertaa kuussa" },
+        { id: "l10c", text: "Kerran kuussa riittää" },
+        { id: "l10d", text: "En tiedä vielä, kokeilen ensin" },
       ],
     },
     {
       id: "l11",
       number: 11,
-      category: "practicalities",
-      question: "What session frequency sounds right to you?",
+      category: "käytäntö",
+      question: "Mikä hintaluokka tuntuu sinulle sopivalta per tapaaminen?",
       answers: [
-        { id: "l11a", text: "Once a week, I want to move actively" },
-        { id: "l11b", text: "A couple of times a month" },
-        { id: "l11c", text: "Once a month is enough" },
-        { id: "l11d", text: "I am not sure yet, I would rather try first" },
+        { id: "l11a", text: "alle 80 €" },
+        { id: "l11b", text: "80–120 €" },
+        { id: "l11c", text: "120–160 €" },
+        { id: "l11d", text: "Hinta ei ole minulle ratkaiseva" },
       ],
     },
     {
       id: "l12",
       number: 12,
-      category: "therapist",
-      question: "How important is it that your therapist has a lot of life experience?",
-      slider: {
-        min: 0,
-        max: 100,
-        labelMin: "Not important at all",
-        labelMax: "Very important",
-        words: ["Not important", "Slightly important", "Somewhat important", "Quite important", "Very important"],
-      },
+      category: "käytäntö",
+      question: "Haluatko hyödyntää Kela-korvauksen?",
+      note: "Kela korvaa osan psykoterapian kustannuksista tietyin edellytyksin.",
+      answers: [
+        { id: "l12a", text: "Kyllä, se on minulle tärkeää" },
+        { id: "l12b", text: "Ei ole minulle välttämätöntä" },
+        { id: "l12c", text: "En tiedä vielä, haluaisin kuulla lisää" },
+      ],
     },
     {
       id: "l13",
       number: 13,
-      category: "practicalities",
-      question: "What price range feels realistic to you per session?",
+      category: "historia",
+      question: "Oletko aiemmin käynyt terapiassa tai saanut vastaavaa ammatillista tukea?",
       answers: [
-        { id: "l13a", text: "Under 80 EUR" },
-        { id: "l13b", text: "80 to 120 EUR" },
-        { id: "l13c", text: "120 to 160 EUR" },
-        { id: "l13d", text: "Price is not the deciding factor for me" },
+        { id: "l13a", text: "En, tämä olisi minulle ensikokemus" },
+        { id: "l13b", text: "Kyllä, ja kokemus oli myönteinen" },
+        { id: "l13c", text: "Kyllä, mutta jokin siinä ei tuntunut toimivan" },
+        { id: "l13d", text: "Käyn parhaillaan, etsin rinnalle tai tilalle jotain uutta" },
       ],
     },
     {
       id: "l14",
       number: 14,
-      category: "practicalities",
-      question: "Would you like to use Kela reimbursement if possible?",
-      note: "Kela may reimburse part of psychotherapy costs under certain conditions in Finland.",
+      category: "historia",
+      question: "Jos olet käynyt aiemmin, mikä siinä tuntui hyvältä tai mikä jäi puuttumaan?",
       answers: [
-        { id: "l14a", text: "Yes, that matters to me" },
-        { id: "l14b", text: "It is helpful, but not essential" },
-        { id: "l14c", text: "I am not sure yet, I would like to hear more" },
+        { id: "l14a", text: "Tuli kuulluksi, mutta konkreettiset keinot jäivät vähäisiksi" },
+        { id: "l14b", text: "Paljon teoriaa, mutta yhteys ammattilaiseen jäi etäiseksi" },
+        { id: "l14c", text: "Kaikki toimi hyvin, hain jotain samankaltaista" },
+        { id: "l14d", text: "Ei aiempaa kokemusta, ohitan tämän kysymyksen" },
       ],
     },
     {
       id: "l15",
       number: 15,
-      category: "history",
-      question: "Have you been in therapy or received similar professional support before?",
+      category: "sinä",
+      question: "Miten kuvailisit suhdettasi omiin tunteisiisi?",
       answers: [
-        { id: "l15a", text: "No, this would be my first experience" },
-        { id: "l15b", text: "Yes, and it felt positive" },
-        { id: "l15c", text: "Yes, but something about it did not feel right" },
-        { id: "l15d", text: "I am currently in therapy and looking for something alongside it or in place of it" },
+        { id: "l15a", text: "Tunteet ovat vahvasti läsnä, joskus liikaakin" },
+        { id: "l15b", text: "Tunteet ovat etäisiä, on vaikea tunnistaa mitä tunnen" },
+        { id: "l15c", text: "Pärjään tunteiden kanssa, mutta jokin jumittaa" },
+        { id: "l15d", text: "En ole ajatellut asiaa, kiinnostava kysymys" },
       ],
     },
     {
       id: "l16",
       number: 16,
-      category: "you",
-      question: "What do you hope will change in your life?",
+      category: "sinä",
+      question: "Onko jotain muuta, mitä haluaisit ammattilaisen tietävän sinusta ennen ensitapaamista?",
       openText: true,
-      note: "Write as little or as much as you want. This helps add nuance to the match.",
+      note: "Vastauksesi näkyy vain valitsemallesi ammattilaiselle.",
     },
   ],
 };
@@ -360,9 +341,7 @@ export function getQuiz(quizId: QuizId): Quiz {
 function readAnswer(answers: QuizAnswers, ...keys: string[]) {
   for (const key of keys) {
     const value = answers[key];
-    if (value !== undefined) {
-      return value;
-    }
+    if (value !== undefined) return value;
   }
   return undefined;
 }
@@ -381,112 +360,90 @@ function answerCopy(
   return values[answerId] ?? fallback;
 }
 
-function sliderWord(value: QuizAnswerValue | undefined, words: string[]): string {
-  if (typeof value !== "number") return words[2] ?? words[0];
-  const idx = Math.min(Math.floor((value / 100) * words.length), words.length - 1);
-  return words[idx];
-}
-
 export function buildRecommendations(
   quizId: QuizId,
   answers: QuizAnswers,
 ): Recommendation[] {
-  const focus = answerCopy(
+  const tilanne = answerCopy(
     readStringAnswer(answers, "s1", "l1"),
     {
-      s1a: "carrying strain around energy, work, or everyday life",
-      s1b: "holding one particular issue heavily in your mind",
-      s1c: "moving through a major life change",
-      s1d: "trying to name something that still feels vague",
-      l1a: "carrying strain around energy, work, or everyday life",
-      l1b: "holding one particular issue heavily in your mind",
-      l1c: "moving through a major life change",
-      l1d: "trying to name something that still feels vague",
+      s1a: "arjen ja jaksamisen kuormituksesta",
+      s1b: "tietystä asiasta, joka pyörii mielessä",
+      s1c: "isosta elämänmuutoksesta",
+      s1d: "epämääräisestä mutta raskaasta olosta",
+      l1a: "arjen ja jaksamisen kuormituksesta",
+      l1b: "tietystä asiasta, joka pyörii mielessä",
+      l1c: "isosta elämänmuutoksesta",
+      l1d: "epämääräisestä mutta raskaasta olosta",
     },
-    "whatever in life feels most alive for you right now",
+    "siitä, mikä juuri nyt tuntuu raskaimmalta",
   );
 
-  const goal = answerCopy(
-    readStringAnswer(answers, "s2", "l2"),
+  const tuki = answerCopy(
+    readStringAnswer(answers, "s3", "l7"),
     {
-      s2a: "feeling lighter and better in yourself",
-      s2b: "understanding yourself better",
-      s2c: "working through a specific problem",
-      s2d: "creating real change in your life",
-      l2a: "feeling lighter and better in yourself",
-      l2b: "understanding yourself better",
-      l2c: "working through a specific problem",
-      l2d: "creating real change in your life",
+      s3a: "turvallinen tila ajatuksille",
+      s3b: "konkreettiset arjen keinot",
+      s3c: "itseymmärryksen syventäminen",
+      s3d: "selkeä tavoite ja muutos",
+      l7a: "lämmin ja empaattinen ote",
+      l7b: "asiantunteva ja jäsennelty lähestyminen",
+      l7c: "suorasukainen ja haastava työtapa",
+      l7d: "avoin lähestyminen",
     },
-    "finding a way forward that feels right",
+    "sinulle sopiva tuki",
   );
 
-  const personality = answerCopy(
-    readStringAnswer(answers, "s3", "l6"),
+  const tahti = answerCopy(
+    readStringAnswer(answers, "l8"),
     {
-      s3a: "calm and gentle", s3b: "honest and direct",
-      s3c: "warm and encouraging", s3d: "analytical and structured",
-      l6a: "calm and gentle", l6b: "honest and direct",
-      l6c: "warm and encouraging", l6d: "analytical and structured",
+      l8a: "rauhallisesti ja omaan tahtiin",
+      l8b: "tavoitteellisesti edeten",
+      l8c: "joustavasti tilanteen mukaan",
     },
-    "someone who feels like a natural fit",
+    "sinulle sopivalla tahdilla",
   );
 
-  const workingStyleWords = ["mostly listening", "leaning toward listening", "balanced between listening and guiding", "leaning toward active guidance", "actively guiding"];
-  const workingStyleValue = readAnswer(answers, "s4", "l7");
-  const workingStyle = sliderWord(workingStyleValue, workingStyleWords);
-
-  const sessionMode = answerCopy(
-    readStringAnswer(answers, "l10"),
-    {
-      l10a: "remotely",
-      l10b: "in person",
-      l10c: "either remotely or in person",
-    },
-    "in a flexible way",
-  );
-
-  const pace = answerCopy(
+  const tapaamistapa = answerCopy(
     readStringAnswer(answers, "l9"),
     {
-      l9a: "slowly and at your own pace",
-      l9b: "with clear goals and a steady rhythm",
-      l9c: "with flexibility depending on the moment",
+      l9a: "etänä",
+      l9b: "kasvokkain",
+      l9c: "etänä tai kasvokkain",
     },
-    "at a pace that feels right for you",
+    "joustavasti",
   );
 
-  const kelaPreference = readStringAnswer(answers, "s8", "l14");
+  const kelaPreference = readStringAnswer(answers, "s7", "l12");
   const kelaTag =
-    kelaPreference === "s8a" || kelaPreference === "l14a"
-      ? "Kela pathway possible"
-      : "Flexible way to begin";
+    kelaPreference === "s7a" || kelaPreference === "l12a"
+      ? "Kela-polku mahdollinen"
+      : "Joustava aloitustapa";
 
   const depthTag =
-    quizId === "long" ? "Built from the deeper quiz" : "Built from the shorter quiz";
+    quizId === "long" ? "Tarkemman kartoituksen perusteella" : "Nopean kartoituksen perusteella";
 
   return [
     {
       name: "Anna Mäkinen",
-      title: "Cognitive psychotherapist",
-      availability: "Open times available this week",
-      tags: [goal, personality, kelaTag],
-      reason: `Anna rises first because your goal is ${goal} and you tend to connect best with someone ${personality}. Her approach is ${workingStyle}, which fits well when you are ${focus}. She can meet ${sessionMode} and work ${pace}.`,
+      title: "Kognitiivinen psykoterapeutti",
+      availability: "Vapaita aikoja tällä viikolla",
+      tags: [tuki, kelaTag, depthTag],
+      reason: `Anna nousee ensimmäiseksi ehdotukseksi, koska kerroit ${tilanne}. Hän tarjoaa ${tuki} ja työskentelee ${tahti}. Tapaamiset onnistuvat ${tapaamistapa}.`,
     },
     {
       name: "Juhani Leppänen",
-      title: "Psychodynamic therapist",
-      availability: "New client openings next week",
-      tags: [personality, "Longer-term work", depthTag],
-      reason: `Juhani is a strong alternative when you want to pause more deeply and understand how the current strain has grown over time. He tends to work in a way that is ${workingStyle}, which suits someone looking to ${goal} through careful, unhurried reflection.`,
+      title: "Psykodynaaminen terapeutti",
+      availability: "Uusia asiakaspaikkoja ensi viikolla",
+      tags: [tuki, "Pidempiaikainen työ", depthTag],
+      reason: `Juhani on vahva vaihtoehto, jos haluat pysähtyä syvemmin ja ymmärtää, miten nykyinen kuormitus on kehittynyt ajan myötä. Hän etenee ${tahti} ja luo tilaa rauhalliselle pohdinnalle.`,
     },
     {
       name: "Sari Rantanen",
-      title: "ACT therapist",
-      availability: "Remote appointments also available in the evenings",
-      tags: [sessionMode, "Everyday tools", "Low-pressure first step"],
-      reason: `Sari is a good third recommendation if you hope therapy will leave you with practical tools. Her way of working leans toward being ${personality} while still offering structure. A gentle starting point, especially if you want to begin ${sessionMode}.`,
+      title: "ACT-terapeutti",
+      availability: "Etäaikoja myös iltaisin",
+      tags: [tapaamistapa, "Arjen työkalut", "Matala kynnys aloittaa"],
+      reason: `Sari on hyvä kolmas ehdotus, jos toivot terapian tuovan konkreettisia työkaluja arkeen. Hän tarjoaa ${tuki} ja pitää kynnyksen matalana — erityisesti jos haluat aloittaa ${tapaamistapa}.`,
     },
   ];
 }
-
