@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Logo from "./Logo";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { routePaths } from "../../lib/routes";
+import type { Locale } from "../../types/app";
 
 interface NavbarProps {
-  onOpenQuiz: () => void;
+  locale: Locale;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
+const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -36,9 +42,9 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
       }}
     >
       <div className="page-shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+        <Link to={routePaths.clientHome(locale)} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Logo />
-        </a>
+        </Link>
 
         <ul
           style={{
@@ -52,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
         >
           <li>
             <a
-              href="#how"
+              href={routePaths.clientHome(locale) + "#how"}
               style={{
                 textDecoration: "none",
                 color: "var(--ink)",
@@ -70,12 +76,12 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 event.currentTarget.style.opacity = "0.85";
               }}
             >
-              How it works
+              {t("nav.howItWorks")}
             </a>
           </li>
           <li>
             <a
-              href="#stories"
+              href={routePaths.clientHome(locale) + "#stories"}
               style={{
                 textDecoration: "none",
                 color: "var(--ink)",
@@ -93,36 +99,11 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 event.currentTarget.style.opacity = "0.85";
               }}
             >
-              Stories
+              {t("nav.stories")}
             </a>
           </li>
           <li>
-            <button
-              onClick={onOpenQuiz}
-              style={{
-                background: "var(--terra)",
-                color: "white",
-                border: "none",
-                borderRadius: "100px",
-                padding: "10px 22px",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "14px",
-                fontWeight: 700,
-                cursor: "pointer",
-                boxShadow: "0 3px 14px rgba(196,103,74,0.35)",
-                transition: "background 0.2s, transform 0.15s",
-              }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.background = "var(--terra-mid)";
-                event.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.background = "var(--terra)";
-                event.currentTarget.style.transform = "translateY(0)";
-              }}
-            >
-              Start matching
-            </button>
+            <LanguageSwitcher locale={locale} />
           </li>
         </ul>
       </div>

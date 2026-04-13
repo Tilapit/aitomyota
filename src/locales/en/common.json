@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "howItWorks": "How it works",
+    "stories": "Stories",
+    "forTherapists": "For therapists",
+    "startMatching": "Start matching"
+  },
+  "audienceTabs": {
+    "forClients": "For clients",
+    "forTherapists": "For therapists"
+  },
+  "languageSwitcher": {
+    "ariaLabel": "Switch language",
+    "toFinnish": "FI",
+    "toEnglish": "EN"
+  },
+  "footer": {
+    "quote": "The first therapy appointment should feel safe, not like a guess.",
+    "privacy": "Privacy",
+    "forTherapists": "For therapists",
+    "contact": "Contact"
+  },
+  "therapistProfile": {
+    "contact": "Contact therapist",
+    "bookCall": "Book a call",
+    "introVideo": "Intro video",
+    "introPreview": "Intro preview",
+    "contactTherapist": "Contact therapist",
+    "bookCallPanel": "Book a call"
+  },
+  "status": {
+    "saveSuccess": "Saved",
+    "savePending": "Saving...",
+    "saveError": "Could not save yet"
+  }
+}

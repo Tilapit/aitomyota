@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "shortEyebrow": "Start here",
+    "longEyebrow": "Longer version",
+    "showRecommendations": "Show recommendations",
+    "nextQuestion": "Next question",
+    "back": "Back",
+    "yourRecommendations": "Your recommendations",
+    "continueFromHere": "Continue from here",
+    "retakeQuiz": "Take the quiz again",
+    "returnHome": "Return home",
+    "questionLabel": "Question {{current}} / {{total}}",
+    "multiSelectHint": "Choose more than one if needed",
+    "freeTextLabel": "In your own words",
+    "freeTextPlaceholder": "Write as much or as little as you want.",
+    "gentleReminderTitle": "A gentle reminder",
+    "gentleReminderBody": "You do not need perfect words to continue. A good match often begins with a few honest signals, not a complete explanation.",
+    "gentleReminderShort": "You can always add more detail later.",
+    "gentleReminderLong": "You can always switch back to the shorter path.",
+    "questionsCount": "{{count}} questions",
+    "completed": "{{current}} / {{total}} completed",
+    "bestRecommendation": "Best first recommendation",
+    "optionLabel": "Option {{index}}",
+    "whyThisCouldFit": "Why this could fit",
+    "matchNotes": "Match notes",
+    "continueTitle": "A good first step should feel more grounded than random.",
+    "continueDescription": "You can take the quiz again, compare your recommendations once more, or head back to the homepage and continue from there when it feels right."
+  },
+  "tone": {
+    "short": {
+      "eyebrow": "Start here",
+      "title": "A short match, then a clearer next step.",
+      "description": "This version keeps things light and gets you to a thoughtful recommendation quickly.",
+      "switchLabel": "Want more context?",
+      "switchCta": "Take the longer version",
+      "switchDescription": "The longer path adds more detail about pace, preferences, and how you want the work to feel."
+    },
+    "long": {
+      "eyebrow": "Longer version",
+      "title": "A fuller picture for a more precise match.",
+      "description": "This version asks a little more so the recommendation can be more specific.",
+      "switchLabel": "Prefer the shorter path?",
+      "switchCta": "Go back to the short version",
+      "switchDescription": "You can always return to the shorter version if you want to move faster."
+    }
+  },
+  "recommendations": {
+    "title": "Three professionals worth beginning with",
+    "description": "These are not random names from a directory. Each recommendation is tied to the kind of support, pace, and first impression you told us you were hoping for.",
+    "introVideo": "Intro video",
+    "introPreview": "Intro preview",
+    "contactTherapist": "Contact therapist",
+    "bookCall": "Book a call",
+    "contactTitle": "Contact therapist",
+    "contactMessage": "Write a short introduction",
+    "contactOpenings": "Ask about the next opening",
+    "callTitle": "Book a call",
+    "callDescription": "A short first call can help you hear their tone, ask about availability, and decide whether the first session feels right.",
+    "callReserve": "Reserve a short intro call",
+    "callTimes": "See available times"
+  }
+}

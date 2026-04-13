@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "eyebrow": "Terapeutin onboarding",
+    "title": "Luo profiili, joka tuntuu hyödylliseltä jo ennen ensimmäistä käyntiä.",
+    "description": "Vastaa lyhyeen kyselyyn työskentelystäsi. Sen jälkeen rekisteröidy tallentaaksesi ja julkaistaksesi profiilisi.",
+    "completeTitle": "Onboarding-luonnoksesi on valmis",
+    "completeDescription": "Luo terapeutin tili tallentaaksesi vastaukset, julkaistaksesi profiilin ja jatkaaksesi hallintapaneelissa.",
+    "authCta": "Jatka rekisteröitymiseen",
+    "back": "Takaisin",
+    "next": "Seuraava",
+    "finish": "Viimeistele onboarding"
+  }
+}

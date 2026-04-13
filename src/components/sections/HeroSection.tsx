@@ -1,12 +1,18 @@
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import heroBg from "../../assets/hero-bg.webp";
+import AudienceTabs from "../layout/AudienceTabs";
+import { useCurrentLocale } from "../../hooks/useCurrentLocale";
 
 interface HeroSectionProps {
   onOpenQuiz: () => void;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
+  const { t } = useTranslation("landing-client");
+  const locale = useCurrentLocale();
   const statsRef = useRef<HTMLDivElement>(null);
+  const stats = t("hero.stats", { returnObjects: true }) as Array<{ num: string; label: string }>;
 
   useEffect(() => {
     const element = statsRef.current;
@@ -69,37 +75,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
           }}
         >
           <div style={{ maxWidth: "700px", width: "100%" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "10px",
-              fontSize: "11.5px",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#C4674A",
-              marginBottom: "12px",
-            }}
-          >
-            <span
-              style={{
-                display: "block",
-                width: "20px",
-                height: "1.5px",
-                background: "#C4674A",
-              }}
-            />
-            Matching service
-            <span
-              style={{
-                display: "block",
-                width: "20px",
-                height: "1.5px",
-                background: "#C4674A",
-              }}
-            />
-          </div>
+          <AudienceTabs locale={locale} active="client" />
 
           <h1
             style={{
@@ -113,10 +89,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
               textShadow: "0 2px 16px rgba(250,246,240,1), 0 0 40px rgba(250,246,240,0.9)",
             }}
           >
-            Find the right therapist
+            {t("hero.titleLineOne")}
             <br />
             <em style={{ fontStyle: "italic", color: "#C4674A" }}>
-              the first time.
+              {t("hero.titleAccent")}
             </em>
           </h1>
 
@@ -133,8 +109,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
               marginRight: "auto",
             }}
           >
-            A calmer way to find someone who fits, before the first appointment turns
-            into guesswork.
+            {t("hero.description")}
           </p>
 
           <button
@@ -161,7 +136,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
               event.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            Start matching →
+            {t("hero.cta")} →
           </button>
 
           <div
@@ -175,12 +150,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
               width: "100%",
             }}
           >
-            {[
-              { num: "99+", lbl: "Therapists" },
-              { num: "5 min", lbl: "Detailed match path" },
-              { num: "3", lbl: "Curated matches" },
-            ].map((stat, index) => (
-              <React.Fragment key={stat.lbl}>
+            {stats.map((stat, index) => (
+              <React.Fragment key={stat.label}>
                 {index > 0 && (
                   <div
                     style={{
@@ -199,9 +170,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
                       fontWeight: 600,
                       color: "#1E1610",
                     }}
-                  >
-                    {stat.num}
-                  </div>
+                    >
+                      {stat.num}
+                    </div>
                   <div
                     style={{
                       fontSize: "12px",
@@ -209,9 +180,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
                       marginTop: "1px",
                       fontWeight: 500,
                     }}
-                  >
-                    {stat.lbl}
-                  </div>
+                    >
+                      {stat.label}
+                    </div>
                 </div>
               </React.Fragment>
             ))}

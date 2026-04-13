@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 const HowItWorksSection: React.FC = () => {
+  const { t } = useTranslation("landing-client");
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const steps = t("how.steps", {
+    returnObjects: true,
+  }) as Array<{ kicker: string; title: string; text: string; pill: string }>;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,16 +39,16 @@ const HowItWorksSection: React.FC = () => {
         <div className="page-shell">
           <div style={{ textAlign: "center", marginBottom: "64px" }}>
             <div className="s-label" style={{ justifyContent: "center" }}>
-              How it works
+              {t("how.eyebrow")}
             </div>
             <h2 style={{ maxWidth: "100%", textAlign: "center" }}>
-              Three clear steps
+              {t("how.title")}
             </h2>
             <p
               className="s-sub"
               style={{ maxWidth: "480px", margin: "0 auto", textAlign: "center" }}
             >
-              A short path from uncertainty to a first conversation that actually feels considered.
+              {t("how.description")}
             </p>
           </div>
 
@@ -105,12 +110,10 @@ const HowItWorksSection: React.FC = () => {
                 </svg>
               </div>
               <div style={{ paddingTop: "12px" }}>
-                <div className="step-kicker">Step 01</div>
-                <div className="step-title">Share what feels most important</div>
-                <p className="step-text">
-                  A few questions help us understand your pace, preferences, and what kind of support would feel right.
-                </p>
-                <div className="step-pill">About 2 to 5 minutes</div>
+                <div className="step-kicker">{steps[0].kicker}</div>
+                <div className="step-title">{steps[0].title}</div>
+                <p className="step-text">{steps[0].text}</p>
+                <div className="step-pill">{steps[0].pill}</div>
               </div>
             </div>
 
@@ -163,12 +166,10 @@ const HowItWorksSection: React.FC = () => {
                 </svg>
               </div>
               <div style={{ paddingTop: "12px" }}>
-                <div className="step-kicker">Step 02</div>
-                <div className="step-title">See three strong matches</div>
-                <p className="step-text">
-                  We narrow the field and explain why each person stands out, so you are not scanning a directory alone.
-                </p>
-                <div className="step-pill">Reasons included</div>
+                <div className="step-kicker">{steps[1].kicker}</div>
+                <div className="step-title">{steps[1].title}</div>
+                <p className="step-text">{steps[1].text}</p>
+                <div className="step-pill">{steps[1].pill}</div>
               </div>
             </div>
 
@@ -214,12 +215,10 @@ const HowItWorksSection: React.FC = () => {
                 </svg>
               </div>
               <div style={{ paddingTop: "12px" }}>
-                <div className="step-kicker">Step 03</div>
-                <div className="step-title">Reach out when one feels right</div>
-                <p className="step-text">
-                  Watch a short intro, send a first message, or book a quick call from the recommendation itself.
-                </p>
-                <div className="step-pill">Move only when ready</div>
+                <div className="step-kicker">{steps[2].kicker}</div>
+                <div className="step-title">{steps[2].title}</div>
+                <p className="step-text">{steps[2].text}</p>
+                <div className="step-pill">{steps[2].pill}</div>
               </div>
             </div>
           </div>

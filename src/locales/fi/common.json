@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "howItWorks": "Miten se toimii",
+    "stories": "Kokemuksia",
+    "forTherapists": "Terapeuteille",
+    "startMatching": "Aloita match"
+  },
+  "audienceTabs": {
+    "forClients": "Asiakkaille",
+    "forTherapists": "Terapeuteille"
+  },
+  "languageSwitcher": {
+    "ariaLabel": "Vaihda kieltä",
+    "toFinnish": "FI",
+    "toEnglish": "EN"
+  },
+  "footer": {
+    "quote": "Ensimmäisen terapiakäynnin pitäisi tuntua turvalliselta, ei arvaukselta.",
+    "privacy": "Tietosuoja",
+    "forTherapists": "Terapeuteille",
+    "contact": "Yhteystiedot"
+  },
+  "therapistProfile": {
+    "contact": "Ota yhteyttä terapeuttiin",
+    "bookCall": "Varaa puhelu",
+    "introVideo": "Esittelyvideo",
+    "introPreview": "Esittelyn esikatselu",
+    "contactTherapist": "Ota yhteyttä terapeuttiin",
+    "bookCallPanel": "Varaa puhelu"
+  },
+  "status": {
+    "saveSuccess": "Tallennettu",
+    "savePending": "Tallennetaan...",
+    "saveError": "Tallennus ei vielä onnistunut"
+  }
+}

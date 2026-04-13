@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type {
   QuizAnswer,
   QuizAnswerValue,
@@ -6,99 +8,23 @@ import type {
   QuizQuestion,
 } from "../features/quiz/quizData";
 import { useQuiz } from "../features/quiz/useQuiz";
+import LanguageSwitcher from "../components/layout/LanguageSwitcher";
 import Logo from "../components/layout/Logo";
+import { therapistExperiences } from "../content/therapistContent";
+import { routePaths } from "../lib/routes";
+import { useCurrentLocale } from "../hooks/useCurrentLocale";
+import { getPublishedTherapists } from "../repositories/therapistRepository";
 
-type QuizPageProps = {
-  quizId: QuizId;
-  onGoHome: () => void;
-  onSelectQuiz: (quizId: QuizId) => void;
+type RecommendationMomentName = keyof typeof therapistExperiences & string;
+
+type ToneCopy = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  switchLabel: string;
+  switchCta: string;
+  switchDescription: string;
 };
-
-const recommendationMoments = {
-  "Anna Mäkinen": {
-    duration: "1:34",
-    preview: "A calm first meeting focused on practical relief and emotional clarity.",
-    videoIntro:
-      "Anna opens with a grounded introduction to how she works: warm, clear, and gently practical. Her short intro is a good fit if you want to feel understood quickly without losing structure.",
-    videoPoints: [
-      "How she helps people who feel overloaded by daily life",
-      "What a first session looks like in practice",
-      "Why clarity and warmth can coexist",
-    ],
-    contactCopy:
-      "If Anna feels like the right first direction, the next step is simply a brief message. You do not need to explain everything yet.",
-  },
-  "Juhani Leppänen": {
-    duration: "1:48",
-    preview: "A slower, more reflective introduction for people who want more depth.",
-    videoIntro:
-      "Juhani's introduction is thoughtful and unhurried. He speaks about long-form work, reflective conversations, and how therapy can help when something deeper has been building for a while.",
-    videoPoints: [
-      "What deeper therapeutic work can feel like at the beginning",
-      "How he creates room for reflection without pressure",
-      "Why longer patterns sometimes need a slower rhythm",
-    ],
-    contactCopy:
-      "A first message to Juhani can be short and simple. It is enough to say what has been feeling heavy and that you are looking for an opening.",
-  },
-  "Sari Rantanen": {
-    duration: "1:22",
-    preview: "A gentle, practical style with tools you can carry into daily life.",
-    videoIntro:
-      "Sari's intro feels light, reassuring, and practical. She explains how she helps people begin with a low threshold while still building movement and confidence over time.",
-    videoPoints: [
-      "How practical tools are introduced without overwhelm",
-      "Why remote appointments can still feel personal",
-      "What a low-pressure first step can look like",
-    ],
-    contactCopy:
-      "If Sari seems like a strong fit, you can begin with a short note or book a brief call to see how the first session might feel.",
-  },
-} satisfies Record<
-  string,
-  {
-    duration: string;
-    preview: string;
-    videoIntro: string;
-    videoPoints: string[];
-    contactCopy: string;
-  }
->;
-
-type RecommendationMomentName = keyof typeof recommendationMoments;
-
-const quizTone = {
-  short: {
-    eyebrow: "Start here",
-    title: "A short match, then a clearer next step.",
-    description:
-      "This version keeps things light and gets you to a thoughtful recommendation quickly.",
-    switchLabel: "Want more context?",
-    switchCta: "Take the longer version",
-    switchDescription:
-      "The longer path adds more detail about pace, preferences, and how you want the work to feel.",
-  },
-  long: {
-    eyebrow: "Longer version",
-    title: "A fuller picture for a more precise match.",
-    description:
-      "This version asks a little more so the recommendation can be more specific.",
-    switchLabel: "Prefer the shorter path?",
-    switchCta: "Go back to the short version",
-    switchDescription:
-      "You can always return to the shorter version if you want to move faster.",
-  },
-} satisfies Record<
-  QuizId,
-  {
-    eyebrow: string;
-    title: string;
-    description: string;
-    switchLabel: string;
-    switchCta: string;
-    switchDescription: string;
-  }
->;
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = Math.max(8, Math.round((current / total) * 100));
@@ -129,11 +55,13 @@ function QuizAside({
   totalQuestions: number;
   currentStep: number;
   isComplete: boolean;
-  tone: (typeof quizTone)[QuizId];
+  tone: ToneCopy;
   alternateQuizId: QuizId;
   onSelectQuiz: (quizId: QuizId) => void;
   quizId: QuizId;
 }) {
+  const { t } = useTranslation("quiz-client");
+
   return (
     <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
       <div>
@@ -152,13 +80,13 @@ function QuizAside({
           {quizDescription}
         </p>
         <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[color:var(--terra)]">
-          {totalQuestions} questions
+          {t("meta.questionsCount", { count: totalQuestions })}
         </div>
         {!isComplete && (
           <>
             <ProgressBar current={currentStep + 1} total={totalQuestions} />
             <div className="text-[13px] text-[color:var(--ink-light)]">
-              {currentStep + 1} / {totalQuestions} completed
+              {t("meta.completed", { current: currentStep + 1, total: totalQuestions })}
             </div>
           </>
         )}
@@ -182,16 +110,15 @@ function QuizAside({
 
       <div className="space-y-3 border-t border-[rgba(196,103,74,0.12)] pt-5">
         <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--terra)]">
-          A gentle reminder
+          {t("meta.gentleReminderTitle")}
         </div>
         <p className="text-[14px] leading-6 text-[color:var(--ink-mid)]">
-          You do not need perfect words to continue. A good match often begins with
-          a few honest signals, not a complete explanation.
+          {t("meta.gentleReminderBody")}
         </p>
         <p className="text-[12px] text-[color:var(--ink-light)]">
           {quizId === "short"
-            ? "You can always add more detail later."
-            : "You can always switch back to the shorter path."}
+            ? t("meta.gentleReminderShort")
+            : t("meta.gentleReminderLong")}
         </p>
       </div>
     </aside>
@@ -203,8 +130,9 @@ function RecommendationActions({
 }: {
   name: RecommendationMomentName;
 }) {
+  const { t } = useTranslation("quiz-client");
   const [openPanel, setOpenPanel] = useState<"video" | "contact" | "call" | null>(null);
-  const details = recommendationMoments[name];
+  const details = therapistExperiences[name];
 
   return (
     <div className="space-y-4">
@@ -213,9 +141,10 @@ function RecommendationActions({
         onClick={() => setOpenPanel(openPanel === "video" ? null : "video")}
         className="therapist-video w-full text-left"
         aria-expanded={openPanel === "video"}
+        style={{ backgroundImage: `url(${details.videoPoster})` }}
       >
         <div className="therapist-video-top">
-          <span className="therapist-video-badge">Intro video</span>
+          <span className="therapist-video-badge">{t("recommendations.introVideo")}</span>
           <span className="therapist-video-length">{details.duration}</span>
         </div>
         <div className="therapist-video-center">
@@ -228,7 +157,7 @@ function RecommendationActions({
 
       {openPanel === "video" && (
         <div className="therapist-inline-panel">
-          <div className="therapist-inline-kicker">Intro preview</div>
+          <div className="therapist-inline-kicker">{t("recommendations.introPreview")}</div>
           <p className="therapist-inline-copy">{details.videoIntro}</p>
           <div className="therapist-inline-points">
             {details.videoPoints.map((point: string) => (
@@ -249,27 +178,27 @@ function RecommendationActions({
           onClick={() => setOpenPanel(openPanel === "contact" ? null : "contact")}
           className="bk-btn fill"
         >
-          Contact therapist
+          {t("recommendations.contactTherapist")}
         </button>
         <button
           type="button"
           onClick={() => setOpenPanel(openPanel === "call" ? null : "call")}
           className="bk-btn outline"
         >
-          Book a call
+          {t("recommendations.bookCall")}
         </button>
       </div>
 
       {openPanel === "contact" && (
         <div className="therapist-inline-panel therapist-inline-panel-soft">
-          <div className="therapist-inline-kicker">Contact therapist</div>
+          <div className="therapist-inline-kicker">{t("recommendations.contactTitle")}</div>
           <p className="therapist-inline-copy">{details.contactCopy}</p>
           <div className="therapist-contact-actions">
             <button type="button" className="therapist-contact-btn">
-              Write a short introduction
+              {t("recommendations.contactMessage")}
             </button>
             <button type="button" className="therapist-contact-btn">
-              Ask about the next opening
+              {t("recommendations.contactOpenings")}
             </button>
           </div>
         </div>
@@ -277,17 +206,14 @@ function RecommendationActions({
 
       {openPanel === "call" && (
         <div className="therapist-inline-panel therapist-inline-panel-soft">
-          <div className="therapist-inline-kicker">Book a call</div>
-          <p className="therapist-inline-copy">
-            A short first call can help you hear their tone, ask about availability,
-            and decide whether the first session feels right.
-          </p>
+          <div className="therapist-inline-kicker">{t("recommendations.callTitle")}</div>
+          <p className="therapist-inline-copy">{t("recommendations.callDescription")}</p>
           <div className="therapist-contact-actions">
             <button type="button" className="therapist-contact-btn">
-              Reserve a short intro call
+              {t("recommendations.callReserve")}
             </button>
             <button type="button" className="therapist-contact-btn">
-              See available times
+              {t("recommendations.callTimes")}
             </button>
           </div>
         </div>
@@ -325,6 +251,8 @@ function QuestionCard({
   isFirst,
   isLast,
 }: QuestionCardProps) {
+  const { t } = useTranslation("quiz-client");
+
   return (
     <section className="rounded-[30px] bg-white px-8 py-10 shadow-[0_26px_80px_rgba(30,22,16,0.08)] sm:px-10 sm:py-12">
       <div className="mb-8 flex flex-wrap items-center gap-3">
@@ -332,11 +260,11 @@ function QuestionCard({
           {question.category}
         </span>
         <span className="text-sm text-[color:var(--ink-light)]">
-          Question {currentIndex + 1} / {total}
+          {t("meta.questionLabel", { current: currentIndex + 1, total })}
         </span>
         {question.multiSelect && (
           <span className="rounded-full bg-[color:var(--sand-pale)] px-3 py-1 text-[11px] font-medium text-[color:var(--ink-mid)]">
-            Choose more than one if needed
+            {t("meta.multiSelectHint")}
           </span>
         )}
       </div>
@@ -355,14 +283,14 @@ function QuestionCard({
         {question.openText ? (
           <label className="block">
             <span className="mb-3 block text-sm font-medium text-[color:var(--ink-mid)]">
-              In your own words
+              {t("meta.freeTextLabel")}
             </span>
             <textarea
               value={(selectedValue as string) ?? ""}
               onChange={(event) => onTextChange(event.target.value)}
               rows={8}
               className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
-              placeholder="Write as much or as little as you want."
+              placeholder={t("meta.freeTextPlaceholder")}
             />
           </label>
         ) : (
@@ -416,7 +344,7 @@ function QuestionCard({
           disabled={isFirst}
           className="inline-flex items-center justify-center rounded-full border border-[color:var(--cream-dark)] px-5 py-3 text-sm font-medium text-[color:var(--ink-mid)] transition hover:border-[color:var(--ink-light)] hover:text-[color:var(--ink)] disabled:pointer-events-none disabled:opacity-40"
         >
-          Back
+          {t("meta.back")}
         </button>
         <button
           type="button"
@@ -424,7 +352,7 @@ function QuestionCard({
           disabled={!canProceed}
           className="inline-flex items-center justify-center rounded-full bg-[color:var(--terra)] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_36px_rgba(196,103,74,0.25)] transition hover:bg-[color:var(--terra-mid)] disabled:cursor-not-allowed disabled:bg-[color:var(--cream-dark)] disabled:text-[color:var(--ink-light)]"
         >
-          {isLast ? "Show recommendations" : "Next question"}
+          {isLast ? t("meta.showRecommendations") : t("meta.nextQuestion")}
         </button>
       </div>
     </section>
@@ -449,11 +377,13 @@ function WaveDivider({ fill }: { fill: string }) {
   );
 }
 
-export default function QuizPage({
-  quizId,
-  onGoHome,
-  onSelectQuiz,
-}: QuizPageProps) {
+export default function QuizPage() {
+  const locale = useCurrentLocale();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation("quiz-client");
+  const quizId: QuizId = location.pathname.endsWith("/long") ? "long" : "short";
+  const tone = t(`tone.${quizId}`, { returnObjects: true }) as ToneCopy;
   const {
     quiz,
     currentStep,
@@ -462,28 +392,38 @@ export default function QuizPage({
     questionState,
     recommendations,
     restart,
-  } = useQuiz(quizId);
-
-  const tone = quizTone[quizId];
+  } = useQuiz(quizId, locale);
+  const [publishedRecommendations, setPublishedRecommendations] = useState<typeof recommendations | null>(null);
   const alternateQuizId = quizId === "short" ? "long" : "short";
+
+  useEffect(() => {
+    if (!isComplete) {
+      return;
+    }
+
+    void getPublishedTherapists(locale).then((profiles) => {
+      setPublishedRecommendations(profiles.length > 0 ? profiles : recommendations);
+    });
+  }, [isComplete, locale, recommendations]);
 
   return (
     <div className="min-h-screen bg-[color:var(--cream)]">
       <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b border-[rgba(196,103,74,0.1)] bg-[rgba(250,246,240,0.88)] px-6 py-4 backdrop-blur-[16px] sm:px-10 lg:px-[60px]">
-        <button
-          type="button"
-          onClick={onGoHome}
+        <Link
+          to={routePaths.clientHome(locale)}
           className="flex items-center text-2xl tracking-tight text-[color:var(--ink)]"
         >
           <Logo />
-        </button>
-        <button
-          type="button"
-          onClick={onGoHome}
-          className="rounded-full border border-[color:var(--cream-dark)] bg-white/60 px-4 py-2 text-sm font-medium text-[color:var(--ink-mid)] transition hover:border-[color:var(--ink-light)] hover:text-[color:var(--ink)]"
-        >
-          Back to home
-        </button>
+        </Link>
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher locale={locale} />
+          <Link
+            to={routePaths.clientHome(locale)}
+            className="rounded-full border border-[color:var(--cream-dark)] bg-white/60 px-4 py-2 text-sm font-medium text-[color:var(--ink-mid)] transition hover:border-[color:var(--ink-light)] hover:text-[color:var(--ink)]"
+          >
+            {t("meta.returnHome")}
+          </Link>
+        </div>
       </header>
 
       <main className="pt-[74px]">
@@ -509,7 +449,13 @@ export default function QuizPage({
                   isComplete={isComplete}
                   tone={tone}
                   alternateQuizId={alternateQuizId}
-                  onSelectQuiz={onSelectQuiz}
+                  onSelectQuiz={(nextQuizId) =>
+                    navigate(
+                      nextQuizId === "long"
+                        ? routePaths.clientQuizLong(locale)
+                        : routePaths.clientQuiz(locale),
+                    )
+                  }
                   quizId={quizId}
                 />
               </div>
@@ -523,25 +469,23 @@ export default function QuizPage({
               <div className="page-shell-tight">
                 <div className="mb-14 text-center">
                   <div className="s-label justify-center">
-                    Your recommendations
+                    {t("meta.yourRecommendations")}
                   </div>
-                  <h2 className="max-w-full text-center">Three professionals worth beginning with</h2>
+                  <h2 className="max-w-full text-center">{t("recommendations.title")}</h2>
                   <p className="s-sub mx-auto max-w-[620px] text-center">
-                    These are not random names from a directory. Each recommendation is
-                    tied to the kind of support, pace, and first impression you told us
-                    you were hoping for.
+                    {t("recommendations.description")}
                   </p>
                 </div>
 
                 <div className="space-y-5">
-                  {recommendations.map((recommendation, index) => (
+                  {(publishedRecommendations ?? recommendations).map((recommendation, index) => (
                     <article
                       key={recommendation.name}
                       className="rounded-[28px] border border-[rgba(196,103,74,0.12)] bg-white p-7 shadow-[0_24px_70px_rgba(30,22,16,0.06)]"
                     >
                       <div className="mb-5 flex flex-wrap items-center gap-3">
                         <span className="rounded-full bg-[color:var(--terra)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                          {index === 0 ? "Best first recommendation" : `Option ${index + 1}`}
+                          {index === 0 ? t("meta.bestRecommendation") : t("meta.optionLabel", { index: index + 1 })}
                         </span>
                         <span className="text-[13px] text-[color:var(--ink-light)]">
                           {recommendation.availability}
@@ -550,6 +494,17 @@ export default function QuizPage({
 
                       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
                         <div>
+                          <div
+                            className="therapist-profile-image"
+                            style={{
+                              backgroundImage: `url(${
+                                therapistExperiences[
+                                  recommendation.name as RecommendationMomentName
+                                ].portrait
+                              })`,
+                            }}
+                            aria-hidden="true"
+                          />
                           <div className="font-serif text-[32px] leading-[1.08] text-[color:var(--ink)]">
                             {recommendation.name}
                           </div>
@@ -559,7 +514,7 @@ export default function QuizPage({
 
                           <div className="mt-6 rounded-[16px] bg-[color:var(--sand-pale)] p-5">
                             <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
-                              Why this could fit
+                              {t("meta.whyThisCouldFit")}
                             </div>
                             <div className="text-[14px] leading-7 text-[color:var(--ink-mid)]">
                               {recommendation.reason}
@@ -570,7 +525,7 @@ export default function QuizPage({
                         <div className="space-y-5">
                           <div>
                             <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
-                              Match notes
+                              {t("meta.matchNotes")}
                             </div>
                             <div className="mt-4 flex flex-wrap gap-2">
                               {recommendation.tags.map((tag) => (
@@ -600,14 +555,13 @@ export default function QuizPage({
             <section className="bg-[#2A1F18] px-6 py-14 sm:px-10 lg:px-[72px] lg:py-20">
               <div className="page-shell-tight rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-8 text-center">
                 <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[color:var(--terra-light)]">
-                  Continue from here
+                  {t("meta.continueFromHere")}
                 </div>
                 <div className="mt-4 font-serif text-[clamp(30px,4vw,46px)] leading-[1.1] text-[color:var(--cream)]">
-                  A good first step should feel more grounded than random.
+                  {t("meta.continueTitle")}
                 </div>
                 <p className="mx-auto mt-5 max-w-[620px] text-[15px] leading-7 text-white/72">
-                  You can take the quiz again, compare your recommendations once more, or
-                  head back to the homepage and continue from there when it feels right.
+                  {t("meta.continueDescription")}
                 </p>
                 <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
                   <button
@@ -615,14 +569,14 @@ export default function QuizPage({
                     onClick={restart}
                     className="inline-flex items-center justify-center rounded-full bg-[color:var(--terra)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--terra-mid)]"
                   >
-                    Take the quiz again
+                    {t("meta.retakeQuiz")}
                   </button>
                   <button
                     type="button"
-                    onClick={onGoHome}
+                    onClick={() => navigate(routePaths.clientHome(locale))}
                     className="inline-flex items-center justify-center rounded-full border border-white/14 bg-white/8 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/12"
                   >
-                    Return home
+                    {t("meta.returnHome")}
                   </button>
                 </div>
               </div>

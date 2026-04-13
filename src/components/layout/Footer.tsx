@@ -1,7 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Logo from "./Logo";
+import type { Locale } from "../../types/app";
+import { routePaths } from "../../lib/routes";
 
-const Footer: React.FC = () => {
+const Footer: React.FC<{ locale: Locale }> = ({ locale }) => {
+  const { t } = useTranslation("common");
+
   return (
     <>
       <div style={{ lineHeight: 0, background: "#2A1F18" }}>
@@ -25,19 +31,23 @@ const Footer: React.FC = () => {
         }}
       >
         <div className="page-shell-tight" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-          <a href="#" style={{ marginBottom: "20px", textDecoration: "none" }}>
+          <Link to={routePaths.clientHome(locale)} style={{ marginBottom: "20px", textDecoration: "none" }}>
             <Logo light />
-          </a>
+          </Link>
 
           <p className="footer-quote">
-            &quot;The first therapy appointment should feel safe, not like a guess.&quot;
+            &quot;{t("footer.quote")}&quot;
           </p>
 
           <div style={{ display: "flex", gap: "32px", marginBottom: "40px" }}>
-            {["Privacy", "For therapists", "Contact"].map((link) => (
+            {[
+              { label: t("footer.privacy"), href: "#" },
+              { label: t("footer.forTherapists"), href: routePaths.therapistLanding(locale) },
+              { label: t("footer.contact"), href: "#" },
+            ].map((link) => (
               <a
-                key={link}
-                href="#"
+                key={link.label}
+                href={link.href}
                 style={{
                   fontSize: "13px",
                   color: "rgba(250,246,240,0.4)",
@@ -52,7 +62,7 @@ const Footer: React.FC = () => {
                   event.currentTarget.style.color = "rgba(250,246,240,0.4)";
                 }}
               >
-                {link}
+                {link.label}
               </a>
             ))}
           </div>

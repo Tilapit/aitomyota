@@ -6,13 +6,14 @@ import {
   type QuizAnswerValue,
   type QuizId,
 } from "./quizData";
+import type { Locale } from "../../types/app";
 
-export function useQuiz(quizId: QuizId) {
+export function useQuiz(quizId: QuizId, locale: Locale) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [isComplete, setIsComplete] = useState(false);
 
-  const quiz = useMemo(() => getQuiz(quizId), [quizId]);
+  const quiz = useMemo(() => getQuiz(quizId, locale), [locale, quizId]);
   const question = quiz.questions[currentStep];
   const selectedValue = answers[question?.id] as QuizAnswerValue | undefined;
   const totalQuestions = quiz.questions.length;
@@ -98,8 +99,8 @@ export function useQuiz(quizId: QuizId) {
   };
 
   const recommendations = useMemo(
-    () => (isComplete ? buildRecommendations(quizId, answers) : []),
-    [answers, isComplete, quizId],
+    () => (isComplete ? buildRecommendations(quizId, answers, locale) : []),
+    [answers, isComplete, locale, quizId],
   );
 
   const questionState = question

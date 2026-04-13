@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "shortEyebrow": "Aloita tästä",
+    "longEyebrow": "Pidempi versio",
+    "showRecommendations": "Näytä suositukset",
+    "nextQuestion": "Seuraava kysymys",
+    "back": "Takaisin",
+    "yourRecommendations": "Suosituksesi",
+    "continueFromHere": "Jatka tästä",
+    "retakeQuiz": "Tee kysely uudelleen",
+    "returnHome": "Palaa etusivulle",
+    "questionLabel": "Kysymys {{current}} / {{total}}",
+    "multiSelectHint": "Voit valita useamman tarvittaessa",
+    "freeTextLabel": "Omin sanoin",
+    "freeTextPlaceholder": "Kirjoita niin vähän tai paljon kuin haluat.",
+    "gentleReminderTitle": "Lempeä muistutus",
+    "gentleReminderBody": "Et tarvitse täydellisiä sanoja jatkaaksesi. Hyvä match alkaa usein muutamasta rehellisestä signaalista, ei täydellisestä selityksestä.",
+    "gentleReminderShort": "Voit aina lisätä enemmän yksityiskohtia myöhemmin.",
+    "gentleReminderLong": "Voit aina vaihtaa takaisin lyhyempään polkuun.",
+    "questionsCount": "{{count}} kysymystä",
+    "completed": "{{current}} / {{total}} valmiina",
+    "bestRecommendation": "Paras ensimmäinen suositus",
+    "optionLabel": "Vaihtoehto {{index}}",
+    "whyThisCouldFit": "Miksi tämä voisi sopia",
+    "matchNotes": "Match-muistiinpanot",
+    "continueTitle": "Hyvän ensimmäisen askeleen pitäisi tuntua harkitulta, ei satunnaiselta.",
+    "continueDescription": "Voit tehdä kyselyn uudelleen, verrata suosituksiasi vielä kerran tai palata etusivulle ja jatkaa sieltä silloin kun se tuntuu oikealta."
+  },
+  "tone": {
+    "short": {
+      "eyebrow": "Aloita tästä",
+      "title": "Lyhyt match, sitten selkeämpi seuraava askel.",
+      "description": "Tämä versio pitää asiat kevyinä ja vie sinut nopeasti harkittuun suositukseen.",
+      "switchLabel": "Haluatko enemmän kontekstia?",
+      "switchCta": "Tee pidempi versio",
+      "switchDescription": "Pidempi polku lisää yksityiskohtia tahdista, mieltymyksistä ja siitä, miltä työskentelyn toivot tuntuvan."
+    },
+    "long": {
+      "eyebrow": "Pidempi versio",
+      "title": "Täydempi kuva tarkempaa matchia varten.",
+      "description": "Tämä versio kysyy hieman enemmän, jotta suositus voi olla tarkempi.",
+      "switchLabel": "Pidätkö enemmän lyhyemmästä polusta?",
+      "switchCta": "Palaa lyhyeen versioon",
+      "switchDescription": "Voit aina palata lyhyempään versioon, jos haluat edetä nopeammin."
+    }
+  },
+  "recommendations": {
+    "title": "Kolme ammattilaista, joiden kanssa kannattaa aloittaa",
+    "description": "Nämä eivät ole satunnaisia nimiä hakemistosta. Jokainen suositus liittyy siihen tukeen, tahtiin ja ensivaikutelmaan, jota kerroit toivovasi.",
+    "introVideo": "Esittelyvideo",
+    "introPreview": "Esittelyn esikatselu",
+    "contactTherapist": "Ota yhteyttä terapeuttiin",
+    "bookCall": "Varaa puhelu",
+    "contactTitle": "Ota yhteyttä terapeuttiin",
+    "contactMessage": "Kirjoita lyhyt esittely",
+    "contactOpenings": "Kysy seuraavasta vapaasta ajasta",
+    "callTitle": "Varaa puhelu",
+    "callDescription": "Lyhyt ensipuhelu voi auttaa kuulemaan sävyn, kysymään saatavuudesta ja päättämään tuntuuko ensimmäinen tapaaminen oikealta.",
+    "callReserve": "Varaa lyhyt tutustumispuhelu",
+    "callTimes": "Katso vapaat ajat"
+  }
+}

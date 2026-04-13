@@ -1,0 +1,106 @@
+{
+  "hero": {
+    "eyebrow": "For therapists",
+    "titleLineOne": "Build a profile that meets",
+    "titleAccent": "the right clients.",
+    "description": "Share how you work, what kind of support you offer, and how clients can reach you without turning your profile into another generic directory page.",
+    "cta": "Start therapist onboarding",
+    "stats": [
+      { "num": "2 paths", "label": "Password or magic link" },
+      { "num": "EN → FI", "label": "Localized profile flow" },
+      { "num": "Live", "label": "Publish instantly" }
+    ]
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "Three clear steps for therapists",
+    "description": "A calmer path from profile setup to a public page that already carries more context.",
+    "steps": [
+      {
+        "kicker": "Step 01",
+        "title": "Describe how you work",
+        "text": "Answer a short therapist onboarding flow with structured questions and free-text responses about your style, focus, and fit.",
+        "pill": "Short and editable later"
+      },
+      {
+        "kicker": "Step 02",
+        "title": "Sign in and publish instantly",
+        "text": "Create your account after the quiz so we can store your answers, build your profile, and make it live right away.",
+        "pill": "Password or magic link"
+      },
+      {
+        "kicker": "Step 03",
+        "title": "Keep your profile current",
+        "text": "Update your English source content, review the Finnish prefill, add media URLs, and adjust availability from the dashboard.",
+        "pill": "Live updates"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "Why Myötä",
+    "title": "Less directory noise, more real context",
+    "directoryTitle": "Typical directory"
+  },
+  "testimonials": {
+    "eyebrow": "From therapists",
+    "title": "A profile that sounds more like you",
+    "description": "A few reasons this flow is built to feel closer to real practice than a generic listing."
+  },
+  "faq": {
+    "eyebrow": "FAQs",
+    "title": "What therapists usually want to know",
+    "description": "The practical details before you begin.",
+    "ctaDescription": "Start with the therapist onboarding flow, then continue into auth only when you're ready to save and publish your profile.",
+    "ctaShort": "Start therapist onboarding",
+    "ctaLong": "Open dashboard"
+  },
+  "content": {
+    "directoryPoints": [
+      "Profiles often flatten your working style into a few broad labels",
+      "Clients arrive with little context and compare you in isolation",
+      "Updating copy, links, and availability becomes another admin task",
+      "Localized content is hard to maintain consistently"
+    ],
+    "myotaPoints": [
+      "Clients arrive with richer context from the match flow",
+      "Your profile includes structured fit signals and free-text nuance",
+      "English can stay your source language while Finnish is prefilled",
+      "Media links, booking links, and availability live in one dashboard"
+    ],
+    "testimonials": [
+      {
+        "quote": "This feels closer to how I actually describe my work than a standard profile form ever has.",
+        "name": "Laura, integrative therapist",
+        "context": "Published after the onboarding flow"
+      },
+      {
+        "quote": "I like that the client arrives with some context already. It changes the feeling of the first contact.",
+        "name": "Mikko, psychotherapist",
+        "context": "Using the dashboard to keep availability current"
+      },
+      {
+        "quote": "Being able to write in English first and refine the Finnish version afterwards makes the whole setup much lighter.",
+        "name": "Sofia, trauma-informed therapist",
+        "context": "Localized profile editing"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Do I need to sign up before I answer the therapist quiz?",
+        "answer": "No. You answer the onboarding flow first. Authentication only appears when you are ready to save and publish what you wrote."
+      },
+      {
+        "question": "Can I edit my profile after it goes live?",
+        "answer": "Yes. The dashboard is designed for ongoing edits to your public profile, localized content, media links, and availability."
+      },
+      {
+        "question": "Do I need to provide video files directly in the platform?",
+        "answer": "No. The first version uses external URLs for intro videos, booking links, and other public media."
+      },
+      {
+        "question": "How does Finnish localization work?",
+        "answer": "English is your source language. Finnish can be prefilled for you and then adjusted manually inside the dashboard."
+      }
+    ]
+  }
+}
