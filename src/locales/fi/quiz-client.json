@@ -1,18 +1,240 @@
 {
+  "quizInfo": {
+    "short": {
+      "title": "Lyhyt aloitus",
+      "description": "10 peruskysymystä, noin 2 minuuttia. Kevyempi ensimmäinen askel."
+    },
+    "long": {
+      "title": "Syvempi aloitus",
+      "description": "18 peruskysymystä, noin 5 minuuttia. Enemmän nyanssia, tarkempi match."
+    }
+  },
+  "questions": {
+    "q1": {
+      "category": "Tilanne",
+      "text": "Mikä tuntuu raskaimmalta juuri nyt?",
+      "answers": {
+        "a": "Arki tai työ painaa, energiani on koetuksella",
+        "b": "Mielessäni on yksi tietty asia, josta haluaisin puhua",
+        "c": "Elämässäni on iso muutos käynnissä ja tarvitsen tukea",
+        "d": "En osaa vielä nimetä — tuntuu vain epäselvältä ja raskaalta"
+      }
+    },
+    "pq1": {
+      "category": "Tilanne",
+      "text": "Kuinka kauan tämä on painanut sinua?",
+      "answers": {
+        "a": "Aika hiljattain, tuntuu vielä uudelta",
+        "b": "Muutaman kuukauden ajan",
+        "c": "Pidemmän aikaa, yli vuoden",
+        "d": "Niin kauan kuin muistan"
+      }
+    },
+    "q1b": {
+      "category": "Tilanne",
+      "text": "Mihin asia liittyy?",
+      "answers": {
+        "a": "Ihmissuhde tai perhe",
+        "b": "Työ tai opinnot",
+        "c": "Menetykseen tai kriisiin",
+        "d": "Omaan identiteettiin",
+        "e": "Johonkin muuhun"
+      },
+      "otherPlaceholder": "Kerro omin sanoin..."
+    },
+    "q1c": {
+      "category": "Tilanne",
+      "text": "Onko jokin näistä lähellä sitä tunnetta?",
+      "infoText": "Ei pakollinen — voit myös ohittaa tämän.",
+      "answers": {
+        "a": "Alakulo tai väsymys",
+        "b": "Huolestuneisuus tai pelko",
+        "c": "Yksinäisyys",
+        "d": "En osaa sanoa"
+      }
+    },
+    "pq2": {
+      "category": "Tilanne",
+      "text": "Mistä elämän osa-alueesta haluaisit puhua?",
+      "infoText": "Voit valita useamman.",
+      "answers": {
+        "a": "Työ, ura tai opinnot",
+        "b": "Ihmissuhteet, parisuhde tai perhe",
+        "c": "Identiteetti tai elämän suunta",
+        "d": "Mieliala, ahdistus tai uupumus",
+        "e": "Jokin muu — kerron omin sanoin myöhemmin"
+      }
+    },
+    "pq3": {
+      "category": "Tilanne",
+      "text": "Miten kuormittavana koet tilanteen arjessasi juuri nyt?",
+      "note": "Jos tunnet olevasi kriisissä, nopein saatavilla oleva tuki on aina tärkein seuraava askel.",
+      "answers": {
+        "a": "Pärjään, mutta halusin hakea tukea ajoissa",
+        "b": "Arki sujuu jotenkin, mutta energia on vähissä",
+        "c": "Tuntuu melko raskaalta ja tarvitsen apua nyt",
+        "d": "Tuntuu ylivoimaiselta"
+      }
+    },
+    "q2": {
+      "category": "Toiveet",
+      "text": "Mitä haluat terapialta juuri nyt?",
+      "answers": {
+        "a": "Haluan tuntea oloni kevyemmäksi",
+        "b": "Haluan ymmärtää itseäni paremmin",
+        "c": "Haluan ratkaista tietyn ongelman",
+        "d": "Haluan saada aikaan todellista muutosta"
+      }
+    },
+    "q3": {
+      "category": "Kohtaaminen",
+      "text": "Millainen ihminen auttaa sinua eniten vaikeissa hetkissä?",
+      "answers": {
+        "a": "Rauhallinen ja lempeä",
+        "b": "Rehellinen ja suora",
+        "c": "Lämmin ja rohkaiseva",
+        "d": "Strukturoitu ja tavoitteellinen"
+      }
+    },
+    "q4": {
+      "category": "Työskentelyote",
+      "text": "Miten haluat terapeutin työskentelevän kanssasi?",
+      "sliderMin": "Kuuntelee enimmäkseen",
+      "sliderMax": "Ohjaa aktiivisesti",
+      "sliderWords": [
+        "Kuuntelee pääasiassa",
+        "Kuuntelee enimmäkseen",
+        "Tasainen mix",
+        "Ohjaa enemmän",
+        "Ohjaa aktiivisesti"
+      ]
+    },
+    "q5": {
+      "category": "Työskentelytapa",
+      "text": "Millainen työskentelytapa tuntuu sinulle luontevalta?",
+      "answers": {
+        "a": "Rento ja vapaamuotoinen — ei tiukkaa rakennetta",
+        "b": "Selkeä ja jäsennelty — tiedän missä mennään",
+        "c": "Kumpi vain sopii"
+      }
+    },
+    "pq4": {
+      "category": "Työskentelytapa",
+      "text": "Miten yleensä käsittelet vaikeita asioita?",
+      "answers": {
+        "a": "Puhun läheisilleni, yhteys auttaa",
+        "b": "Pohdin asioita hiljaa itsekseni",
+        "c": "Teen jotain konkreettista, toiminta auttaa",
+        "d": "Vaihtelee tilanteen mukaan"
+      }
+    },
+    "pq5": {
+      "category": "Työskentelytapa",
+      "text": "Mikä tahti tuntuisi oikealta?",
+      "answers": {
+        "a": "Rauhallisesti omaan tahtiin, ei kiirettä",
+        "b": "Tavoitteellisesti, haluan tuntea edistystä",
+        "c": "Kumpi sopii, olen joustava"
+      }
+    },
+    "q6": {
+      "category": "Terapeutti",
+      "text": "Mitä ajattelet terapeutin kokemuksesta?",
+      "answers": {
+        "a": "Ei ratkaisevaa — tärkeintä on että henkilökemia toimii",
+        "b": "Muutama vuosi riittää",
+        "c": "Arvostan kokenutta terapeuttia",
+        "d": "Elämänkokemus merkitsee minulle paljon"
+      }
+    },
+    "q7": {
+      "category": "Terapeutti",
+      "text": "Onko terapeutin sukupuolella merkitystä?",
+      "answers": {
+        "a": "Nainen",
+        "b": "Mies",
+        "c": "Muunsukupuolinen",
+        "d": "Ei väliä"
+      }
+    },
+    "q8": {
+      "category": "Käytännöt",
+      "text": "Mikä hintaluokka tuntuu realistiselta per sessio?",
+      "answers": {
+        "a": "Alle 80 €",
+        "b": "80–120 €",
+        "c": "120–160 €",
+        "d": "Hinta ei ole ratkaiseva tekijä"
+      }
+    },
+    "q9": {
+      "category": "Käytännöt",
+      "text": "Haluaisitko käyttää Kela-korvausta jos mahdollista?",
+      "note": "Lyhytterapia ei ole Kela-korvattavaa.",
+      "answers": {
+        "a": "Kyllä, näytä vain sopivat terapeutit",
+        "b": "Olisi kätevää mutta ei välttämätöntä",
+        "c": "En ole varma vielä"
+      }
+    },
+    "pq6": {
+      "category": "Käytännöt",
+      "text": "Kuinka usein ajattelit käydä?",
+      "answers": {
+        "a": "Kerran viikossa, haluan edetä aktiivisesti",
+        "b": "Pari kertaa kuussa",
+        "c": "Kerran kuussa riittää",
+        "d": "En osaa vielä sanoa, kokeilen ensin"
+      }
+    },
+    "q10": {
+      "category": "Käytännöt",
+      "text": "Haluaisitko tavata etänä vai kasvotusten?",
+      "answers": {
+        "a": "Etänä, videoyhteys sopii hyvin",
+        "b": "Kasvotusten, fyysinen läsnäolo on minulle tärkeää",
+        "c": "Kumpi vain sopii"
+      }
+    },
+    "q10b": {
+      "category": "Käytännöt",
+      "text": "Missä paikkakunnalla haluaisit tavata?",
+      "infoText": "Valinnainen — voit myös ohittaa tämän.",
+      "placeholder": "Esim. Helsinki, Tampere..."
+    },
+    "pq7": {
+      "category": "Tausta",
+      "text": "Onko sinulla aiempaa kokemusta terapiasta tai vastaavasta tuesta?",
+      "answers": {
+        "a": "Ei, tämä olisi ensimmäinen kerta",
+        "b": "Kyllä, ja se tuntui positiiviselta",
+        "c": "Kyllä, mutta jokin siinä ei tuntunut oikealta",
+        "d": "Olen tällä hetkellä terapiassa ja etsin jotain sen rinnalle tai tilalle"
+      }
+    },
+    "pq8": {
+      "category": "Toiveet",
+      "text": "Mitä toivot muuttuvan elämässäsi?",
+      "infoText": "Valinnainen. Kirjoita niin vähän tai paljon kuin haluat.",
+      "placeholder": "Kerro omin sanoin..."
+    }
+  },
   "meta": {
     "shortEyebrow": "Aloita tästä",
     "longEyebrow": "Pidempi versio",
     "showRecommendations": "Näytä suositukset",
     "nextQuestion": "Seuraava kysymys",
     "back": "Takaisin",
+    "skip": "Ohita",
     "yourRecommendations": "Suosituksesi",
     "continueFromHere": "Jatka tästä",
     "retakeQuiz": "Tee kysely uudelleen",
     "returnHome": "Palaa etusivulle",
     "questionLabel": "Kysymys {{current}} / {{total}}",
-    "multiSelectHint": "Voit valita useamman tarvittaessa",
+    "multiSelectHint": "Voit valita useamman",
     "freeTextLabel": "Omin sanoin",
     "freeTextPlaceholder": "Kirjoita niin vähän tai paljon kuin haluat.",
+    "otherTextLabel": "Kerro tarkemmin",
     "gentleReminderTitle": "Lempeä muistutus",
     "gentleReminderBody": "Et tarvitse täydellisiä sanoja jatkaaksesi. Hyvä match alkaa usein muutamasta rehellisestä signaalista, ei täydellisestä selityksestä.",
     "gentleReminderShort": "Voit aina lisätä enemmän yksityiskohtia myöhemmin.",
@@ -44,19 +266,54 @@
       "switchDescription": "Voit aina palata lyhyempään versioon, jos haluat edetä nopeammin."
     }
   },
+  "matching": {
+    "loading": "Etsitään sopivia terapeutteja...",
+    "noResults": "Emme löytäneet sopivia terapeutteja. Kokeile muuttaa joitakin toiveita.",
+    "scoreLabel": "Yhteensopivuus",
+    "priceLabel": "Hinta",
+    "locationLabel": "Sijainti",
+    "formatLabel": "Tapaamistapa",
+    "priceUnit": "€ / sessio",
+    "readMore": "Lue lisää",
+    "showLess": "Näytä vähemmän",
+    "showDetails": "Näytä lisää",
+    "hideDetails": "Näytä vähemmän",
+    "educationLabel": "Koulutus",
+    "experienceLabel": "Kokemus",
+    "experienceYears": "{{count}} vuotta asiakastyötä",
+    "specializationsLabel": "Erikoistumiset",
+    "workFocusLabel": "Työskentelypainotus",
+    "scoreBreakdownLabel": "Pisteiden erittely",
+    "analysing": "Analysoidaan sopivuutta...",
+    "specs": {
+      "stress": "Stressi ja uupumus",
+      "anxiety": "Ahdistuneisuus ja pelot",
+      "depression": "Masennus ja alakulo",
+      "selfesteem": "Itsetunto ja identiteetti",
+      "relationships": "Ihmissuhteet ja perhe",
+      "crisis": "Kriisit ja suru",
+      "performance": "Opiskelu ja suorituspaineet",
+      "neuro": "Neurokirjo (ADHD jne.)",
+      "parenting": "Vanhemmuus"
+    }
+  },
   "recommendations": {
     "title": "Kolme ammattilaista, joiden kanssa kannattaa aloittaa",
     "description": "Nämä eivät ole satunnaisia nimiä hakemistosta. Jokainen suositus liittyy siihen tukeen, tahtiin ja ensivaikutelmaan, jota kerroit toivovasi.",
     "introVideo": "Esittelyvideo",
     "introPreview": "Esittelyn esikatselu",
-    "contactTherapist": "Ota yhteyttä terapeuttiin",
-    "bookCall": "Varaa puhelu",
+    "contactTherapist": "Ota yhteyttä",
+    "bookCall": "Varaa puheluaika",
     "contactTitle": "Ota yhteyttä terapeuttiin",
     "contactMessage": "Kirjoita lyhyt esittely",
     "contactOpenings": "Kysy seuraavasta vapaasta ajasta",
     "callTitle": "Varaa puhelu",
     "callDescription": "Lyhyt ensipuhelu voi auttaa kuulemaan sävyn, kysymään saatavuudesta ja päättämään tuntuuko ensimmäinen tapaaminen oikealta.",
     "callReserve": "Varaa lyhyt tutustumispuhelu",
-    "callTimes": "Katso vapaat ajat"
+    "callTimes": "Katso vapaat ajat",
+    "eyebrow": "Sinulle sopivat ehdotukset",
+    "bestLabel": "Paras ensimmäinen ehdotus",
+    "whyFit": "Miksi tämä voisi sopia",
+    "matchNotes": "Match-muistiinpanot"
   }
 }

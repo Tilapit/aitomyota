@@ -1,10 +1,231 @@
 {
+  "quizInfo": {
+    "short": {
+      "title": "Short introduction",
+      "description": "10 core questions, about 2 minutes. A lighter first step."
+    },
+    "long": {
+      "title": "Deeper introduction",
+      "description": "18 core questions, about 5 minutes. More nuance, more precise match."
+    }
+  },
+  "questions": {
+    "q1": {
+      "category": "Situation",
+      "text": "What feels heaviest right now?",
+      "answers": {
+        "a": "Daily life or work is weighing on me, my energy is depleted",
+        "b": "There's one specific thing I'd like to talk about",
+        "c": "I'm going through a big change and need support",
+        "d": "I can't name it yet — it just feels unclear and heavy"
+      }
+    },
+    "pq1": {
+      "category": "Situation",
+      "text": "How long has this been weighing on you?",
+      "answers": {
+        "a": "Quite recently — it still feels new",
+        "b": "For a few months",
+        "c": "For a longer time, over a year",
+        "d": "For as long as I can remember"
+      }
+    },
+    "q1b": {
+      "category": "Situation",
+      "text": "What does it relate to?",
+      "answers": {
+        "a": "A relationship or family",
+        "b": "Work or studies",
+        "c": "A loss or crisis",
+        "d": "My identity or sense of self",
+        "e": "Something else"
+      },
+      "otherPlaceholder": "Tell us in your own words..."
+    },
+    "q1c": {
+      "category": "Situation",
+      "text": "Does any of these feel close to what you're experiencing?",
+      "infoText": "Optional — you can skip this if you prefer.",
+      "answers": {
+        "a": "Low mood or exhaustion",
+        "b": "Worry or fear",
+        "c": "Loneliness",
+        "d": "I'm not sure"
+      }
+    },
+    "pq2": {
+      "category": "Situation",
+      "text": "Which area of life would you like to focus on?",
+      "infoText": "You can choose more than one.",
+      "answers": {
+        "a": "Work, career or studies",
+        "b": "Relationships, partnership or family",
+        "c": "Identity or direction in life",
+        "d": "Mood, anxiety or exhaustion",
+        "e": "Something else — I'll describe it later"
+      }
+    },
+    "pq3": {
+      "category": "Situation",
+      "text": "How much is this affecting your daily life right now?",
+      "note": "If you feel you're in crisis, the fastest available support is always the most important next step.",
+      "answers": {
+        "a": "I'm managing, but wanted to seek support early",
+        "b": "Getting by, but my energy is low",
+        "c": "It feels quite heavy and I need help now",
+        "d": "It feels overwhelming"
+      }
+    },
+    "q2": {
+      "category": "What you want",
+      "text": "What do you want from therapy right now?",
+      "answers": {
+        "a": "I want to feel lighter",
+        "b": "I want to understand myself better",
+        "c": "I want to solve a specific problem",
+        "d": "I want to create real change"
+      }
+    },
+    "q3": {
+      "category": "Meeting style",
+      "text": "What kind of person helps you most in difficult moments?",
+      "answers": {
+        "a": "Calm and gentle",
+        "b": "Honest and direct",
+        "c": "Warm and encouraging",
+        "d": "Structured and goal-oriented"
+      }
+    },
+    "q4": {
+      "category": "Working style",
+      "text": "How would you like your therapist to work with you?",
+      "sliderMin": "Mostly listens",
+      "sliderMax": "Actively guides",
+      "sliderWords": [
+        "Mostly listens",
+        "Listens more",
+        "Balanced mix",
+        "Guides more",
+        "Actively guides"
+      ]
+    },
+    "q5": {
+      "category": "Working style",
+      "text": "What kind of working style feels natural to you?",
+      "answers": {
+        "a": "Relaxed and informal — no rigid structure",
+        "b": "Clear and structured — I like knowing where we stand",
+        "c": "Either works for me"
+      }
+    },
+    "pq4": {
+      "category": "Working style",
+      "text": "How do you usually deal with difficult things?",
+      "answers": {
+        "a": "I talk to people close to me — connection helps",
+        "b": "I reflect quietly on my own",
+        "c": "I do something concrete — action helps",
+        "d": "It varies depending on the situation"
+      }
+    },
+    "pq5": {
+      "category": "Working style",
+      "text": "What pace would feel right for you?",
+      "answers": {
+        "a": "Gently, at my own pace — no rush",
+        "b": "Goal-oriented — I want to feel progress",
+        "c": "Either works — I'm flexible"
+      }
+    },
+    "q6": {
+      "category": "Therapist",
+      "text": "How important is your therapist's experience to you?",
+      "answers": {
+        "a": "Not crucial — what matters most is the right chemistry",
+        "b": "A few years of experience is enough",
+        "c": "I value an experienced therapist",
+        "d": "Life experience matters a great deal to me"
+      }
+    },
+    "q7": {
+      "category": "Therapist",
+      "text": "Does the gender of your therapist matter to you?",
+      "answers": {
+        "a": "Woman",
+        "b": "Man",
+        "c": "Non-binary",
+        "d": "No preference"
+      }
+    },
+    "q8": {
+      "category": "Practicalities",
+      "text": "What price range feels realistic per session?",
+      "answers": {
+        "a": "Under €80",
+        "b": "€80–120",
+        "c": "€120–160",
+        "d": "Price is not a deciding factor"
+      }
+    },
+    "q9": {
+      "category": "Practicalities",
+      "text": "Would you like to use Kela reimbursement if possible?",
+      "note": "Short-term therapy is not covered by Kela.",
+      "answers": {
+        "a": "Yes, show me only eligible therapists",
+        "b": "Would be nice but not essential",
+        "c": "I'm not sure yet"
+      }
+    },
+    "pq6": {
+      "category": "Practicalities",
+      "text": "How often were you thinking of going?",
+      "answers": {
+        "a": "Once a week — I want to progress actively",
+        "b": "A couple of times a month",
+        "c": "Once a month is enough",
+        "d": "I'm not sure yet — I'll try and see"
+      }
+    },
+    "q10": {
+      "category": "Practicalities",
+      "text": "Would you prefer to meet remotely or in person?",
+      "answers": {
+        "a": "Remotely — video works well for me",
+        "b": "In person — physical presence matters to me",
+        "c": "Either works for me"
+      }
+    },
+    "q10b": {
+      "category": "Practicalities",
+      "text": "In which city or town would you like to meet?",
+      "infoText": "Optional — you can skip this if you prefer.",
+      "placeholder": "E.g. Helsinki, Tampere..."
+    },
+    "pq7": {
+      "category": "Background",
+      "text": "Do you have any previous experience with therapy or similar support?",
+      "answers": {
+        "a": "No, this would be my first time",
+        "b": "Yes, and it felt positive",
+        "c": "Yes, but something about it didn't feel right",
+        "d": "I'm currently in therapy and looking for something alongside or instead"
+      }
+    },
+    "pq8": {
+      "category": "What you want",
+      "text": "What do you hope will change in your life?",
+      "infoText": "Optional. Write as little or as much as you like.",
+      "placeholder": "Tell us in your own words..."
+    }
+  },
   "meta": {
     "shortEyebrow": "Start here",
     "longEyebrow": "Longer version",
     "showRecommendations": "Show recommendations",
     "nextQuestion": "Next question",
     "back": "Back",
+    "skip": "Skip",
     "yourRecommendations": "Your recommendations",
     "continueFromHere": "Continue from here",
     "retakeQuiz": "Take the quiz again",
@@ -13,6 +234,7 @@
     "multiSelectHint": "Choose more than one if needed",
     "freeTextLabel": "In your own words",
     "freeTextPlaceholder": "Write as much or as little as you want.",
+    "otherTextLabel": "Tell us more",
     "gentleReminderTitle": "A gentle reminder",
     "gentleReminderBody": "You do not need perfect words to continue. A good match often begins with a few honest signals, not a complete explanation.",
     "gentleReminderShort": "You can always add more detail later.",
@@ -44,6 +266,37 @@
       "switchDescription": "You can always return to the shorter version if you want to move faster."
     }
   },
+  "matching": {
+    "loading": "Finding your best matches...",
+    "noResults": "We couldn't find a match. Try adjusting some of your preferences.",
+    "scoreLabel": "Match score",
+    "priceLabel": "Price",
+    "locationLabel": "Location",
+    "formatLabel": "Session format",
+    "priceUnit": "€ / session",
+    "readMore": "Read more",
+    "showLess": "Show less",
+    "showDetails": "Show more",
+    "hideDetails": "Show less",
+    "educationLabel": "Education",
+    "experienceLabel": "Experience",
+    "experienceYears": "{{count}} years of client work",
+    "specializationsLabel": "Specialisations",
+    "workFocusLabel": "Working focus",
+    "scoreBreakdownLabel": "Score breakdown",
+    "analysing": "Analysing your match...",
+    "specs": {
+      "stress": "Stress and burnout",
+      "anxiety": "Anxiety and fears",
+      "depression": "Depression and low mood",
+      "selfesteem": "Self-esteem and identity",
+      "relationships": "Relationships and family",
+      "crisis": "Crisis and grief",
+      "performance": "Studies and performance pressure",
+      "neuro": "Neurodiversity (ADHD etc.)",
+      "parenting": "Parenting"
+    }
+  },
   "recommendations": {
     "title": "Three professionals worth beginning with",
     "description": "These are not random names from a directory. Each recommendation is tied to the kind of support, pace, and first impression you told us you were hoping for.",
@@ -57,6 +310,10 @@
     "callTitle": "Book a call",
     "callDescription": "A short first call can help you hear their tone, ask about availability, and decide whether the first session feels right.",
     "callReserve": "Reserve a short intro call",
-    "callTimes": "See available times"
+    "callTimes": "See available times",
+    "eyebrow": "Your recommendations",
+    "bestLabel": "Best first recommendation",
+    "whyFit": "Why this could fit",
+    "matchNotes": "Match notes"
   }
 }

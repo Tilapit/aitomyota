@@ -4,37 +4,109 @@ import { useTranslation } from "react-i18next";
 import type {
   QuizAnswer,
   QuizAnswerValue,
+  QuizAnswers,
   QuizId,
   QuizQuestion,
 } from "../features/quiz/quizData";
 import { useQuiz } from "../features/quiz/useQuiz";
 import LanguageSwitcher from "../components/layout/LanguageSwitcher";
 import Logo from "../components/layout/Logo";
-import { therapistExperiences } from "../content/therapistContent";
 import { routePaths } from "../lib/routes";
 import { useCurrentLocale } from "../hooks/useCurrentLocale";
-import { getPublishedTherapists } from "../repositories/therapistRepository";
+import { matchTherapists, mapQuizToMatchingInput } from "../lib/matching";
+import type { MatchResult } from "../lib/matching";
+import { generateWhyMatch } from "../lib/whyMatch";
 
-type RecommendationMomentName = keyof typeof therapistExperiences & string;
-
-type ToneCopy = {
-  eyebrow: string;
-  title: string;
-  description: string;
-  switchLabel: string;
-  switchCta: string;
-  switchDescription: string;
-};
+// ── Sub-components ───────────────────────────────────────────────────────────
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = Math.max(8, Math.round((current / total) * 100));
-
   return (
     <div className="h-2 w-full overflow-hidden rounded-full bg-[rgba(196,103,74,0.12)]">
       <div
         className="h-full rounded-full bg-[color:var(--terra)] transition-[width] duration-500 ease-out"
         style={{ width: `${pct}%` }}
       />
+    </div>
+  );
+}
+
+function SliderInput({
+  value,
+  onChange,
+  labelMin,
+  labelMax,
+  words,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+  labelMin: string;
+  labelMax: string;
+  words: string[];
+}) {
+  const idx = Math.max(0, Math.min(value - 1, words.length - 1));
+  const pct = ((value - 1) / 4) * 100;
+
+  return (
+    <div className="mt-2">
+      <div className="mb-4 flex justify-between">
+        <span className="max-w-[44%] text-[13px] leading-5 text-[color:var(--ink-light)]">
+          {labelMin}
+        </span>
+        <span className="max-w-[44%] text-right text-[13px] leading-5 text-[color:var(--ink-light)]">
+          {labelMax}
+        </span>
+      </div>
+
+      <div className="relative px-1">
+        <input
+          type="range"
+          min={1}
+          max={5}
+          step={1}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className="slider-input w-full"
+          style={{
+            WebkitAppearance: "none",
+            appearance: "none",
+            height: "4px",
+            borderRadius: "2px",
+            outline: "none",
+            cursor: "pointer",
+            background: `linear-gradient(to right, var(--terra) ${pct}%, rgba(196,103,74,0.18) ${pct}%)`,
+          }}
+        />
+      </div>
+
+      <div className="mt-5 text-center">
+        <span className="inline-block rounded-full bg-[color:var(--terra-wash)] px-4 py-1.5 font-serif text-[15px] italic text-[color:var(--terra)]">
+          {words[idx]}
+        </span>
+      </div>
+
+      <style>{`
+        .slider-input::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--terra);
+          border: 3px solid white;
+          box-shadow: 0 0 0 1.5px var(--terra);
+          cursor: pointer;
+        }
+        .slider-input::-moz-range-thumb {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--terra);
+          border: 3px solid white;
+          box-shadow: 0 0 0 1.5px var(--terra);
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 }
@@ -55,7 +127,7 @@ function QuizAside({
   totalQuestions: number;
   currentStep: number;
   isComplete: boolean;
-  tone: ToneCopy;
+  tone: { eyebrow: string; title: string; description: string; switchLabel: string; switchCta: string; switchDescription: string };
   alternateQuizId: QuizId;
   onSelectQuiz: (quizId: QuizId) => void;
   quizId: QuizId;
@@ -76,9 +148,7 @@ function QuizAside({
 
       <div className="space-y-3 border-t border-[rgba(196,103,74,0.12)] pt-5">
         <div className="font-serif text-[22px] text-[color:var(--ink)]">{quizTitle}</div>
-        <p className="text-[14px] leading-6 text-[color:var(--ink-light)]">
-          {quizDescription}
-        </p>
+        <p className="text-[14px] leading-6 text-[color:var(--ink-light)]">{quizDescription}</p>
         <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[color:var(--terra)]">
           {t("meta.questionsCount", { count: totalQuestions })}
         </div>
@@ -116,120 +186,24 @@ function QuizAside({
           {t("meta.gentleReminderBody")}
         </p>
         <p className="text-[12px] text-[color:var(--ink-light)]">
-          {quizId === "short"
-            ? t("meta.gentleReminderShort")
-            : t("meta.gentleReminderLong")}
+          {quizId === "short" ? t("meta.gentleReminderShort") : t("meta.gentleReminderLong")}
         </p>
       </div>
     </aside>
   );
 }
 
-function RecommendationActions({
-  name,
-}: {
-  name: RecommendationMomentName;
-}) {
-  const { t } = useTranslation("quiz-client");
-  const [openPanel, setOpenPanel] = useState<"video" | "contact" | "call" | null>(null);
-  const details = therapistExperiences[name];
-
-  return (
-    <div className="space-y-4">
-      <button
-        type="button"
-        onClick={() => setOpenPanel(openPanel === "video" ? null : "video")}
-        className="therapist-video w-full text-left"
-        aria-expanded={openPanel === "video"}
-        style={{ backgroundImage: `url(${details.videoPoster})` }}
-      >
-        <div className="therapist-video-top">
-          <span className="therapist-video-badge">{t("recommendations.introVideo")}</span>
-          <span className="therapist-video-length">{details.duration}</span>
-        </div>
-        <div className="therapist-video-center">
-          <span className="therapist-play-btn" aria-hidden="true">
-            <span className="therapist-play-icon">▶</span>
-          </span>
-        </div>
-        <div className="therapist-video-name">{name}</div>
-      </button>
-
-      {openPanel === "video" && (
-        <div className="therapist-inline-panel">
-          <div className="therapist-inline-kicker">{t("recommendations.introPreview")}</div>
-          <p className="therapist-inline-copy">{details.videoIntro}</p>
-          <div className="therapist-inline-points">
-            {details.videoPoints.map((point: string) => (
-              <div key={point} className="therapist-inline-point">
-                <span aria-hidden="true">•</span>
-                <span>{point}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <p className="text-[13px] leading-6 text-[color:var(--ink-light)]">{details.preview}</p>
-
-      <div className="therapist-actions">
-        <button
-          type="button"
-          onClick={() => setOpenPanel(openPanel === "contact" ? null : "contact")}
-          className="bk-btn fill"
-        >
-          {t("recommendations.contactTherapist")}
-        </button>
-        <button
-          type="button"
-          onClick={() => setOpenPanel(openPanel === "call" ? null : "call")}
-          className="bk-btn outline"
-        >
-          {t("recommendations.bookCall")}
-        </button>
-      </div>
-
-      {openPanel === "contact" && (
-        <div className="therapist-inline-panel therapist-inline-panel-soft">
-          <div className="therapist-inline-kicker">{t("recommendations.contactTitle")}</div>
-          <p className="therapist-inline-copy">{details.contactCopy}</p>
-          <div className="therapist-contact-actions">
-            <button type="button" className="therapist-contact-btn">
-              {t("recommendations.contactMessage")}
-            </button>
-            <button type="button" className="therapist-contact-btn">
-              {t("recommendations.contactOpenings")}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {openPanel === "call" && (
-        <div className="therapist-inline-panel therapist-inline-panel-soft">
-          <div className="therapist-inline-kicker">{t("recommendations.callTitle")}</div>
-          <p className="therapist-inline-copy">{t("recommendations.callDescription")}</p>
-          <div className="therapist-contact-actions">
-            <button type="button" className="therapist-contact-btn">
-              {t("recommendations.callReserve")}
-            </button>
-            <button type="button" className="therapist-contact-btn">
-              {t("recommendations.callTimes")}
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+// ── QuestionCard ─────────────────────────────────────────────────────────────
 
 type QuestionCardProps = {
   question: QuizQuestion;
   currentIndex: number;
   total: number;
   selectedValue: QuizAnswerValue | undefined;
+  answers: QuizAnswers;
   onSingleSelect: (answerId: string) => void;
   onMultiToggle: (answerId: string) => void;
-  onTextChange: (value: string) => void;
+  onTextChange: (value: string, subKey?: string) => void;
   onBack: () => void;
   onNext: () => void;
   canProceed: boolean;
@@ -242,6 +216,7 @@ function QuestionCard({
   currentIndex,
   total,
   selectedValue,
+  answers,
   onSingleSelect,
   onMultiToggle,
   onTextChange,
@@ -251,64 +226,117 @@ function QuestionCard({
   isFirst,
   isLast,
 }: QuestionCardProps) {
-  const { t } = useTranslation("quiz-client");
+  const { t, i18n } = useTranslation("quiz-client");
+
+  const qKey = `questions.${question.id}`;
+  const categoryText = t(`${qKey}.category`);
+  const questionText = t(`${qKey}.text`);
+  const noteText = i18n.exists(`${qKey}.note`, { ns: "quiz-client" })
+    ? t(`${qKey}.note`)
+    : "";
+  const infoText = i18n.exists(`${qKey}.infoText`, { ns: "quiz-client" })
+    ? t(`${qKey}.infoText`)
+    : "";
+
+  const isMulti = question.type === "multi";
+  const isSlider = question.type === "slider";
+  const isText = question.type === "text";
+  const sliderValue =
+    typeof selectedValue === "string" && selectedValue.length > 0
+      ? Number(selectedValue)
+      : question.sliderDefault ?? 3;
+
+  const sliderWords = i18n.exists(`${qKey}.sliderWords`, { ns: "quiz-client" })
+    ? (t(`${qKey}.sliderWords`, { returnObjects: true }) as string[])
+    : ["1", "2", "3", "4", "5"];
+
+  // Which answer (if any) has isOther = true and is currently selected
+  const selectedOtherAnswer = question.answers?.find(
+    (a: QuizAnswer) => a.isOther && a.id === selectedValue,
+  );
+  const otherTextValue = (answers[`${question.id}_other`] as string) ?? "";
+
+  const textPlaceholder = i18n.exists(`${qKey}.placeholder`, { ns: "quiz-client" })
+    ? t(`${qKey}.placeholder`)
+    : t("meta.freeTextPlaceholder");
 
   return (
     <section className="rounded-[30px] bg-white px-8 py-10 shadow-[0_26px_80px_rgba(30,22,16,0.08)] sm:px-10 sm:py-12">
+      {/* Header */}
       <div className="mb-8 flex flex-wrap items-center gap-3">
         <span className="rounded-full bg-[color:var(--terra-wash)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--terra)]">
-          {question.category}
+          {categoryText}
         </span>
         <span className="text-sm text-[color:var(--ink-light)]">
           {t("meta.questionLabel", { current: currentIndex + 1, total })}
         </span>
-        {question.multiSelect && (
+        {isMulti && (
           <span className="rounded-full bg-[color:var(--sand-pale)] px-3 py-1 text-[11px] font-medium text-[color:var(--ink-mid)]">
             {t("meta.multiSelectHint")}
           </span>
         )}
+        {question.optional && (
+          <span className="rounded-full bg-[color:var(--sand-pale)] px-3 py-1 text-[11px] font-medium text-[color:var(--ink-light)]">
+            {t("meta.skip")}
+          </span>
+        )}
       </div>
 
+      {/* Question text */}
       <h1 className="max-w-3xl text-balance font-serif text-[clamp(30px,4vw,48px)] leading-[1.08] text-[color:var(--ink)]">
-        {question.question}
+        {questionText}
       </h1>
 
-      {question.note && (
-        <p className="mt-5 max-w-2xl text-[14px] leading-7 text-[color:var(--ink-light)]">
-          {question.note}
+      {/* Optional info text (e.g. Q1C, PQ2, PQ3 note) */}
+      {infoText && (
+        <p className="mt-4 max-w-2xl text-[13px] leading-6 text-[color:var(--ink-light)] italic">
+          {infoText}
         </p>
       )}
 
+      {/* Note text */}
+      {noteText && (
+        <p className="mt-4 max-w-2xl rounded-[12px] bg-[color:var(--sand-pale)] px-4 py-3 text-[13px] leading-6 text-[color:var(--ink-mid)]">
+          {noteText}
+        </p>
+      )}
+
+      {/* Answer area */}
       <div className="mt-8">
-        {question.openText ? (
+        {isText ? (
           <label className="block">
             <span className="mb-3 block text-sm font-medium text-[color:var(--ink-mid)]">
               {t("meta.freeTextLabel")}
             </span>
             <textarea
               value={(selectedValue as string) ?? ""}
-              onChange={(event) => onTextChange(event.target.value)}
-              rows={8}
+              onChange={(e) => onTextChange(e.target.value)}
+              rows={question.id === "q10b" ? 2 : 6}
               className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
-              placeholder={t("meta.freeTextPlaceholder")}
+              placeholder={textPlaceholder}
             />
           </label>
+        ) : isSlider ? (
+          <SliderInput
+            value={sliderValue}
+            onChange={(v) => onSingleSelect(String(v))}
+            labelMin={t(`${qKey}.sliderMin`)}
+            labelMax={t(`${qKey}.sliderMax`)}
+            words={sliderWords}
+          />
         ) : (
           <div className="grid gap-3">
             {question.answers?.map((answer: QuizAnswer) => {
-              const isSelected = question.multiSelect
+              const isSelected = isMulti
                 ? Array.isArray(selectedValue) && selectedValue.includes(answer.id)
                 : selectedValue === answer.id;
+              const answerText = t(`${qKey}.answers.${answer.id}`);
 
               return (
                 <button
                   key={answer.id}
                   type="button"
-                  onClick={() =>
-                    question.multiSelect
-                      ? onMultiToggle(answer.id)
-                      : onSingleSelect(answer.id)
-                  }
+                  onClick={() => (isMulti ? onMultiToggle(answer.id) : onSingleSelect(answer.id))}
                   className={[
                     "group flex w-full items-start justify-between gap-4 rounded-[18px] border px-5 py-4 text-left transition duration-200",
                     isSelected
@@ -317,7 +345,7 @@ function QuestionCard({
                   ].join(" ")}
                 >
                   <span className="text-[15px] leading-7 text-[color:var(--ink)]">
-                    {answer.text}
+                    {answerText}
                   </span>
                   <span
                     aria-hidden="true"
@@ -333,10 +361,31 @@ function QuestionCard({
                 </button>
               );
             })}
+
+            {/* "Other" text input — shown when an isOther answer is selected */}
+            {selectedOtherAnswer && (
+              <div className="mt-2">
+                <span className="mb-2 block text-[13px] font-medium text-[color:var(--ink-mid)]">
+                  {t("meta.otherTextLabel")}
+                </span>
+                <textarea
+                  value={otherTextValue}
+                  onChange={(e) => onTextChange(e.target.value, "other")}
+                  rows={3}
+                  className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
+                  placeholder={
+                    i18n.exists(`${qKey}.otherPlaceholder`, { ns: "quiz-client" })
+                      ? t(`${qKey}.otherPlaceholder`)
+                      : t("meta.freeTextPlaceholder")
+                  }
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
 
+      {/* Navigation */}
       <div className="mt-10 flex flex-col gap-3 border-t border-[rgba(196,103,74,0.08)] pt-6 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="button"
@@ -359,6 +408,216 @@ function QuestionCard({
   );
 }
 
+function MatchedTherapistCard({
+  match,
+  index,
+  whyMatchLoading,
+}: {
+  match: MatchResult;
+  index: number;
+  whyMatchLoading: boolean;
+}) {
+  const { t } = useTranslation("quiz-client");
+  const [bioExpanded, setBioExpanded] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
+  const BIO_LIMIT = 300;
+  const bioIsLong = match.bio.length > BIO_LIMIT;
+  const displayedBio =
+    bioIsLong && !bioExpanded ? `${match.bio.slice(0, BIO_LIMIT)}...` : match.bio;
+
+  const specLabels: string[] = [];
+  if (match.spec_stress) specLabels.push(t("matching.specs.stress"));
+  if (match.spec_anxiety) specLabels.push(t("matching.specs.anxiety"));
+  if (match.spec_depression) specLabels.push(t("matching.specs.depression"));
+  if (match.spec_selfesteem) specLabels.push(t("matching.specs.selfesteem"));
+  if (match.spec_relationships) specLabels.push(t("matching.specs.relationships"));
+  if (match.spec_crisis) specLabels.push(t("matching.specs.crisis"));
+  if (match.spec_performance) specLabels.push(t("matching.specs.performance"));
+  if (match.spec_neuro) specLabels.push(t("matching.specs.neuro"));
+  if (match.spec_parenting) specLabels.push(t("matching.specs.parenting"));
+
+  return (
+    <article className="rounded-[28px] border border-[rgba(196,103,74,0.12)] bg-white px-8 py-9 shadow-[0_24px_70px_rgba(30,22,16,0.06)] sm:px-10 sm:py-11">
+      {/* Badges */}
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <span className="rounded-full bg-[color:var(--terra)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+          {index === 0
+            ? t("recommendations.bestLabel")
+            : t("meta.optionLabel", { index: index + 1 })}
+        </span>
+        <span className="rounded-full bg-[color:var(--terra-wash)] px-3 py-1 text-[11px] font-semibold text-[color:var(--terra)]">
+          {t("matching.scoreLabel")}: {match.score}
+        </span>
+      </div>
+
+      {/* Name */}
+      <div className="font-serif text-[32px] leading-[1.08] text-[color:var(--ink)]">
+        {match.name}
+      </div>
+
+      {/* Why match */}
+      {(match.whyMatch || whyMatchLoading) && (
+        <p
+          className="mt-3 text-[14px] italic text-[color:var(--terra)]"
+          style={{ lineHeight: 1.6 }}
+        >
+          {whyMatchLoading ? t("matching.analysing") : match.whyMatch}
+        </p>
+      )}
+
+      {/* Bio + meta grid */}
+      <div className="mt-6 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+        <div>
+          {displayedBio && (
+            <>
+              <p
+                className="text-[15px] text-[color:var(--ink-mid)]"
+                style={{ lineHeight: 1.6, marginBottom: 0 }}
+              >
+                {displayedBio}
+              </p>
+              {bioIsLong && (
+                <button
+                  type="button"
+                  onClick={() => setBioExpanded((v) => !v)}
+                  className="mt-3 text-[13px] font-semibold text-[color:var(--terra)] hover:underline"
+                >
+                  {bioExpanded ? t("matching.showLess") : t("matching.readMore")}
+                </button>
+              )}
+            </>
+          )}
+        </div>
+
+        <div className="space-y-3">
+          {match.location && (
+            <div className="flex items-baseline gap-2">
+              <span className="shrink-0 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                {t("matching.locationLabel")}
+              </span>
+              <span className="text-[14px] text-[color:var(--ink-mid)]">{match.location}</span>
+            </div>
+          )}
+          <div className="flex items-baseline gap-2">
+            <span className="shrink-0 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+              {t("matching.priceLabel")}
+            </span>
+            <span className="text-[14px] text-[color:var(--ink-mid)]">
+              {match.price_min}–{match.price_max} {t("matching.priceUnit")}
+            </span>
+          </div>
+          {match.session_format && (
+            <div className="flex items-baseline gap-2">
+              <span className="shrink-0 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                {t("matching.formatLabel")}
+              </span>
+              <span className="text-[14px] text-[color:var(--ink-mid)]">{match.session_format}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Expandable details */}
+      <div className="mt-7 border-t border-[rgba(196,103,74,0.1)] pt-5">
+        <button
+          type="button"
+          onClick={() => setDetailsOpen((v) => !v)}
+          className="flex items-center gap-2 text-[13px] font-semibold text-[color:var(--terra)] hover:underline"
+        >
+          <span>{detailsOpen ? t("matching.hideDetails") : t("matching.showDetails")}</span>
+          <span
+            aria-hidden="true"
+            style={{
+              display: "inline-block",
+              transform: detailsOpen ? "rotate(180deg)" : "rotate(0deg)",
+              transition: "transform 0.2s",
+            }}
+          >
+            ▾
+          </span>
+        </button>
+
+        {detailsOpen && (
+          <div className="mt-6 space-y-6">
+            {/* Education */}
+            {match.education && (
+              <div>
+                <div className="mb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                  {t("matching.educationLabel")}
+                </div>
+                <p className="text-[14px] leading-6 text-[color:var(--ink-mid)]">
+                  {match.education}
+                </p>
+              </div>
+            )}
+
+            {/* Years of experience */}
+            {match.years_experience > 0 && (
+              <div>
+                <div className="mb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                  {t("matching.experienceLabel")}
+                </div>
+                <p className="text-[14px] text-[color:var(--ink-mid)]">
+                  {t("matching.experienceYears", { count: match.years_experience })}
+                </p>
+              </div>
+            )}
+
+            {/* Specializations */}
+            {specLabels.length > 0 && (
+              <div>
+                <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                  {t("matching.specializationsLabel")}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {specLabels.map((label) => (
+                    <span
+                      key={label}
+                      className="rounded-full border border-[rgba(196,103,74,0.2)] bg-[color:var(--terra-wash)] px-3 py-1 text-[12px] font-medium text-[color:var(--terra)]"
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Work focus */}
+            {match.work_focus && (
+              <div>
+                <div className="mb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                  {t("matching.workFocusLabel")}
+                </div>
+                <p className="text-[14px] leading-6 text-[color:var(--ink-mid)]">
+                  {match.work_focus}
+                </p>
+              </div>
+            )}
+
+            {/* Score breakdown */}
+            <div>
+              <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
+                {t("matching.scoreBreakdownLabel")}
+              </div>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-[12px] text-[color:var(--ink-light)]">
+                <span>Erikoistumiset: {match.scoreBreakdown.specializations}</span>
+                <span>Kohtaaminen: {match.scoreBreakdown.approach}</span>
+                <span>Työskentelyote: {match.scoreBreakdown.workStyle}</span>
+                <span>Tahti: {match.scoreBreakdown.pace}</span>
+                <span>Hinta: {match.scoreBreakdown.price}</span>
+                <span>Tapaamistapa: {match.scoreBreakdown.format}</span>
+                <span>Tiheys: {match.scoreBreakdown.frequency}</span>
+                <span>Kokemus: {match.scoreBreakdown.negativeExperience}</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
 function WaveDivider({ fill }: { fill: string }) {
   return (
     <div style={{ lineHeight: 0, background: fill }}>
@@ -377,37 +636,99 @@ function WaveDivider({ fill }: { fill: string }) {
   );
 }
 
+// ── Page ─────────────────────────────────────────────────────────────────────
+
 export default function QuizPage() {
   const locale = useCurrentLocale();
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation("quiz-client");
+
   const quizId: QuizId = location.pathname.endsWith("/long") ? "long" : "short";
-  const tone = t(`tone.${quizId}`, { returnObjects: true }) as ToneCopy;
+  const alternateQuizId: QuizId = quizId === "short" ? "long" : "short";
+
+  const tone = t(`tone.${quizId}`, { returnObjects: true }) as {
+    eyebrow: string;
+    title: string;
+    description: string;
+    switchLabel: string;
+    switchCta: string;
+    switchDescription: string;
+  };
+
   const {
-    quiz,
     currentStep,
     totalQuestions,
     isComplete,
     questionState,
-    recommendations,
+    answers,
     restart,
   } = useQuiz(quizId, locale);
-  const [publishedRecommendations, setPublishedRecommendations] = useState<typeof recommendations | null>(null);
-  const alternateQuizId = quizId === "short" ? "long" : "short";
+
+  type MatchState = "idle" | "loading" | "done";
+  const [matchState, setMatchState] = useState<MatchState>("idle");
+  const [matchResults, setMatchResults] = useState<MatchResult[]>([]);
+  const [whyMatchLoading, setWhyMatchLoading] = useState(false);
 
   useEffect(() => {
     if (!isComplete) {
+      setMatchState("idle");
+      setMatchResults([]);
+      setWhyMatchLoading(false);
       return;
     }
 
-    void getPublishedTherapists(locale).then((profiles) => {
-      setPublishedRecommendations(profiles.length > 0 ? profiles : recommendations);
+    let cancelled = false;
+    setMatchState("loading");
+    const input = mapQuizToMatchingInput(answers);
+
+    matchTherapists(input).then(async (results) => {
+      if (cancelled) return;
+      setMatchResults(results);
+      setMatchState("done");
+
+      if (results.length > 0) {
+        setWhyMatchLoading(true);
+        const rawAnswers: Record<string, string> = {};
+        for (const [k, v] of Object.entries(answers)) {
+          if (typeof v === "string") rawAnswers[k] = v;
+        }
+        try {
+          const whyTexts = await Promise.all(
+            results.map((r) =>
+              generateWhyMatch(r, rawAnswers, locale as "fi" | "en"),
+            ),
+          );
+          if (!cancelled) {
+            setMatchResults(
+              results.map((r, i) => ({ ...r, whyMatch: whyTexts[i] ?? r.whyMatch })),
+            );
+          }
+        } finally {
+          if (!cancelled) setWhyMatchLoading(false);
+        }
+      }
     });
-  }, [isComplete, locale, recommendations]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isComplete]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const quizTitle = t(`quizInfo.${quizId}.title`);
+  const quizDescription = t(`quizInfo.${quizId}.description`);
+
+  const onGoHome = () => navigate(routePaths.clientHome(locale));
+  const onSelectQuiz = (nextId: QuizId) =>
+    navigate(
+      nextId === "long"
+        ? routePaths.clientQuizLong(locale)
+        : routePaths.clientQuiz(locale),
+    );
 
   return (
     <div className="min-h-screen bg-[color:var(--cream)]">
+      {/* Header */}
       <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b border-[rgba(196,103,74,0.1)] bg-[rgba(250,246,240,0.88)] px-6 py-4 backdrop-blur-[16px] sm:px-10 lg:px-[60px]">
         <Link
           to={routePaths.clientHome(locale)}
@@ -417,24 +738,23 @@ export default function QuizPage() {
         </Link>
         <div className="flex items-center gap-3">
           <LanguageSwitcher locale={locale} />
-          <Link
-            to={routePaths.clientHome(locale)}
+          <button
+            type="button"
+            onClick={onGoHome}
             className="rounded-full border border-[color:var(--cream-dark)] bg-white/60 px-4 py-2 text-sm font-medium text-[color:var(--ink-mid)] transition hover:border-[color:var(--ink-light)] hover:text-[color:var(--ink)]"
           >
             {t("meta.returnHome")}
-          </Link>
+          </button>
         </div>
       </header>
 
       <main className="pt-[74px]">
-
+        {/* Quiz section */}
         {!isComplete && (
           <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
             <div className="page-shell-tight">
               <div className="mb-14 text-center">
-                <div className="s-label justify-center">
-                  {tone.eyebrow}
-                </div>
+                <div className="s-label justify-center">{tone.eyebrow}</div>
                 <h2 className="max-w-full text-center">{tone.title}</h2>
                 <p className="s-sub mx-auto max-w-[560px] text-center">{tone.description}</p>
               </div>
@@ -442,20 +762,14 @@ export default function QuizPage() {
               <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
                 <div>{questionState && <QuestionCard {...questionState} />}</div>
                 <QuizAside
-                  quizTitle={quiz.title}
-                  quizDescription={quiz.description}
+                  quizTitle={quizTitle}
+                  quizDescription={quizDescription}
                   totalQuestions={totalQuestions}
                   currentStep={currentStep}
                   isComplete={isComplete}
                   tone={tone}
                   alternateQuizId={alternateQuizId}
-                  onSelectQuiz={(nextQuizId) =>
-                    navigate(
-                      nextQuizId === "long"
-                        ? routePaths.clientQuizLong(locale)
-                        : routePaths.clientQuiz(locale),
-                    )
-                  }
+                  onSelectQuiz={onSelectQuiz}
                   quizId={quizId}
                 />
               </div>
@@ -463,90 +777,60 @@ export default function QuizPage() {
           </section>
         )}
 
+        {/* Recommendations section */}
         {isComplete && (
           <>
             <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
               <div className="page-shell-tight">
-                <div className="mb-14 text-center">
-                  <div className="s-label justify-center">
-                    {t("meta.yourRecommendations")}
-                  </div>
-                  <h2 className="max-w-full text-center">{t("recommendations.title")}</h2>
-                  <p className="s-sub mx-auto max-w-[620px] text-center">
+                <div className="mb-14 flex flex-col items-center text-center">
+                  <div className="s-label justify-center">{t("recommendations.eyebrow")}</div>
+                  <h2 style={{ maxWidth: "600px", textAlign: "center", margin: "0 auto" }}>
+                    {t("recommendations.title")}
+                  </h2>
+                  <p className="s-sub" style={{ maxWidth: "600px", textAlign: "center", margin: "0 auto" }}>
                     {t("recommendations.description")}
                   </p>
                 </div>
 
-                <div className="space-y-5">
-                  {(publishedRecommendations ?? recommendations).map((recommendation, index) => (
-                    <article
-                      key={recommendation.name}
-                      className="rounded-[28px] border border-[rgba(196,103,74,0.12)] bg-white p-7 shadow-[0_24px_70px_rgba(30,22,16,0.06)]"
-                    >
-                      <div className="mb-5 flex flex-wrap items-center gap-3">
-                        <span className="rounded-full bg-[color:var(--terra)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                          {index === 0 ? t("meta.bestRecommendation") : t("meta.optionLabel", { index: index + 1 })}
-                        </span>
-                        <span className="text-[13px] text-[color:var(--ink-light)]">
-                          {recommendation.availability}
-                        </span>
-                      </div>
+                {matchState === "loading" && (
+                  <div className="flex flex-col items-center gap-4 py-16">
+                    <div
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        border: "3px solid rgba(196,103,74,0.2)",
+                        borderTopColor: "var(--terra)",
+                        animation: "spin 0.8s linear infinite",
+                      }}
+                    />
+                    <p className="text-[15px] text-[color:var(--ink-light)]">
+                      {t("matching.loading")}
+                    </p>
+                    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                  </div>
+                )}
 
-                      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-                        <div>
-                          <div
-                            className="therapist-profile-image"
-                            style={{
-                              backgroundImage: `url(${
-                                therapistExperiences[
-                                  recommendation.name as RecommendationMomentName
-                                ].portrait
-                              })`,
-                            }}
-                            aria-hidden="true"
-                          />
-                          <div className="font-serif text-[32px] leading-[1.08] text-[color:var(--ink)]">
-                            {recommendation.name}
-                          </div>
-                          <div className="mt-2 text-[14px] text-[color:var(--ink-light)]">
-                            {recommendation.title}
-                          </div>
+                {matchState === "done" && matchResults.length === 0 && (
+                  <div className="rounded-[20px] bg-white px-8 py-12 text-center shadow-[0_16px_48px_rgba(30,22,16,0.06)]">
+                    <p className="text-[16px] leading-7 text-[color:var(--ink-mid)]">
+                      {t("matching.noResults")}
+                    </p>
+                  </div>
+                )}
 
-                          <div className="mt-6 rounded-[16px] bg-[color:var(--sand-pale)] p-5">
-                            <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
-                              {t("meta.whyThisCouldFit")}
-                            </div>
-                            <div className="text-[14px] leading-7 text-[color:var(--ink-mid)]">
-                              {recommendation.reason}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="space-y-5">
-                          <div>
-                            <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
-                              {t("meta.matchNotes")}
-                            </div>
-                            <div className="mt-4 flex flex-wrap gap-2">
-                              {recommendation.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="rounded-full border border-[color:var(--cream-dark)] bg-white px-3 py-1 text-[12px] font-medium text-[color:var(--ink-mid)]"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                          <RecommendationActions
-                            name={recommendation.name as RecommendationMomentName}
-                          />
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
+                {matchState === "done" && matchResults.length > 0 && (
+                  <div className="space-y-5">
+                    {matchResults.map((match, index) => (
+                      <MatchedTherapistCard
+                        key={match.id}
+                        match={match}
+                        index={index}
+                        whyMatchLoading={whyMatchLoading}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </section>
 
@@ -573,7 +857,7 @@ export default function QuizPage() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => navigate(routePaths.clientHome(locale))}
+                    onClick={onGoHome}
                     className="inline-flex items-center justify-center rounded-full border border-white/14 bg-white/8 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/12"
                   >
                     {t("meta.returnHome")}

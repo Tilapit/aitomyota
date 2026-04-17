@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   buildRecommendations,
   getQuiz,
   type QuizAnswers,
   type QuizAnswerValue,
   type QuizId,
+  type QuizQuestion,
 } from "./quizData";
 import type { Locale } from "../../types/app";
 
@@ -13,17 +14,40 @@ export function useQuiz(quizId: QuizId, locale: Locale) {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [isComplete, setIsComplete] = useState(false);
 
-  const quiz = useMemo(() => getQuiz(quizId, locale), [locale, quizId]);
-  const question = quiz.questions[currentStep];
-  const selectedValue = answers[question?.id] as QuizAnswerValue | undefined;
-  const totalQuestions = quiz.questions.length;
-  const isFirst = currentStep === 0;
-  const isLast = currentStep === totalQuestions - 1;
+  const quiz = useMemo(() => getQuiz(quizId), [quizId]);
+
+  // Visible questions depend on current answers (conditionals resolved dynamically)
+  const visibleQuestions = useMemo((): QuizQuestion[] => {
+    return quiz.questions.filter((q) => {
+      if (!q.conditionalOn) return true;
+      return answers[q.conditionalOn.questionId] === q.conditionalOn.answerId;
+    });
+  }, [quiz.questions, answers]);
+
+  const totalQuestions = visibleQuestions.length;
+  const safeStep = Math.min(currentStep, Math.max(0, totalQuestions - 1));
+  const question = visibleQuestions[safeStep];
+  const selectedValue = question
+    ? (answers[question.id] as QuizAnswerValue | undefined)
+    : undefined;
+  const isFirst = safeStep === 0;
+  const isLast = safeStep === totalQuestions - 1;
+
+  // Initialise slider default so the question is always answerable
+  useEffect(() => {
+    if (
+      question?.type === "slider" &&
+      answers[question.id] === undefined
+    ) {
+      const def = question.sliderDefault ?? 3;
+      setAnswers((curr) => ({ ...curr, [question.id]: String(def) }));
+    }
+  }, [question?.id, question?.type, question?.sliderDefault]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const canProceed = question
-    ? question.openText
+    ? question.optional || question.type === "slider"
       ? true
-      : question.multiSelect
+      : question.type === "multi"
         ? Array.isArray(selectedValue) && selectedValue.length > 0
         : typeof selectedValue === "string" && selectedValue.length > 0
     : false;
@@ -35,67 +59,46 @@ export function useQuiz(quizId: QuizId, locale: Locale) {
   };
 
   const onSingleSelect = (answerId: string) => {
-    if (!question) {
-      return;
-    }
-
-    setAnswers((current) => ({
-      ...current,
-      [question.id]: answerId,
-    }));
+    if (!question) return;
+    setAnswers((curr) => ({ ...curr, [question.id]: answerId }));
   };
 
   const onMultiToggle = (answerId: string) => {
-    if (!question) {
-      return;
-    }
-
-    setAnswers((current) => {
-      const existing = Array.isArray(current[question.id])
-        ? (current[question.id] as string[])
+    if (!question) return;
+    setAnswers((curr) => {
+      const existing = Array.isArray(curr[question.id])
+        ? (curr[question.id] as string[])
         : [];
-
       const next = existing.includes(answerId)
-        ? existing.filter((item) => item !== answerId)
+        ? existing.filter((i) => i !== answerId)
         : [...existing, answerId];
-
-      return {
-        ...current,
-        [question.id]: next,
-      };
+      return { ...curr, [question.id]: next };
     });
   };
 
-  const onTextChange = (value: string) => {
-    if (!question) {
-      return;
-    }
-
-    setAnswers((current) => ({
-      ...current,
-      [question.id]: value,
-    }));
+  /**
+   * onTextChange — stores free text for the current question.
+   * Pass `subKey` to store under `${questionId}_${subKey}` instead,
+   * used for the "other" text field in Q1B.
+   */
+  const onTextChange = (value: string, subKey?: string) => {
+    if (!question) return;
+    const key = subKey ? `${question.id}_${subKey}` : question.id;
+    setAnswers((curr) => ({ ...curr, [key]: value }));
   };
 
   const onBack = () => {
-    if (isFirst) {
-      return;
-    }
-
-    setCurrentStep((current) => current - 1);
+    if (isFirst) return;
+    setCurrentStep((curr) => curr - 1);
   };
 
   const onNext = () => {
-    if (!canProceed) {
-      return;
-    }
-
+    if (!canProceed) return;
     if (isLast) {
       setIsComplete(true);
       return;
     }
-
-    setCurrentStep((current) => current + 1);
+    setCurrentStep((curr) => curr + 1);
   };
 
   const recommendations = useMemo(
@@ -106,9 +109,10 @@ export function useQuiz(quizId: QuizId, locale: Locale) {
   const questionState = question
     ? {
         question,
-        currentIndex: currentStep,
+        currentIndex: safeStep,
         total: totalQuestions,
         selectedValue,
+        answers,
         onSingleSelect,
         onMultiToggle,
         onTextChange,
@@ -122,11 +126,12 @@ export function useQuiz(quizId: QuizId, locale: Locale) {
 
   return {
     quiz,
-    currentStep,
+    currentStep: safeStep,
     totalQuestions,
     isComplete,
     questionState,
     recommendations,
+    answers,
     restart,
   };
 }
