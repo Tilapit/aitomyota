@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "howItWorks": "How it works",
+    "stories": "Stories",
+    "forTherapists": "For therapists",
+    "startMatching": "Start matching",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "savedResults": "Saved results",
+    "dashboard": "Dashboard",
+    "logOut": "Log out",
+    "signedIn": "Signed in"
+  },
+  "audienceTabs": {
+    "forClients": "For clients",
+    "forTherapists": "For therapists"
+  },
+  "languageSwitcher": {
+    "ariaLabel": "Switch language",
+    "toFinnish": "FI",
+    "toEnglish": "EN"
+  },
+  "footer": {
+    "quote": "The first therapy appointment should feel safe, not like a guess.",
+    "privacy": "Privacy",
+    "forTherapists": "For therapists",
+    "contact": "Contact"
+  },
+  "therapistProfile": {
+    "contact": "Contact therapist",
+    "bookCall": "Book a call",
+    "introVideo": "Intro video",
+    "introPreview": "Intro preview",
+    "contactTherapist": "Contact therapist",
+    "bookCallPanel": "Book a call"
+  },
+  "status": {
+    "saveSuccess": "Saved",
+    "savePending": "Saving...",
+    "saveError": "Could not save yet"
+  },
+  "authGateway": {
+    "signinEyebrow": "Sign in",
+    "signupEyebrow": "Create an account",
+    "signinTitle": "Choose how you want to continue",
+    "signupTitle": "Choose which account you want to create",
+    "description": "You can continue as a client to save your recommendations, or as a therapist to manage your public profile and responses.",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "clientSignin": "Sign in as a client",
+    "clientSignup": "Create a client account",
+    "clientDescription": "Save recommendation results, return to them later, and keep your next steps in one place.",
+    "therapistSignin": "Sign in as a therapist",
+    "therapistSignup": "Create a therapist account",
+    "therapistDescription": "Finish onboarding, update your profile, and manage the information clients see."
+  }
+}

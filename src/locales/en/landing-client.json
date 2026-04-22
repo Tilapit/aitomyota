@@ -1,0 +1,58 @@
+{
+  "hero": {
+    "eyebrow": "Matching service",
+    "titleLineOne": "Find the right therapist",
+    "titleAccent": "the first time.",
+    "description": "A calmer way to find someone who fits, before the first appointment turns into guesswork.",
+    "cta": "Start matching",
+    "stats": [
+      { "num": "2 min", "label": "to stop scrolling without knowing where to begin" },
+      { "num": "3", "label": "recommendations with an actual reason behind each one" },
+      { "num": "Less", "label": "second-guessing before the first appointment" }
+    ]
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "Three clear steps",
+    "description": "A short path from uncertainty to a first conversation that actually feels considered.",
+    "steps": [
+      {
+        "kicker": "Step 01",
+        "title": "Share what feels most important",
+        "text": "A few questions help us understand your pace, preferences, and what kind of support would feel right.",
+        "pill": "About 2 to 5 minutes"
+      },
+      {
+        "kicker": "Step 02",
+        "title": "See three strong matches",
+        "text": "We narrow the field and explain why each person stands out, so you are not scanning a directory alone.",
+        "pill": "Reasons included"
+      },
+      {
+        "kicker": "Step 03",
+        "title": "Reach out when one feels right",
+        "text": "Watch a short intro, send a first message, or book a quick call from the recommendation itself.",
+        "pill": "Move only when ready"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "Why Myötä",
+    "title": "Less searching, more direction",
+    "directoryTitle": "Typical directory"
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "What people say after they finally start",
+    "description": "A few voices from people who moved from browsing to a more considered first step.",
+    "featuredBadge": "Most loved"
+  },
+  "faq": {
+    "eyebrow": "FAQs",
+    "title": "Questions that usually come up",
+    "description": "The practical details, without repeating the whole pitch.",
+    "ctaDescription": "Start with the standard match flow, or choose the longer version if you want to give the recommendation more detail.",
+    "ctaShort": "Start the short quiz",
+    "ctaLong": "Take the deeper quiz"
+  }
+}

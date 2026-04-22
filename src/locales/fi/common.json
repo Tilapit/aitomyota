@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "howItWorks": "Miten se toimii",
+    "stories": "Kokemuksia",
+    "forTherapists": "Terapeuteille",
+    "startMatching": "Aloita match",
+    "signIn": "Kirjaudu",
+    "signUp": "Luo tili",
+    "savedResults": "Tallennetut tulokset",
+    "dashboard": "Hallintapaneeli",
+    "logOut": "Kirjaudu ulos",
+    "signedIn": "Kirjautunut"
+  },
+  "audienceTabs": {
+    "forClients": "Asiakkaille",
+    "forTherapists": "Terapeuteille"
+  },
+  "languageSwitcher": {
+    "ariaLabel": "Vaihda kieltä",
+    "toFinnish": "FI",
+    "toEnglish": "EN"
+  },
+  "footer": {
+    "quote": "Ensimmäisen terapiakäynnin pitäisi tuntua turvalliselta, ei arvaukselta.",
+    "privacy": "Tietosuoja",
+    "forTherapists": "Terapeuteille",
+    "contact": "Yhteystiedot"
+  },
+  "therapistProfile": {
+    "contact": "Ota yhteyttä terapeuttiin",
+    "bookCall": "Varaa puhelu",
+    "introVideo": "Esittelyvideo",
+    "introPreview": "Esittelyn esikatselu",
+    "contactTherapist": "Ota yhteyttä terapeuttiin",
+    "bookCallPanel": "Varaa puhelu"
+  },
+  "status": {
+    "saveSuccess": "Tallennettu",
+    "savePending": "Tallennetaan...",
+    "saveError": "Tallennus ei vielä onnistunut"
+  },
+  "authGateway": {
+    "signinEyebrow": "Kirjaudu sisään",
+    "signupEyebrow": "Luo tili",
+    "signinTitle": "Valitse miten haluat jatkaa",
+    "signupTitle": "Valitse minkä tilin haluat luoda",
+    "description": "Voit jatkaa asiakkaana tallentaaksesi suosituksesi tai terapeuttina hallitaksesi julkista profiiliasi ja vastauksiasi.",
+    "signIn": "Kirjaudu sisään",
+    "signUp": "Luo tili",
+    "clientSignin": "Kirjaudu asiakkaana",
+    "clientSignup": "Luo asiakastili",
+    "clientDescription": "Tallenna suositustulokset, palaa niihin myöhemmin ja pidä seuraavat askeleet yhdessä paikassa.",
+    "therapistSignin": "Kirjaudu terapeuttina",
+    "therapistSignup": "Luo terapeutin tili",
+    "therapistDescription": "Viimeistele onboarding, päivitä profiiliasi ja hallitse tietoja, jotka asiakkaat näkevät."
+  }
+}

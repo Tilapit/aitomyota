@@ -1,0 +1,58 @@
+{
+  "hero": {
+    "eyebrow": "Match-palvelu",
+    "titleLineOne": "Löydä oikea terapeutti",
+    "titleAccent": "ensimmäisellä kerralla.",
+    "description": "Rauhallisempi tapa löytää sopiva ihminen ennen kuin ensimmäinen käynti tuntuu arvaukselta.",
+    "cta": "Aloita match",
+    "stats": [
+      { "num": "2 min", "label": "lopettaa selailu ilman selkeää aloituskohtaa" },
+      { "num": "3", "label": "suositusta, joille on oikea perustelu" },
+      { "num": "Vähemmän", "label": "epäröintiä ennen ensimmäistä käyntiä" }
+    ]
+  },
+  "how": {
+    "eyebrow": "Miten se toimii",
+    "title": "Kolme selkeää vaihetta",
+    "description": "Lyhyt polku epävarmuudesta ensimmäiseen keskusteluun, joka tuntuu harkitulta.",
+    "steps": [
+      {
+        "kicker": "Vaihe 01",
+        "title": "Kerro mikä tuntuu tärkeimmältä",
+        "text": "Muutama kysymys auttaa meitä ymmärtämään tahtiasi, toiveitasi ja sitä, millainen tuki tuntuisi oikealta.",
+        "pill": "Noin 2–5 minuuttia"
+      },
+      {
+        "kicker": "Vaihe 02",
+        "title": "Näe kolme vahvaa matchia",
+        "text": "Rajaamme vaihtoehtoja ja kerromme, miksi kukin ihminen erottuu, jotta et selaa hakemistoa yksin.",
+        "pill": "Perustelut mukana"
+      },
+      {
+        "kicker": "Vaihe 03",
+        "title": "Ota yhteyttä kun joku tuntuu oikealta",
+        "text": "Katso lyhyt esittely, lähetä ensimmäinen viesti tai varaa lyhyt puhelu suosituksen kautta.",
+        "pill": "Liiku vasta kun olet valmis"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "Miksi Myötä",
+    "title": "Vähemmän etsimistä, enemmän suuntaa",
+    "directoryTitle": "Tyypillinen hakemisto"
+  },
+  "testimonials": {
+    "eyebrow": "Kokemuksia",
+    "title": "Mitä ihmiset sanovat, kun he viimein aloittavat",
+    "description": "Muutama ääni ihmisiltä, jotka siirtyivät selailusta harkitumpaan ensimmäiseen askeleeseen.",
+    "featuredBadge": "Pidetyin"
+  },
+  "faq": {
+    "eyebrow": "UKK",
+    "title": "Kysymykset, joita yleensä tulee vastaan",
+    "description": "Käytännön asiat ilman, että koko pitchiä toistetaan.",
+    "ctaDescription": "Aloita tavallisella match-polulla tai valitse pidempi versio, jos haluat antaa suositukselle enemmän tietoa.",
+    "ctaShort": "Aloita lyhyt kysely",
+    "ctaLong": "Tee pidempi kysely"
+  }
+}

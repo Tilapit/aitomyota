@@ -1,0 +1,38 @@
+{
+  "title": "Therapist dashboard",
+  "description": "Edit your public profile, localized content, onboarding answers, media URLs, and availability.",
+  "sections": {
+    "profile": "Profile",
+    "localized": "Localized content",
+    "availability": "Availability",
+    "responses": "Onboarding responses"
+  },
+  "publish": "Published",
+  "unpublish": "Unpublished",
+  "saveState": {
+    "saving": "Saving...",
+    "saved": "Saved",
+    "error": "Could not save yet"
+  },
+  "actions": {
+    "signOut": "Sign out"
+  },
+  "headings": {
+    "english": "English source",
+    "finnish": "Finnish version"
+  },
+  "fields": {
+    "displayName": "Display name",
+    "title": "Title",
+    "introVideoUrl": "Intro video URL",
+    "headshotUrl": "Headshot URL",
+    "bookingUrl": "Booking URL",
+    "shortIntro": "Short intro",
+    "bio": "Bio",
+    "approachSummary": "Approach summary",
+    "availabilitySummary": "Availability summary",
+    "sessionTimes": "Session times",
+    "responseTimeNote": "Response time note",
+    "timezone": "Timezone"
+  }
+}

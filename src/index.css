@@ -372,13 +372,15 @@ h2 {
   overflow: hidden;
   margin-bottom: 20px;
   border: 1px solid rgba(196, 103, 74, 0.12);
+  background-size: cover;
+  background-position: center;
 }
 
 .therapist-video::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(30,22,16,0.18));
+  background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(30,22,16,0.42));
   pointer-events: none;
 }
 
@@ -446,7 +448,8 @@ h2 {
   z-index: 1;
   font-family: "Lora", serif;
   font-size: 24px;
-  color: var(--ink);
+  color: white;
+  text-shadow: 0 6px 18px rgba(30, 22, 16, 0.48);
 }
 
 .p-tag {
@@ -607,10 +610,30 @@ h2 {
   padding-right: 16px;
 }
 
+.testimonial-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 18px 42px rgba(30, 22, 16, 0.08);
+}
+
 .testimonial-quote {
   font-size: 16px;
   line-height: 1.8;
   color: var(--ink-mid);
+}
+
+.therapist-profile-image {
+  width: 124px;
+  aspect-ratio: 1 / 1;
+  border-radius: 26px;
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 22px 48px rgba(30, 22, 16, 0.1);
 }
 
 .testimonial-meta {

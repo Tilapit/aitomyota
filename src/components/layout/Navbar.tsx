@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Logo from "./Logo";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { routePaths } from "../../lib/routes";
+import type { Locale } from "../../types/app";
+import { useAuth } from "../../hooks/useAuth";
 
 interface NavbarProps {
-  onOpenQuiz: () => void;
+  locale: Locale;
+  audience?: "client" | "therapist";
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
+const Navbar: React.FC<NavbarProps> = ({ locale, audience = "client" }) => {
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation("common");
+  const { user, loading, hasRole, signOut } = useAuth();
+  const signInPath =
+    audience === "therapist" ? routePaths.therapistAuth(locale) : routePaths.clientAuth(locale);
+  const signUpPath = `${signInPath}?mode=signup`;
+  const displayName = String(user?.user_metadata?.display_name ?? "").trim();
+  const identityLabel = displayName || user?.email || t("nav.signedIn");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -36,9 +50,9 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
       }}
     >
       <div className="page-shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+        <Link to={routePaths.clientHome(locale)} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Logo />
-        </a>
+        </Link>
 
         <ul
           style={{
@@ -52,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
         >
           <li>
             <a
-              href="#how"
+              href={routePaths.clientHome(locale) + "#how"}
               style={{
                 textDecoration: "none",
                 color: "var(--ink)",
@@ -70,12 +84,12 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 event.currentTarget.style.opacity = "0.85";
               }}
             >
-              How it works
+              {t("nav.howItWorks")}
             </a>
           </li>
           <li>
             <a
-              href="#stories"
+              href={routePaths.clientHome(locale) + "#stories"}
               style={{
                 textDecoration: "none",
                 color: "var(--ink)",
@@ -93,36 +107,154 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenQuiz }) => {
                 event.currentTarget.style.opacity = "0.85";
               }}
             >
-              Stories
+              {t("nav.stories")}
             </a>
           </li>
+          {!loading && user ? (
+            <>
+              <li>
+                <span
+                  style={{
+                    color: "var(--ink-light)",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {identityLabel}
+                </span>
+              </li>
+              {hasRole("client") && (
+                <li>
+                  <Link
+                    to={routePaths.clientSavedResults(locale)}
+                    style={{
+                      textDecoration: "none",
+                      color: "var(--ink)",
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      opacity: 0.85,
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(event) => {
+                      event.currentTarget.style.color = "var(--terra)";
+                      event.currentTarget.style.opacity = "1";
+                    }}
+                    onMouseLeave={(event) => {
+                      event.currentTarget.style.color = "var(--ink)";
+                      event.currentTarget.style.opacity = "0.85";
+                    }}
+                  >
+                    {t("nav.savedResults")}
+                  </Link>
+                </li>
+              )}
+              {hasRole("therapist") && (
+                <li>
+                  <Link
+                    to={routePaths.therapistDashboard(locale)}
+                    style={{
+                      textDecoration: "none",
+                      color: "var(--ink)",
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      opacity: 0.85,
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(event) => {
+                      event.currentTarget.style.color = "var(--terra)";
+                      event.currentTarget.style.opacity = "1";
+                    }}
+                    onMouseLeave={(event) => {
+                      event.currentTarget.style.color = "var(--ink)";
+                      event.currentTarget.style.opacity = "0.85";
+                    }}
+                  >
+                    {t("nav.dashboard")}
+                  </Link>
+                </li>
+              )}
+              <li>
+                <button
+                  type="button"
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    color: "var(--ink)",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    opacity: 0.85,
+                    transition: "color 0.2s",
+                    cursor: "pointer",
+                    padding: 0,
+                    fontFamily: "inherit",
+                  }}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.color = "var(--terra)";
+                    event.currentTarget.style.opacity = "1";
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.color = "var(--ink)";
+                    event.currentTarget.style.opacity = "0.85";
+                  }}
+                  onClick={() => void signOut()}
+                >
+                  {t("nav.logOut")}
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to={signInPath}
+                  style={{
+                    textDecoration: "none",
+                    color: "var(--ink)",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    opacity: 0.85,
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.color = "var(--terra)";
+                    event.currentTarget.style.opacity = "1";
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.color = "var(--ink)";
+                    event.currentTarget.style.opacity = "0.85";
+                  }}
+                >
+                  {t("nav.signIn")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={signUpPath}
+                  style={{
+                    textDecoration: "none",
+                    color: "var(--ink)",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    opacity: 0.85,
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.color = "var(--terra)";
+                    event.currentTarget.style.opacity = "1";
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.color = "var(--ink)";
+                    event.currentTarget.style.opacity = "0.85";
+                  }}
+                >
+                  {t("nav.signUp")}
+                </Link>
+              </li>
+            </>
+          )}
           <li>
-            <button
-              onClick={onOpenQuiz}
-              style={{
-                background: "var(--terra)",
-                color: "white",
-                border: "none",
-                borderRadius: "100px",
-                padding: "10px 22px",
-                fontFamily: "Nunito, sans-serif",
-                fontSize: "14px",
-                fontWeight: 700,
-                cursor: "pointer",
-                boxShadow: "0 3px 14px rgba(196,103,74,0.35)",
-                transition: "background 0.2s, transform 0.15s",
-              }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.background = "var(--terra-mid)";
-                event.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.background = "var(--terra)";
-                event.currentTarget.style.transform = "translateY(0)";
-              }}
-            >
-              Start matching
-            </button>
+            <LanguageSwitcher locale={locale} />
           </li>
         </ul>
       </div>
