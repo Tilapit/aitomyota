@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "eyebrow": "Therapist onboarding",
+    "title": "Create a profile that feels useful before the first session.",
+    "description": "Answer a short set of questions about your practice. After that, sign up to save and publish your profile.",
+    "completeTitle": "Your onboarding draft is ready",
+    "completeDescription": "Create your therapist account to store your answers, publish your profile, and continue in the dashboard.",
+    "authCta": "Continue to sign up",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish onboarding"
+  }
+}

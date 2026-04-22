@@ -1,0 +1,106 @@
+{
+  "hero": {
+    "eyebrow": "Terapeuteille",
+    "titleLineOne": "Rakenna profiili, joka kohtaa",
+    "titleAccent": "oikeat asiakkaat.",
+    "description": "Kerro miten työskentelet, millaista tukea tarjoat ja miten asiakkaat voivat tavoittaa sinut ilman että profiilisi muuttuu jälleen yhdeksi geneeriseksi hakemistosivuksi.",
+    "cta": "Aloita terapeutin onboarding",
+    "stats": [
+      { "num": "Parempi osuma", "label": "Vähemmän vääriä yhteydenottoja" },
+      { "num": "Enemmän sinua", "label": "Profiili kuulostaa ihmiseltä" },
+      { "num": "Vähemmän hallintaa", "label": "Nopeat päivitykset ilman uusiksi tekemistä" }
+    ]
+  },
+  "how": {
+    "eyebrow": "Miten se toimii",
+    "title": "Kolme selkeää vaihetta terapeuteille",
+    "description": "Rauhallisempi polku profiilin perustamisesta julkiseen sivuun, jossa on jo enemmän kontekstia mukana.",
+    "steps": [
+      {
+        "kicker": "Vaihe 01",
+        "title": "Kuvaa miten työskentelet",
+        "text": "Vastaa lyhyeen terapeutin onboarding-polkuun, jossa on sekä valintakysymyksiä että vapaita vastauksia tyylistäsi, painopisteistäsi ja sopivuudesta.",
+        "pill": "Lyhyt ja myöhemmin muokattava"
+      },
+      {
+        "kicker": "Vaihe 02",
+        "title": "Kirjaudu sisään ja julkaise heti",
+        "text": "Luo tili vasta kyselyn jälkeen, jotta voimme tallentaa vastauksesi, rakentaa profiilisi ja julkaista sen saman tien.",
+        "pill": "Salasana tai magic link"
+      },
+      {
+        "kicker": "Vaihe 03",
+        "title": "Pidä profiilisi ajan tasalla",
+        "text": "Päivitä englanninkielistä lähdesisältöäsi, tarkista suomenkielinen esitäyttö, lisää medialinkkejä ja säädä saatavuutta hallintapaneelista.",
+        "pill": "Live-päivitykset"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "Miksi Myötä",
+    "title": "Vähemmän hakemistokohinaa, enemmän aitoa kontekstia",
+    "directoryTitle": "Tyypillinen hakemisto"
+  },
+  "testimonials": {
+    "eyebrow": "Terapeuteilta",
+    "title": "Profiili, joka kuulostaa enemmän sinulta",
+    "description": "Muutama syy siihen, miksi tämä polku on rakennettu tuntumaan lähempänä oikeaa työtä kuin geneerinen listaus."
+  },
+  "faq": {
+    "eyebrow": "UKK",
+    "title": "Mitä terapeutit yleensä haluavat tietää",
+    "description": "Käytännön asiat ennen kuin aloitat.",
+    "ctaDescription": "Aloita terapeutin onboarding-polulla ja siirry tunnistautumiseen vasta silloin, kun olet valmis tallentamaan ja julkaisemaan profiilisi.",
+    "ctaShort": "Aloita terapeutin onboarding",
+    "ctaLong": "Avaa hallintapaneeli"
+  },
+  "content": {
+    "directoryPoints": [
+      "Profiilit litistävät työskentelytyylisi usein muutamaan yleiseen tunnisteeseen",
+      "Asiakkaat saapuvat vähäisellä kontekstilla ja vertaavat sinua irrallisena muista",
+      "Tekstien, linkkien ja saatavuuden päivittäminen muuttuu uudeksi hallinnolliseksi tehtäväksi",
+      "Lokalisoidun sisällön ylläpito on vaikea tehdä johdonmukaisesti"
+    ],
+    "myotaPoints": [
+      "Asiakkaat saapuvat match-polulta rikkaamman kontekstin kanssa",
+      "Profiilisi sisältää sekä jäsenneltyjä sopivuussignaaleja että vapaan tekstin nyansseja",
+      "Englanti voi pysyä lähdekielenäsi samalla kun suomi esitäytetään",
+      "Medialinkit, varauslinkit ja saatavuus elävät yhdessä hallintapaneelissa"
+    ],
+    "testimonials": [
+      {
+        "quote": "Tämä tuntuu lähempänä sitä, miten oikeasti kuvaan työskentelyäni kuin yksikään tavallinen profiililomake.",
+        "name": "Laura, integratiivinen terapeutti",
+        "context": "Julkaisi onboarding-polun jälkeen"
+      },
+      {
+        "quote": "Pidän siitä, että asiakas saapuu jo jonkinlaisen kontekstin kanssa. Se muuttaa ensimmäisen yhteydenoton tuntua.",
+        "name": "Mikko, psykoterapeutti",
+        "context": "Pitää saatavuuden ajan tasalla hallintapaneelissa"
+      },
+      {
+        "quote": "Se, että voin kirjoittaa ensin englanniksi ja viimeistellä suomen myöhemmin, tekee koko asetelmasta paljon kevyemmän.",
+        "name": "Sofia, traumainformoitu terapeutti",
+        "context": "Lokalisoidun profiilin muokkaus"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Miten tämä eroaa siitä, että lisään itseni taas yhteen hakemistoon?",
+        "answer": "Tavoite ei ole vain tehdä sinusta näkyvä. Tarkoitus on auttaa oikeanlaista asiakasta ymmärtämään työskentelytapasi jo ennen yhteydenottoa, jotta ensimmäinen kontakti tuntuu alusta asti osuvammalta."
+      },
+      {
+        "question": "Kuulostaako tämä silti minulta vai alustatekstiltä?",
+        "answer": "Lähtökohtana ovat omat vastauksesi. Polku on rakennettu säilyttämään sinun kielesi, sävysi ja tapasi kuvata työtäsi sen sijaan, että kaikki litistettäisiin geneerisiksi tunnisteiksi."
+      },
+      {
+        "question": "Entä jos minulla ei ole aikaa ylläpitää taas yhtä monimutkaista profiilia?",
+        "answer": "Juuri sitä tämä pyrkii vähentämään. Voit vastata onboarding-polkuun kerran, julkaista siitä ja tehdä myöhemmin pienempiä päivityksiä ilman että koko sivu pitää rakentaa aina uudelleen."
+      },
+      {
+        "question": "Voinko silti hallita sitä, mitä asiakkaat näkevät englanniksi ja suomeksi?",
+        "answer": "Kyllä. Englanti pysyy lähdeversionasi, suomi voidaan esitäyttää ajan säästämiseksi, ja voit viimeistellä molemmat niin että julkinen profiili tuntuu edelleen tarkalta ja harkitulta."
+      }
+    ]
+  }
+}

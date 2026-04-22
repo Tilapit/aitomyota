@@ -1,21 +1,15 @@
 import React from "react";
+import { CheckCircle, XCircle } from "@phosphor-icons/react";
+import { useTranslation } from "react-i18next";
 import Logo from "../layout/Logo";
-
-const directoryPoints = [
-  "Hundreds of profiles, but no clear place to begin",
-  "No explanation for why a certain therapist might fit you",
-  "The first appointment can feel like a costly guess",
-  "Momentum gets lost before you even start",
-];
-
-const myotaPoints = [
-  { text: "A short match flow narrows the field quickly" },
-  { text: "Every recommendation comes with a reason: ", em: "why it fits" },
-  { text: "You can watch an intro or reach out directly from the result" },
-  { text: "The first session feels chosen, not random" },
-];
+import { getHomeContent } from "../../content/homeContent";
+import { useCurrentLocale } from "../../hooks/useCurrentLocale";
 
 const ComparisonSection: React.FC = () => {
+  const locale = useCurrentLocale();
+  const { t } = useTranslation("landing-client");
+  const { directoryPoints, myotaPoints } = getHomeContent(locale);
+
   return (
     <>
       <div style={{ lineHeight: 0, background: "white" }}>
@@ -36,20 +30,22 @@ const ComparisonSection: React.FC = () => {
         <div className="page-shell-tight">
           <div style={{ textAlign: "center", marginBottom: "52px" }}>
             <div className="s-label" style={{ justifyContent: "center" }}>
-              Why Myötä
+              {t("comparison.eyebrow")}
             </div>
             <h2 style={{ maxWidth: "100%", textAlign: "center" }}>
-              Less searching, more direction
+              {t("comparison.title")}
             </h2>
           </div>
 
           <div className="comparison-layout">
             <div className="comparison-side">
-              <div className="compare-title compare-title-muted">Typical directory</div>
+              <div className="compare-title compare-title-muted">
+                {t("comparison.directoryTitle")}
+              </div>
               <div className="comparison-list">
                 {directoryPoints.map((text) => (
                   <div key={text} className="comparison-row comparison-row-muted">
-                    <span className="comparison-mark comparison-mark-muted">✕</span>
+                    <span className="comparison-mark comparison-mark-muted"><XCircle size={18} weight="fill" /></span>
                     <span className="compare-copy compare-copy-muted">{text}</span>
                   </div>
                 ))}
@@ -63,7 +59,7 @@ const ComparisonSection: React.FC = () => {
               <div className="comparison-list">
                 {myotaPoints.map((item, index) => (
                   <div key={index} className="comparison-row">
-                    <span className="comparison-mark">✓</span>
+                    <span className="comparison-mark"><CheckCircle size={18} weight="fill" /></span>
                     <span className="compare-copy compare-copy-strong">
                       {item.text}
                       {item.em && <em>{item.em}</em>}

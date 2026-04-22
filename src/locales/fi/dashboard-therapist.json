@@ -1,0 +1,38 @@
+{
+  "title": "Terapeutin hallintapaneeli",
+  "description": "Muokkaa julkista profiiliasi, lokalisoitua sisältöä, onboarding-vastauksia, medialinkkejä ja saatavuutta.",
+  "sections": {
+    "profile": "Profiili",
+    "localized": "Lokalisoitu sisältö",
+    "availability": "Saatavuus",
+    "responses": "Onboarding-vastaukset"
+  },
+  "publish": "Julkaistu",
+  "unpublish": "Ei julkaistu",
+  "saveState": {
+    "saving": "Tallennetaan...",
+    "saved": "Tallennettu",
+    "error": "Tallennus ei vielä onnistunut"
+  },
+  "actions": {
+    "signOut": "Kirjaudu ulos"
+  },
+  "headings": {
+    "english": "Englanninkielinen lähde",
+    "finnish": "Suomenkielinen versio"
+  },
+  "fields": {
+    "displayName": "Näyttönimi",
+    "title": "Titteli",
+    "introVideoUrl": "Esittelyvideon URL",
+    "headshotUrl": "Profiilikuvan URL",
+    "bookingUrl": "Varauslinkki",
+    "shortIntro": "Lyhyt esittely",
+    "bio": "Bio",
+    "approachSummary": "Työskentelytavan yhteenveto",
+    "availabilitySummary": "Saatavuuden yhteenveto",
+    "sessionTimes": "Tapaamisajat",
+    "responseTimeNote": "Vastausaikahuomio",
+    "timezone": "Aikavyöhyke"
+  }
+}
