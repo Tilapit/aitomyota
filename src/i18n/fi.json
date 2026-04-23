@@ -1,0 +1,404 @@
+{
+  "nav": {
+    "howItWorks": "Miten se toimii",
+    "stories": "Tarinat",
+    "startMatching": "Aloita haku"
+  },
+  "hero": {
+    "badge": "Yhteensopivuuspalvelu",
+    "title": "Löydä oikea terapeutti",
+    "titleEm": "ensimmäisellä kerralla.",
+    "subtitle": "Rauhallisempi tapa löytää sopiva terapeutti, ennen kuin ensimmäisestä tapaamisesta tulee arvailua.",
+    "cta": "Aloita haku →",
+    "stats": {
+      "therapists": "Terapeuttia",
+      "detailedMatchPath": "Yksityiskohtainen hakupolku",
+      "curatedMatches": "Valittua ehdokasta"
+    }
+  },
+  "howItWorks": {
+    "label": "Miten se toimii",
+    "title": "Kolme selkeää vaihetta",
+    "subtitle": "Lyhyt polku epävarmuudesta ensimmäiseen harkittuun keskusteluun.",
+    "steps": [
+      {
+        "kicker": "Vaihe 01",
+        "title": "Kerro mikä tuntuu tärkeimmältä",
+        "text": "Muutama kysymys auttaa meitä ymmärtämään tahtisi, mieltymyksesi ja millainen tuki tuntuisi oikealta.",
+        "pill": "Noin 2–5 minuuttia"
+      },
+      {
+        "kicker": "Vaihe 02",
+        "title": "Katso kolme vahvaa ehdokasta",
+        "text": "Karsimme valinnat ja selitämme miksi kukin erottuu joukosta, joten et selaile hakemistoa yksin.",
+        "pill": "Perustelut mukana"
+      },
+      {
+        "kicker": "Vaihe 03",
+        "title": "Ota yhteyttä kun sopiva löytyy",
+        "text": "Katso lyhyt esittely, lähetä ensimmäinen viesti tai varaa pikasoitto suoraan suosituksesta.",
+        "pill": "Etene vasta kun olet valmis"
+      }
+    ]
+  },
+  "comparison": {
+    "label": "Miksi Myötä",
+    "title": "Vähemmän etsimistä, enemmän suuntaa",
+    "directoryTitle": "Tavallinen hakemisto",
+    "directoryPoints": [
+      "Satoja profiileja, mutta ei selvää lähtökohtaa",
+      "Ei selitystä miksi tietty terapeutti sopisi sinulle",
+      "Ensimmäinen tapaaminen voi tuntua kalliilta arvaukselta",
+      "Vauhti katoaa ennen kuin edes aloitat"
+    ],
+    "myotaPoints": [
+      { "text": "Lyhyt hakuprosessi karsii vaihtoehtoja nopeasti" },
+      { "text": "Jokainen suositus sisältää perustelun: ", "em": "miksi se sopii" },
+      { "text": "Voit katsoa esittelyn tai ottaa yhteyttä suoraan tuloksesta" },
+      { "text": "Ensimmäinen tapaaminen tuntuu valitulta, ei satunnaiselta" }
+    ]
+  },
+  "testimonials": {
+    "label": "Kokemuksia",
+    "title": "Mitä ihmiset sanovat kun he viimein aloittavat",
+    "subtitle": "Muutamia ääniä ihmisiltä, jotka siirtyivät selailusta harkitumpaan ensimmäiseen askeleeseen.",
+    "mostLoved": "Suosituin",
+    "items": [
+      {
+        "quote": "Odotin taas pitkää hakemistoa ja lisää epävarmuutta. Sen sijaan sain kolme harkittua suositusta ja ymmärsin miksi kukin voisi toimia minulle.",
+        "name": "Emilia, 31",
+        "context": "Aloitti lyhyemmällä kyselyllä"
+      },
+      {
+        "quote": "Syvempi versio auttoi minua huomaamaan millaista terapeuttia oikeasti tarvitsin, ei vain mistä aiheesta halusin puhua. Se muutti kaiken.",
+        "name": "Jonas, 42",
+        "context": "Valitsi syvemmän kyselyn"
+      },
+      {
+        "quote": "Se mitä arvostin eniten oli se, että ensimmäinen askel tuntui lempeältä. En tarvinnut täydellisiä sanoja, ja silti tunsin tulevani ymmärretyksi.",
+        "name": "Mira, 27",
+        "context": "Varasi ensimmäisen suosituksensa jälkeen"
+      }
+    ]
+  },
+  "faq": {
+    "label": "UKK",
+    "title": "Usein esitetyt kysymykset",
+    "subtitle": "Käytännön tiedot ilman koko esitteen toistamista.",
+    "ctaText": "Aloita tavallisella hakupolulla tai valitse pidempi versio jos haluat antaa suositukselle enemmän tietoa.",
+    "shortQuiz": "Aloita lyhyt kysely",
+    "deepQuiz": "Tee syvempi kysely",
+    "items": [
+      {
+        "question": "Kuinka kauan tämä kestää?",
+        "answer": "Useimmat ihmiset voivat suorittaa päähakuprosessin noin kahdessa minuutissa. On myös pidempi versio jos haluat antaa ehdokkaalle enemmän kontekstia."
+      },
+      {
+        "question": "Täytyykö minun tietää tarkalleen mikä on vialla ennen kuin aloitan?",
+        "answer": "Ei. Monet ihmiset aloittavat kun he voivat kuvata vain tunteen, ei selvää nimikettä. Kysymykset on suunniteltu toimimaan sen epävarmuuden kanssa, ei sitä vastaan."
+      },
+      {
+        "question": "Saanko vain yhden suosituksen?",
+        "answer": "Ei. Saat kolme suositusta sekä lyhyen selityksen miksi kukin voisi sopia sinulle."
+      },
+      {
+        "question": "Voinko aloittaa lyhyellä kyselyllä ja mennä syvemmälle myöhemmin?",
+        "answer": "Kyllä. Voit aloittaa lyhyemmällä polulla ja siirtyä pidempään versioon myöhemmin jos haluat täydemmän suosituksen."
+      }
+    ]
+  },
+  "footer": {
+    "quote": "\"Ensimmäisen terapiakäynnin pitäisi tuntua turvalliselta, ei arvaukselta.\"",
+    "privacy": "Tietosuoja",
+    "forTherapists": "Terapeuteille",
+    "contact": "Yhteystiedot"
+  },
+  "quiz": {
+    "tone": {
+      "short": {
+        "eyebrow": "Aloita tästä",
+        "title": "Lyhyt haku, sitten selkeämpi seuraava askel.",
+        "description": "Tämä versio pitää asiat kevyinä ja vie sinut nopeasti harkittuun suositukseen.",
+        "switchLabel": "Haluatko enemmän kontekstia?",
+        "switchCta": "Kokeile pidempää versiota",
+        "switchDescription": "Pidempi polku lisää enemmän yksityiskohtia tahdista, mieltymyksistä ja siitä miltä haluat työn tuntuvan."
+      },
+      "long": {
+        "eyebrow": "Pidempi versio",
+        "title": "Täydellisempi kuva tarkempaa vastaavuutta varten.",
+        "description": "Tämä versio kysyy hieman enemmän jotta suositus voi olla tarkempi.",
+        "switchLabel": "Haluatko lyhyemmän polun?",
+        "switchCta": "Palaa lyhyempään versioon",
+        "switchDescription": "Voit aina palata lyhyempään versioon jos haluat edetä nopeammin."
+      }
+    },
+    "meta": {
+      "short": {
+        "title": "Lyhyt esittely",
+        "description": "7 kysymystä, noin 2 minuuttia. Kevyempi ensimmäinen askel kun haluat vain päästä liikkeelle."
+      },
+      "long": {
+        "title": "Syvempi esittely",
+        "description": "16 kysymystä, noin 5 minuuttia. Enemmän vivahteita, enemmän yksityiskohtia ja pehmeämpi polku tarkempaan vastaavuuteen."
+      }
+    },
+    "ui": {
+      "backToHome": "Takaisin etusivulle",
+      "questionsLabel": "{{count}} kysymystä",
+      "progressLabel": "{{current}} / {{total}} suoritettu",
+      "gentleReminderTitle": "Lempeä muistutus",
+      "gentleReminderText": "Et tarvitse täydellisiä sanoja jatkaaksesi. Hyvä vastaavuus alkaa usein muutamasta rehellisestä signaalista, ei täydellisestä selityksestä.",
+      "reminderShort": "Voit aina lisätä lisätietoja myöhemmin.",
+      "reminderLong": "Voit aina vaihtaa takaisin lyhyempään polkuun.",
+      "questionCounter": "Kysymys {{current}} / {{total}}",
+      "multiSelectHint": "Valitse useampi tarvittaessa",
+      "ownWordsLabel": "Omin sanoin",
+      "textPlaceholder": "Kirjoita niin paljon tai vähän kuin haluat.",
+      "back": "Takaisin",
+      "next": "Seuraava kysymys",
+      "showRecommendations": "Näytä suositukset",
+      "yourRecommendations": "Suosituksesi",
+      "recommendationsTitle": "Kolme ammattilaista joista kannattaa aloittaa",
+      "recommendationsSubtitle": "Nämä eivät ole satunnaisia nimiä hakemistosta. Jokainen suositus on sidottu tukeen, tahtiin ja ensivaikutelmaan jota kerroit toivovasi.",
+      "bestFirst": "Paras ensimmäinen suositus",
+      "option": "Vaihtoehto {{number}}",
+      "whyFit": "Miksi tämä voisi sopia",
+      "matchNotes": "Vastaavuusmuistiinpanot",
+      "introVideo": "Esittelyvideo",
+      "introPreview": "Esittelykatselmus",
+      "contactTherapist": "Ota yhteyttä terapeuttiin",
+      "bookCall": "Varaa soitto",
+      "writeIntro": "Kirjoita lyhyt esittely",
+      "askOpening": "Kysy seuraavasta vapautuvasta ajasta",
+      "bookCallCopy": "Lyhyt ensimmäinen puhelu voi auttaa kuulemaan heidän sävynsä, kysymään saatavuudesta ja päättämään tuntuuko ensimmäinen istunto oikealta.",
+      "reserveCall": "Varaa lyhyt esittelypuhelu",
+      "seeTimes": "Katso saatavilla olevat ajat",
+      "continueLabel": "Jatka tästä",
+      "ctaTitle": "Hyvän ensimmäisen askeleen pitäisi tuntua harkitummalta kuin satunnaiselta.",
+      "ctaText": "Voit ottaa kyselyn uudelleen, vertailla suosituksiasi vielä kerran tai palata etusivulle ja jatkaa sieltä kun tuntuu oikealta.",
+      "takeAgain": "Tee kysely uudelleen",
+      "returnHome": "Palaa etusivulle"
+    },
+    "questions": {
+      "s1": "Mikä kuvaa parhaiten mikä painaa sinua eniten tällä hetkellä?",
+      "s2": "Millä kielellä haluaisit puhua ammattilaisen kanssa?",
+      "s3": "Millainen tuki tuntuu tärkeimmältä juuri nyt?",
+      "s4": "Onko terapeutin sukupuolella merkitystä sinulle?",
+      "s5": "Onko terapeutin iällä merkitystä sinulle?",
+      "s6": "Mikä hintaluokka tuntuu realistiselta sinulle per istunto?",
+      "s6_note": "Nämä hinnat ovat suuntaa-antavia ja voivat vaihdella ammattilaiskohtaisesti.",
+      "s7": "Haluaisitko käyttää Kela-korvausta jos mahdollista?",
+      "s7_note": "Kela voi korvata osan psykoterapian kustannuksista tietyin ehdoin Suomessa.",
+      "l1": "Mikä kuvaa parhaiten mikä painaa sinua eniten tällä hetkellä?",
+      "l2": "Millä kielellä haluaisit puhua ammattilaisen kanssa?",
+      "l3": "Kuinka kauan tämä on painanut sinua?",
+      "l4": "Mistä elämänalueesta haluaisit eniten puhua? Voit valita useamman.",
+      "l5": "Kuinka häiritsevältä tämä tuntuu arjessasi juuri nyt?",
+      "l5_note": "Jos tunnet olevasi kriisissä, nopein saatavilla oleva tuki on aina tärkein seuraava askel.",
+      "l6": "Miten yleensä käsittelet vaikeita asioita?",
+      "l7": "Millainen ammattilainen tuntuisi luontevimmalta?",
+      "l8": "Mikä tahti tuntuisi oikealta sinulle?",
+      "l9": "Haluaisitko tavata etänä vai kasvotusten?",
+      "l10": "Mikä tapaamistiheydeltä kuulostaa sopivalta?",
+      "l11": "Mikä hintaluokka tuntuu realistiselta sinulle per istunto?",
+      "l12": "Haluaisitko käyttää Kela-korvausta jos mahdollista?",
+      "l12_note": "Kela voi korvata osan psykoterapian kustannuksista tietyin ehdoin Suomessa.",
+      "l13": "Oletko ollut terapiassa tai saanut vastaavaa ammatillista tukea aiemmin?",
+      "l14": "Jos olet ollut aiemmin, mikä tuntui hyvältä tai mikä puuttui?",
+      "l15": "Miten kuvailisit suhdettasi omiin tunteisiisi?",
+      "l16": "Onko jotain muuta mitä haluaisit terapeutin tietävän ennen ensimmäistä tapaamista?",
+      "l16_note": "Kirjoita niin vähän tai paljon kuin haluat. Tämä auttaa lisäämään tarkkuutta vastaavuuteen."
+    },
+    "answers": {
+      "s1a": "Arki tai työ tuntuu raskaalta ja energiani on koetuksella",
+      "s1b": "Mielessäni on yksi tietty asia josta haluan puhua",
+      "s1c": "Elämässäni tapahtuu iso muutos ja tarvitsen tukea sen ympärille",
+      "s1d": "En osaa vielä nimetä sitä, se vain tuntuu epäselvältä ja raskaalta",
+      "s2a": "Suomeksi",
+      "s2b": "Ruotsiksi",
+      "s2c": "Englanniksi",
+      "s3a": "Turvallinen tila purkaa mitä on menossa ilman paineita",
+      "s3b": "Konkreettisia työkaluja joita voin kokeilla arjessa",
+      "s3c": "Apua ymmärtää miksi reagoin niin kuin reagoin",
+      "s3d": "Selkeämpi suunta, haluan liikettä ja muutosta",
+      "s4a": "Nainen",
+      "s4b": "Mies",
+      "s4c": "Muunsukupuolinen tai muu identiteetti",
+      "s4d": "Ei merkitystä",
+      "s5a": "Nuorempi, alle 40",
+      "s5b": "Kokeneempi, yli 45",
+      "s5c": "Ei merkitystä",
+      "s6a": "Alle 80 EUR",
+      "s6b": "80–120 EUR",
+      "s6c": "120–160 EUR",
+      "s6d": "Hinta ei ole minulle ratkaiseva tekijä",
+      "s7a": "Kyllä, näytä vain terapeutit jotka sopivat sille polulle",
+      "s7b": "Se on hyödyllinen, mutta ei välttämätön",
+      "s7c": "En ole vielä varma, kerro lisää myöhemmin",
+      "l1a": "Arki tai työ tuntuu raskaalta ja energiani on koetuksella",
+      "l1b": "Mielessäni on yksi tietty asia josta haluan puhua",
+      "l1c": "Elämässäni tapahtuu iso muutos ja tarvitsen tukea sen ympärille",
+      "l1d": "En osaa vielä nimetä sitä, se vain tuntuu epäselvältä ja raskaalta",
+      "l2a": "Suomeksi",
+      "l2b": "Ruotsiksi",
+      "l2c": "Englanniksi",
+      "l3a": "Melko hiljattain, se tuntuu vielä uudelta",
+      "l3b": "Muutaman kuukauden ajan",
+      "l3c": "Pidemmän aikaa, yli vuoden",
+      "l3d": "Niin kauan kuin muistan, se on ollut jotenkin aina läsnä",
+      "l4a": "Työ, ura tai opinnot",
+      "l4b": "Ihmissuhteet, parisuhde tai perhe",
+      "l4c": "Identiteetti tai elämänsuunta",
+      "l4d": "Mieliala, ahdistus tai loppuunpalaminen",
+      "l4e": "Jotain muuta, voin selittää sen omin sanoin myöhemmin",
+      "l5a": "Pärjäilen, mutta halusin hakea tukea ajoissa",
+      "l5b": "Arki toimii jotenkin, mutta energiani on loppumassa",
+      "l5c": "Tuntuu melko raskaalta ja tarvitsen apua nyt",
+      "l5d": "Tuntuu ylivoimaiselta",
+      "l6a": "Puhun läheisilleni, yhteys auttaa",
+      "l6b": "Mietin asioita hiljaa omakseni",
+      "l6c": "Teen jotain konkreettista, toiminta auttaa",
+      "l6d": "Riippuu tilanteesta",
+      "l7a": "Lämmin ja empaattinen, haluan ennen kaikkea tulla kuulluksi",
+      "l7b": "Osaava ja jäsennelty, haluan ymmärtää mitä tapahtuu",
+      "l7c": "Suorasukainen, osaan arvostaa haastaviakin huomioita",
+      "l7d": "En ole vielä varma, löydän sen mieluummin matkan varrella",
+      "l8a": "Hitaasti ja omaan tahtiin, ei kiirettä",
+      "l8b": "Tavoitteellisesti, haluan tuntea edistymistä",
+      "l8c": "Kumpikin käy, olen joustava",
+      "l9a": "Etänä, videopuhelut sopisivat minulle hyvin",
+      "l9b": "Kasvotusten, fyysinen läsnäolo on minulle tärkeää",
+      "l9c": "Kumpikin käy",
+      "l10a": "Kerran viikossa, haluan edetä aktiivisesti",
+      "l10b": "Pari kertaa kuukaudessa",
+      "l10c": "Kerran kuussa riittää",
+      "l10d": "En ole vielä varma, haluaisin ensin kokeilla",
+      "l11a": "Alle 80 EUR",
+      "l11b": "80–120 EUR",
+      "l11c": "120–160 EUR",
+      "l11d": "Hinta ei ole minulle ratkaiseva tekijä",
+      "l12a": "Kyllä, se on minulle tärkeää",
+      "l12b": "Se on hyödyllinen, mutta ei välttämätön",
+      "l12c": "En ole vielä varma, haluaisin kuulla lisää",
+      "l13a": "Ei, tämä olisi ensimmäinen kertani",
+      "l13b": "Kyllä, ja se tuntui positiiviselta",
+      "l13c": "Kyllä, mutta jokin siinä ei tuntunut oikealta",
+      "l13d": "Olen parhaillaan terapiassa ja etsin jotain sen rinnalle tai sijaan",
+      "l14a": "Tulin kuulluksi, mutta konkreettiset työkalut puuttuivat",
+      "l14b": "Teoriaa oli paljon, mutta inhimillinen yhteys tuntui etäiseltä",
+      "l14c": "Se toimi hyvin, etsin jotain vastaavaa",
+      "l14d": "Minulla ei ole aiempaa kokemusta, ohitan tämän",
+      "l15a": "Ne tuntuvat hyvin läsnä olevilta, joskus melkein liikaakin",
+      "l15b": "Ne tuntuvat etäisiltä, on vaikea sanoa mitä tunnen",
+      "l15c": "Pystyn toimimaan niiden kanssa, mutta jokin tuntuu silti jumissa",
+      "l15d": "En ole oikeastaan aiemmin miettinyt sitä",
+      "l16_placeholder": "Kirjoita niin paljon tai vähän kuin haluat."
+    },
+    "categories": {
+      "situation": "tilanne",
+      "language": "kieli",
+      "support style": "tuen tyyli",
+      "therapist": "terapeutti",
+      "practicalities": "käytännön asiat",
+      "approach": "lähestymistapa",
+      "history": "historia",
+      "you": "sinä"
+    },
+    "therapists": {
+      "Anna Mäkinen": {
+        "preview": "Rauhallinen ensimmäinen tapaaminen käytännöllisen helpotuksen ja tunneselkeyden parissa.",
+        "videoIntro": "Anna aloittaa vakaan esittelyn työskentelytavastaan: lämmin, selkeä ja lempeästi käytännöllinen. Hänen lyhyt esittelynsä sopii hyvin jos haluat tuntea tulleesi ymmärretyksi nopeasti menettämättä rakennetta.",
+        "videoPoints": [
+          "Kuinka hän auttaa ihmisiä jotka tuntevat olonsa ylikuormittuneiksi arjessa",
+          "Miltä ensimmäinen istunto näyttää käytännössä",
+          "Miksi selkeys ja lämpö voivat yhdistyä"
+        ],
+        "contactCopy": "Jos Anna tuntuu oikealta ensimmäiseltä suunnalta, seuraava askel on yksinkertaisesti lyhyt viesti. Sinun ei tarvitse selittää kaikkea vielä.",
+        "title": "Kognitiivinen psykoterapeutti",
+        "availability": "Avoimia aikoja saatavilla tällä viikolla"
+      },
+      "Juhani Leppänen": {
+        "preview": "Hitaampi, harkitumpi esittely ihmisille jotka haluavat enemmän syvyyttä.",
+        "videoIntro": "Juhanin esittely on harkittu ja kiireetön. Hän puhuu pitkäjänteisestä työskentelystä, pohtivista keskusteluista ja siitä kuinka terapia voi auttaa kun jotain syvempää on kertynyt jo jonkin aikaa.",
+        "videoPoints": [
+          "Miltä syvempi terapeuttinen työ voi tuntua alussa",
+          "Kuinka hän luo tilaa reflektiolle ilman paineita",
+          "Miksi pidemmät kuviot tarvitsevat joskus hitaampaa rytmiä"
+        ],
+        "contactCopy": "Ensimmäinen viesti Juhanille voi olla lyhyt ja yksinkertainen. Riittää sanoa mikä on tuntunut raskaalta ja että etsit avausta.",
+        "title": "Psykodynaaminen terapeutti",
+        "availability": "Uusia asiakaspaikkoja ensi viikolla"
+      },
+      "Sari Rantanen": {
+        "preview": "Lempeä, käytännöllinen tyyli ja työkaluja joita voit kantaa mukaan arjeen.",
+        "videoIntro": "Sarin esittely tuntuu kevyeltä, rauhoittavalta ja käytännölliseltä. Hän selittää kuinka hän auttaa ihmisiä aloittamaan matalalla kynnyksellä samalla rakentaen liikettä ja itseluottamusta ajan myötä.",
+        "videoPoints": [
+          "Kuinka käytännöllisiä työkaluja esitellään ilman ylikuormitusta",
+          "Miksi etäajat voivat silti tuntua henkilökohtaisilta",
+          "Miltä matalapaineinen ensimmäinen askel voi näyttää"
+        ],
+        "contactCopy": "Jos Sari vaikuttaa vahvalta sopivuudelta, voit aloittaa lyhyellä viestillä tai varata lyhyen puhelun nähdäksesi miltä ensimmäinen istunto saattaisi tuntua.",
+        "title": "ACT-terapeutti",
+        "availability": "Etäajat saatavilla myös iltaisin"
+      }
+    },
+    "rp": {
+      "language": {
+        "s2a": "suomeksi",
+        "s2b": "ruotsiksi",
+        "s2c": "englanniksi",
+        "l2a": "suomeksi",
+        "l2b": "ruotsiksi",
+        "l2c": "englanniksi",
+        "fallback": "kielellä joka tuntuu luontevalta"
+      },
+      "supportNeed": {
+        "s3a": "turvallista ja paineetonta tilaa purkaa tilanteesi",
+        "s3b": "käytännöllisiä työkaluja arjessa käytettäväksi",
+        "s3c": "apua reaktioidesi juurien ymmärtämiseen",
+        "s3d": "selkeämpää suuntaa ja liikettä eteenpäin",
+        "l7a": "lämmintä ja empaattista kohtaamista",
+        "l7b": "jäsenneltyä ja harkittua työskentelytapaa",
+        "l7c": "rehellistä, jopa hieman haastavaa reflektiota",
+        "l7d": "tilaa löytää oikea tapa ilman pakkoa",
+        "fallback": "tapaa tulla kohdatuksi joka ei vaadi liikaa kerralla"
+      },
+      "sessionMode": {
+        "l9a": "etänä",
+        "l9b": "kasvotusten",
+        "l9c": "etänä tai kasvotusten",
+        "fallback": "joustavasti"
+      },
+      "pace": {
+        "l8a": "rauhallisesti ja omaan tahtiisi",
+        "l8b": "selkein tavoittein ja tasaisin askelin",
+        "l8c": "joustavasti tilanteen mukaan",
+        "fallback": "sinulle sopivaan tahtiin"
+      },
+      "focus": {
+        "s1a": "kantamassa energian, työn tai arjen rasitetta",
+        "s1b": "pitämässä yhtä tiettyä asiaa raskaasti mielessäsi",
+        "s1c": "käymässä läpi suurta elämänmuutosta",
+        "s1d": "yrittämässä nimetä jotain vielä epämääräistä",
+        "l1a": "kantamassa energian, työn tai arjen rasitetta",
+        "l1b": "pitämässä yhtä tiettyä asiaa raskaasti mielessäsi",
+        "l1c": "käymässä läpi suurta elämänmuutosta",
+        "l1d": "yrittämässä nimetä jotain vielä epämääräistä",
+        "fallback": "mitä tahansa elämässäsi joka tuntuu juuri nyt elävimmältä"
+      },
+      "kela": {
+        "pathway": "Kela-polku mahdollinen",
+        "flexible": "Joustava tapa aloittaa"
+      },
+      "depth": {
+        "long": "Rakennettu syvemmästä kyselystä",
+        "short": "Rakennettu lyhyemmästä kyselystä"
+      }
+    },
+    "reasons": {
+      "anna": "Anna nousee ensin koska kuvasit tarvitsevasi {{supportNeed}}. Hänen tapansa on selkeä, lämmin ja käytännöllinen – mikä tuntuu usein erityisen tukevalta kun olet {{focus}}. Hän voi tavata {{sessionMode}} ja muotoilla ensimmäisen tapaamisen {{pace}}.",
+      "juhani": "Juhani on vahva vaihtoehto kun haluat pysähtyä syvemmin ja ymmärtää kuinka nykyinen rasitus on kehittynyt ajan myötä. Hän sopii erityisen hyvin tilanteeseen jossa pintaa syvemmällä on kerroksia, mutta haluat silti rauhallisen rytmin ja tilan ajatella ääneen {{language}}.",
+      "sari": "Sari on hyvä kolmas suositus jos toivot terapian antavan käytännöllisiä työkaluja arjeen. Hänen lähestymistapansa auttaa usein kun haluaa sekä myötätuntoa että pientä konkreettista etenemistä. Tämä vaihtoehto toimii erityisen hyvin kun aloitat {{sessionMode}} ja pidät kynnyksen mahdollisimman matalana."
+    }
+  }
+}

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
 import Logo from "../components/layout/Logo";
-import AudienceTabs from "../components/layout/AudienceTabs";
 import { routePaths } from "../lib/routes";
 import { useCurrentLocale } from "../hooks/useCurrentLocale";
 import heroBg from "../assets/hero-bg.webp";
@@ -13,6 +12,7 @@ export default function TherapistLandingPage() {
   const locale = useCurrentLocale();
   const navigate = useNavigate();
   const { t } = useTranslation("landing-therapist");
+  const { t: tc } = useTranslation("common");
   const statsRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const [openIndex, setOpenIndex] = useState(0);
@@ -115,7 +115,36 @@ export default function TherapistLandingPage() {
             }}
           >
             <div style={{ maxWidth: "760px", width: "100%" }}>
-              <AudienceTabs locale={locale} active="therapist" />
+              <Link
+                to={routePaths.clientHome(locale)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  marginBottom: "28px",
+                  padding: "9px 20px",
+                  borderRadius: "100px",
+                  border: "1px solid rgba(30,22,16,0.18)",
+                  background: "rgba(250,246,240,0.7)",
+                  color: "var(--ink-mid)",
+                  fontFamily: "Nunito, sans-serif",
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  backdropFilter: "blur(4px)",
+                  transition: "border-color 0.2s, color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(196,103,74,0.4)";
+                  e.currentTarget.style.color = "var(--terra)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(30,22,16,0.18)";
+                  e.currentTarget.style.color = "var(--ink-mid)";
+                }}
+              >
+                ← {tc("audienceTabs.forClients")}
+              </Link>
 
               <h1
                 style={{

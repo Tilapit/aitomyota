@@ -1,0 +1,404 @@
+{
+  "nav": {
+    "howItWorks": "How it works",
+    "stories": "Stories",
+    "startMatching": "Start matching"
+  },
+  "hero": {
+    "badge": "Matching service",
+    "title": "Find the right therapist",
+    "titleEm": "the first time.",
+    "subtitle": "A calmer way to find someone who fits, before the first appointment turns into guesswork.",
+    "cta": "Start matching →",
+    "stats": {
+      "therapists": "Therapists",
+      "detailedMatchPath": "Detailed match path",
+      "curatedMatches": "Curated matches"
+    }
+  },
+  "howItWorks": {
+    "label": "How it works",
+    "title": "Three clear steps",
+    "subtitle": "A short path from uncertainty to a first conversation that actually feels considered.",
+    "steps": [
+      {
+        "kicker": "Step 01",
+        "title": "Share what feels most important",
+        "text": "A few questions help us understand your pace, preferences, and what kind of support would feel right.",
+        "pill": "About 2 to 5 minutes"
+      },
+      {
+        "kicker": "Step 02",
+        "title": "See three strong matches",
+        "text": "We narrow the field and explain why each person stands out, so you are not scanning a directory alone.",
+        "pill": "Reasons included"
+      },
+      {
+        "kicker": "Step 03",
+        "title": "Reach out when one feels right",
+        "text": "Watch a short intro, send a first message, or book a quick call from the recommendation itself.",
+        "pill": "Move only when ready"
+      }
+    ]
+  },
+  "comparison": {
+    "label": "Why Myötä",
+    "title": "Less searching, more direction",
+    "directoryTitle": "Typical directory",
+    "directoryPoints": [
+      "Hundreds of profiles, but no clear place to begin",
+      "No explanation for why a certain therapist might fit you",
+      "The first appointment can feel like a costly guess",
+      "Momentum gets lost before you even start"
+    ],
+    "myotaPoints": [
+      { "text": "A short match flow narrows the field quickly" },
+      { "text": "Every recommendation comes with a reason: ", "em": "why it fits" },
+      { "text": "You can watch an intro or reach out directly from the result" },
+      { "text": "The first session feels chosen, not random" }
+    ]
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "title": "What people say after they finally start",
+    "subtitle": "A few voices from people who moved from browsing to a more considered first step.",
+    "mostLoved": "Most loved",
+    "items": [
+      {
+        "quote": "I expected another long directory and more uncertainty. Instead, I got three thoughtful recommendations and understood why each one could work for me.",
+        "name": "Emilia, 31",
+        "context": "Started with the shorter quiz"
+      },
+      {
+        "quote": "The deeper version helped me notice what kind of therapist I actually needed, not just what topic I wanted to talk about. That changed everything.",
+        "name": "Jonas, 42",
+        "context": "Chose the deeper quiz"
+      },
+      {
+        "quote": "What I appreciated most was that the first step felt gentle. I did not need perfect words, and I still felt understood.",
+        "name": "Mira, 27",
+        "context": "Booked after her first recommendation"
+      }
+    ]
+  },
+  "faq": {
+    "label": "FAQs",
+    "title": "Questions that usually come up",
+    "subtitle": "The practical details, without repeating the whole pitch.",
+    "ctaText": "Start with the standard match flow, or choose the longer version if you want to give the recommendation more detail.",
+    "shortQuiz": "Start the short quiz",
+    "deepQuiz": "Take the deeper quiz",
+    "items": [
+      {
+        "question": "How long does this take?",
+        "answer": "Most people can finish the main flow in about two minutes. There is also a longer version if you want to give the match more context."
+      },
+      {
+        "question": "Do I need to know exactly what is wrong before I start?",
+        "answer": "No. Many people begin when they can only describe a feeling, not a clear label. The questions are designed to work with that uncertainty rather than against it."
+      },
+      {
+        "question": "Will I only see one recommendation?",
+        "answer": "No. You receive three recommendations, along with a short explanation of why each one could be a good fit for you."
+      },
+      {
+        "question": "Can I start with the short quiz and go deeper later?",
+        "answer": "Yes. You can begin with the shorter path and switch to the longer version later if you want a fuller recommendation."
+      }
+    ]
+  },
+  "footer": {
+    "quote": "\"The first therapy appointment should feel safe, not like a guess.\"",
+    "privacy": "Privacy",
+    "forTherapists": "For therapists",
+    "contact": "Contact"
+  },
+  "quiz": {
+    "tone": {
+      "short": {
+        "eyebrow": "Start here",
+        "title": "A short match, then a clearer next step.",
+        "description": "This version keeps things light and gets you to a thoughtful recommendation quickly.",
+        "switchLabel": "Want more context?",
+        "switchCta": "Take the longer version",
+        "switchDescription": "The longer path adds more detail about pace, preferences, and how you want the work to feel."
+      },
+      "long": {
+        "eyebrow": "Longer version",
+        "title": "A fuller picture for a more precise match.",
+        "description": "This version asks a little more so the recommendation can be more specific.",
+        "switchLabel": "Prefer the shorter path?",
+        "switchCta": "Go back to the short version",
+        "switchDescription": "You can always return to the shorter version if you want to move faster."
+      }
+    },
+    "meta": {
+      "short": {
+        "title": "Short introduction",
+        "description": "7 questions, about 2 minutes. A lighter first step when you simply want to get moving."
+      },
+      "long": {
+        "title": "Deeper introduction",
+        "description": "16 questions, about 5 minutes. More nuance, more detail, and a softer path toward a more precise match."
+      }
+    },
+    "ui": {
+      "backToHome": "Back to home",
+      "questionsLabel": "{{count}} questions",
+      "progressLabel": "{{current}} / {{total}} completed",
+      "gentleReminderTitle": "A gentle reminder",
+      "gentleReminderText": "You do not need perfect words to continue. A good match often begins with a few honest signals, not a complete explanation.",
+      "reminderShort": "You can always add more detail later.",
+      "reminderLong": "You can always switch back to the shorter path.",
+      "questionCounter": "Question {{current}} / {{total}}",
+      "multiSelectHint": "Choose more than one if needed",
+      "ownWordsLabel": "In your own words",
+      "textPlaceholder": "Write as much or as little as you want.",
+      "back": "Back",
+      "next": "Next question",
+      "showRecommendations": "Show recommendations",
+      "yourRecommendations": "Your recommendations",
+      "recommendationsTitle": "Three professionals worth beginning with",
+      "recommendationsSubtitle": "These are not random names from a directory. Each recommendation is tied to the kind of support, pace, and first impression you told us you were hoping for.",
+      "bestFirst": "Best first recommendation",
+      "option": "Option {{number}}",
+      "whyFit": "Why this could fit",
+      "matchNotes": "Match notes",
+      "introVideo": "Intro video",
+      "introPreview": "Intro preview",
+      "contactTherapist": "Contact therapist",
+      "bookCall": "Book a call",
+      "writeIntro": "Write a short introduction",
+      "askOpening": "Ask about the next opening",
+      "bookCallCopy": "A short first call can help you hear their tone, ask about availability, and decide whether the first session feels right.",
+      "reserveCall": "Reserve a short intro call",
+      "seeTimes": "See available times",
+      "continueLabel": "Continue from here",
+      "ctaTitle": "A good first step should feel more grounded than random.",
+      "ctaText": "You can take the quiz again, compare your recommendations once more, or head back to the homepage and continue from there when it feels right.",
+      "takeAgain": "Take the quiz again",
+      "returnHome": "Return home"
+    },
+    "questions": {
+      "s1": "What best describes what feels heaviest for you right now?",
+      "s2": "What language would you like to use with the professional?",
+      "s3": "What kind of support feels most important right now?",
+      "s4": "Does the therapist's gender matter to you?",
+      "s5": "Does the therapist's age matter to you?",
+      "s6": "What price range feels realistic to you per session?",
+      "s6_note": "These ranges are indicative and may vary by professional.",
+      "s7": "Would you like to use Kela reimbursement if possible?",
+      "s7_note": "Kela may reimburse part of psychotherapy costs under certain conditions in Finland.",
+      "l1": "What best describes what feels heaviest for you right now?",
+      "l2": "What language would you like to use with the professional?",
+      "l3": "How long has this been weighing on you?",
+      "l4": "What area of life would you most want to talk about? You can choose more than one.",
+      "l5": "How disruptive does this feel in your everyday life right now?",
+      "l5_note": "If you feel in crisis, the fastest available support is always the most important next step.",
+      "l6": "How do you usually work through difficult things?",
+      "l7": "What kind of professional would feel most natural to you?",
+      "l8": "What pace would feel right for you?",
+      "l9": "Would you prefer to meet remotely or in person?",
+      "l10": "What session frequency sounds right to you?",
+      "l11": "What price range feels realistic to you per session?",
+      "l12": "Would you like to use Kela reimbursement if possible?",
+      "l12_note": "Kela may reimburse part of psychotherapy costs under certain conditions in Finland.",
+      "l13": "Have you been in therapy or received similar professional support before?",
+      "l14": "If you have been before, what felt good or what felt missing?",
+      "l15": "How would you describe your relationship to your own emotions?",
+      "l16": "Is there anything else you would want a therapist to know before a first appointment?",
+      "l16_note": "Write as little or as much as you want. This helps add nuance to the match."
+    },
+    "answers": {
+      "s1a": "Daily life or work feels heavy and my energy is under strain",
+      "s1b": "There is one specific thing on my mind that I want to talk about",
+      "s1c": "A big life change is happening and I need support around it",
+      "s1d": "I cannot quite name it yet, it just feels unclear and heavy",
+      "s2a": "Finnish",
+      "s2b": "Swedish",
+      "s2c": "English",
+      "s3a": "A safe space to unpack what is going on without pressure",
+      "s3b": "Concrete tools I can try in everyday life",
+      "s3c": "Help understanding why I react the way I do",
+      "s3d": "A clearer direction, I want movement and change",
+      "s4a": "Woman",
+      "s4b": "Man",
+      "s4c": "Non-binary or another identity",
+      "s4d": "No preference",
+      "s5a": "Younger, under 40",
+      "s5b": "More experienced, over 45",
+      "s5c": "No preference",
+      "s6a": "Under 80 EUR",
+      "s6b": "80 to 120 EUR",
+      "s6c": "120 to 160 EUR",
+      "s6d": "Price is not the deciding factor for me",
+      "s7a": "Yes, show only therapists who fit that path",
+      "s7b": "It is helpful, but not essential",
+      "s7c": "I am not sure yet, tell me more later",
+      "l1a": "Daily life or work feels heavy and my energy is under strain",
+      "l1b": "There is one specific thing on my mind that I want to talk about",
+      "l1c": "A big life change is happening and I need support around it",
+      "l1d": "I cannot quite name it yet, it just feels unclear and heavy",
+      "l2a": "Finnish",
+      "l2b": "Swedish",
+      "l2c": "English",
+      "l3a": "Quite recently, it still feels new",
+      "l3b": "For a few months",
+      "l3c": "For a longer time, more than a year",
+      "l3d": "For as long as I can remember, it has always been there in some way",
+      "l4a": "Work, career, or studies",
+      "l4b": "Relationships, partnership, or family",
+      "l4c": "Identity or life direction",
+      "l4d": "Mood, anxiety, or burnout",
+      "l4e": "Something else, I can explain it in my own words later",
+      "l5a": "I am coping, but I wanted to seek support early",
+      "l5b": "Daily life still works somehow, but my energy is running low",
+      "l5c": "It feels quite heavy and I need help now",
+      "l5d": "It feels overwhelming",
+      "l6a": "I talk to people close to me, connection helps",
+      "l6b": "I think about things quietly on my own",
+      "l6c": "I do something concrete, action helps",
+      "l6d": "It depends on the situation",
+      "l7a": "Warm and empathetic, I mainly want to feel heard",
+      "l7b": "Knowledgeable and structured, I want to understand what is happening",
+      "l7c": "Direct, I can appreciate challenging observations too",
+      "l7d": "I am not sure yet, I would rather discover it as I go",
+      "l8a": "Slowly and at my own pace, no rush",
+      "l8b": "Goal-oriented, I want to feel progress",
+      "l8c": "Either can work, I am flexible",
+      "l9a": "Remote, video sessions would work well for me",
+      "l9b": "In person, physical presence matters to me",
+      "l9c": "Either works",
+      "l10a": "Once a week, I want to move actively",
+      "l10b": "A couple of times a month",
+      "l10c": "Once a month is enough",
+      "l10d": "I am not sure yet, I would rather try first",
+      "l11a": "Under 80 EUR",
+      "l11b": "80 to 120 EUR",
+      "l11c": "120 to 160 EUR",
+      "l11d": "Price is not the deciding factor for me",
+      "l12a": "Yes, that matters to me",
+      "l12b": "It is helpful, but not essential",
+      "l12c": "I am not sure yet, I would like to hear more",
+      "l13a": "No, this would be my first experience",
+      "l13b": "Yes, and it felt positive",
+      "l13c": "Yes, but something about it did not feel right",
+      "l13d": "I am currently in therapy and looking for something alongside it or in place of it",
+      "l14a": "I felt heard, but concrete tools were missing",
+      "l14b": "There was a lot of theory, but the human connection felt distant",
+      "l14c": "It worked well, I am looking for something similar",
+      "l14d": "I do not have earlier experience, I will skip this",
+      "l15a": "They feel very present, sometimes almost too much",
+      "l15b": "They feel distant, it is hard to tell what I feel",
+      "l15c": "I can function with them, but something still feels stuck",
+      "l15d": "I have not really thought about that before",
+      "l16_placeholder": "Write as much or as little as you want."
+    },
+    "categories": {
+      "situation": "situation",
+      "language": "language",
+      "support style": "support style",
+      "therapist": "therapist",
+      "practicalities": "practicalities",
+      "approach": "approach",
+      "history": "history",
+      "you": "you"
+    },
+    "therapists": {
+      "Anna Mäkinen": {
+        "preview": "A calm first meeting focused on practical relief and emotional clarity.",
+        "videoIntro": "Anna opens with a grounded introduction to how she works: warm, clear, and gently practical. Her short intro is a good fit if you want to feel understood quickly without losing structure.",
+        "videoPoints": [
+          "How she helps people who feel overloaded by daily life",
+          "What a first session looks like in practice",
+          "Why clarity and warmth can coexist"
+        ],
+        "contactCopy": "If Anna feels like the right first direction, the next step is simply a brief message. You do not need to explain everything yet.",
+        "title": "Cognitive psychotherapist",
+        "availability": "Open times available this week"
+      },
+      "Juhani Leppänen": {
+        "preview": "A slower, more reflective introduction for people who want more depth.",
+        "videoIntro": "Juhani's introduction is thoughtful and unhurried. He speaks about long-form work, reflective conversations, and how therapy can help when something deeper has been building for a while.",
+        "videoPoints": [
+          "What deeper therapeutic work can feel like at the beginning",
+          "How he creates room for reflection without pressure",
+          "Why longer patterns sometimes need a slower rhythm"
+        ],
+        "contactCopy": "A first message to Juhani can be short and simple. It is enough to say what has been feeling heavy and that you are looking for an opening.",
+        "title": "Psychodynamic therapist",
+        "availability": "New client openings next week"
+      },
+      "Sari Rantanen": {
+        "preview": "A gentle, practical style with tools you can carry into daily life.",
+        "videoIntro": "Sari's intro feels light, reassuring, and practical. She explains how she helps people begin with a low threshold while still building movement and confidence over time.",
+        "videoPoints": [
+          "How practical tools are introduced without overwhelm",
+          "Why remote appointments can still feel personal",
+          "What a low-pressure first step can look like"
+        ],
+        "contactCopy": "If Sari seems like a strong fit, you can begin with a short note or book a brief call to see how the first session might feel.",
+        "title": "ACT therapist",
+        "availability": "Remote appointments also available in the evenings"
+      }
+    },
+    "rp": {
+      "language": {
+        "s2a": "in Finnish",
+        "s2b": "in Swedish",
+        "s2c": "in English",
+        "l2a": "in Finnish",
+        "l2b": "in Swedish",
+        "l2c": "in English",
+        "fallback": "in the language that feels natural to you"
+      },
+      "supportNeed": {
+        "s3a": "a safe and pressure-free space to unpack what is going on",
+        "s3b": "practical tools that can help in everyday life",
+        "s3c": "help understanding the roots of your reactions",
+        "s3d": "clearer direction and movement forward",
+        "l7a": "a warm and empathetic encounter",
+        "l7b": "a structured and thoughtful working style",
+        "l7c": "honest, even slightly challenging reflection",
+        "l7d": "space to discover the right fit without forcing it",
+        "fallback": "a way of being met that does not ask too much of you at once"
+      },
+      "sessionMode": {
+        "l9a": "remotely",
+        "l9b": "in person",
+        "l9c": "either remotely or in person",
+        "fallback": "in a flexible way"
+      },
+      "pace": {
+        "l8a": "slowly and at your own pace",
+        "l8b": "with clear goals and a steady rhythm",
+        "l8c": "with flexibility depending on the moment",
+        "fallback": "at a pace that feels right for you"
+      },
+      "focus": {
+        "s1a": "carrying strain around energy, work, or everyday life",
+        "s1b": "holding one particular issue heavily in your mind",
+        "s1c": "moving through a major life change",
+        "s1d": "trying to name something that still feels vague",
+        "l1a": "carrying strain around energy, work, or everyday life",
+        "l1b": "holding one particular issue heavily in your mind",
+        "l1c": "moving through a major life change",
+        "l1d": "trying to name something that still feels vague",
+        "fallback": "whatever in life feels most alive for you right now"
+      },
+      "kela": {
+        "pathway": "Kela pathway possible",
+        "flexible": "Flexible way to begin"
+      },
+      "depth": {
+        "long": "Built from the deeper quiz",
+        "short": "Built from the shorter quiz"
+      }
+    },
+    "reasons": {
+      "anna": "Anna rises first because you described needing {{supportNeed}}. Her way of working is clear, warm, and practical, which often feels especially supportive when you are {{focus}}. She can meet {{sessionMode}} and shape a first appointment {{pace}}.",
+      "juhani": "Juhani is a strong alternative when you want to pause more deeply and understand how the current strain has grown over time. He can be a particularly good fit when there are layers beneath the surface, but you still want a calm rhythm and room to think aloud {{language}}.",
+      "sari": "Sari is a good third recommendation if you hope therapy will leave you with practical tools to carry into daily life. Her approach often helps when you want both compassion and a little concrete forward movement. This option works especially well if you want to begin {{sessionMode}} and keep the threshold as gentle as possible."
+    }
+  }
+}

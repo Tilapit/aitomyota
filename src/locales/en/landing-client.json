@@ -54,5 +54,19 @@
     "ctaDescription": "Start with the standard match flow, or choose the longer version if you want to give the recommendation more detail.",
     "ctaShort": "Start the short quiz",
     "ctaLong": "Take the deeper quiz"
+  },
+  "audienceCta": {
+    "client": {
+      "eyebrow": "For clients",
+      "title": "Ready to find the right fit?",
+      "description": "A short matching path takes you to three thoughtful recommendations — each with a reason, not just a name.",
+      "cta": "Start matching"
+    },
+    "therapist": {
+      "eyebrow": "For therapists",
+      "title": "Are you a therapist?",
+      "description": "Join the professionals who want clients to arrive feeling prepared, not overwhelmed.",
+      "cta": "Learn about joining"
+    }
   }
 }

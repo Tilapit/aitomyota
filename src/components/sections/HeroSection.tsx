@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import heroBg from "../../assets/hero-bg.webp";
-import AudienceTabs from "../layout/AudienceTabs";
-import { useCurrentLocale } from "../../hooks/useCurrentLocale";
 
 interface HeroSectionProps {
   onOpenQuiz: () => void;
@@ -10,7 +8,6 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
   const { t } = useTranslation("landing-client");
-  const locale = useCurrentLocale();
   const statsRef = useRef<HTMLDivElement>(null);
   const stats = t("hero.stats", { returnObjects: true }) as Array<{ num: string; label: string }>;
 
@@ -75,8 +72,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuiz }) => {
           }}
         >
           <div style={{ maxWidth: "700px", width: "100%" }}>
-          <AudienceTabs locale={locale} active="client" />
-
           <h1
             style={{
               fontFamily: "Lora, serif",

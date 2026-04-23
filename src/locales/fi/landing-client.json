@@ -54,5 +54,19 @@
     "ctaDescription": "Aloita tavallisella match-polulla tai valitse pidempi versio, jos haluat antaa suositukselle enemmän tietoa.",
     "ctaShort": "Aloita lyhyt kysely",
     "ctaLong": "Tee pidempi kysely"
+  },
+  "audienceCta": {
+    "client": {
+      "eyebrow": "Asiakkaille",
+      "title": "Valmis löytämään oikean?",
+      "description": "Lyhyt match-polku vie sinut kolmeen harkittuun suositukseen — jokaiselle on perustelu, ei pelkkä nimi.",
+      "cta": "Aloita match"
+    },
+    "therapist": {
+      "eyebrow": "Terapeuteille",
+      "title": "Oletko terapeutti?",
+      "description": "Liity terapeutteihin, jotka haluavat asiakkaiden saapuvan valmistuneina — ei ylikuormittuneina.",
+      "cta": "Tutustu liittymiseen"
+    }
   }
 }

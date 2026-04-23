@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
+import AudienceCtaSection from "../components/sections/AudienceCtaSection";
 import ComparisonSection from "../components/sections/ComparisonSection";
 import FAQSection from "../components/sections/FAQSection";
 import HeroSection from "../components/sections/HeroSection";
@@ -24,6 +25,7 @@ export default function LandingPage() {
         onOpenQuiz={() => navigate(routePaths.clientQuiz(locale))}
         onOpenLongQuiz={() => navigate(routePaths.clientQuizLong(locale))}
       />
+      <AudienceCtaSection onOpenQuiz={() => navigate(routePaths.clientQuiz(locale))} />
       <Footer locale={locale} />
     </>
   );
