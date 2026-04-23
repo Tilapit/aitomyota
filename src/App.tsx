@@ -38,12 +38,15 @@ function LocaleBoundary() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (!isLocale(locale)) return;
+    persistLocale(locale);
+    void i18n.changeLanguage(locale);
+  }, [locale]);
+
   if (!isLocale(locale)) {
     return <Navigate to="/en" replace />;
   }
-
-  persistLocale(locale);
-  void i18n.changeLanguage(locale);
 
   return (
     <Suspense fallback={<RouteFallback />}>
