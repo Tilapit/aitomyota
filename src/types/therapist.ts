@@ -1,4 +1,4 @@
-export type TherapistQuestionType = "single" | "multi" | "text" | "number" | "scale" | "group";
+export type TherapistQuestionType = "single" | "multi" | "text" | "number" | "scale" | "group" | "image-upload";
 
 export type TherapistQuestionOption = {
   id: string;
@@ -8,7 +8,7 @@ export type TherapistQuestionOption = {
 export type TherapistQuestionGroupField = {
   id: string;
   label: string;
-  type?: "text" | "email" | "url" | "select";
+  type?: "text" | "email" | "url" | "select" | "image-upload";
   required?: boolean;
   description?: string;
   options?: TherapistQuestionOption[];
@@ -34,6 +34,10 @@ export type TherapistQuestion = {
   };
   minLabel?: string;
   maxLabel?: string;
+  maxSelections?: number;
+  min?: number;
+  max?: number;
+  step?: number;
 };
 
 export type TherapistAnswerValue = string | string[] | number | Record<string, string>;
