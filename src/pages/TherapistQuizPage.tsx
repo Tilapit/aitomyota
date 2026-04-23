@@ -269,12 +269,41 @@ export default function TherapistQuizPage() {
                   className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
                 />
               ) : question.type === "number" ? (
-                <input
-                  type="number"
-                  value={typeof selectedValue === "string" || typeof selectedValue === "number" ? String(selectedValue) : ""}
-                  onChange={(event) => onNumberChange(event.target.value)}
-                  className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
-                />
+                question.min !== undefined ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-4 text-sm text-[color:var(--ink-light)]">
+                      <span>{question.minLabel ?? question.min}</span>
+                      <span>{question.maxLabel ?? question.max}</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <input
+                        type="range"
+                        min={question.min}
+                        max={question.max ?? 40}
+                        step={question.step ?? 1}
+                        value={
+                          typeof selectedValue === "string" || typeof selectedValue === "number"
+                            ? Number(selectedValue)
+                            : question.min
+                        }
+                        onChange={(e) => onNumberChange(e.target.value)}
+                        className="w-full accent-[color:var(--terra)]"
+                      />
+                      <span className="w-12 shrink-0 text-center text-base font-semibold text-[color:var(--ink)]">
+                        {typeof selectedValue === "string" || typeof selectedValue === "number"
+                          ? selectedValue
+                          : "—"}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <input
+                    type="number"
+                    value={typeof selectedValue === "string" || typeof selectedValue === "number" ? String(selectedValue) : ""}
+                    onChange={(event) => onNumberChange(event.target.value)}
+                    className="w-full rounded-[18px] border border-[color:var(--cream-dark)] bg-[color:var(--sand-pale)] px-5 py-4 text-[15px] leading-7 text-[color:var(--ink)] outline-none transition focus:border-[color:var(--terra)] focus:bg-white"
+                  />
+                )
               ) : question.type === "scale" ? (
                 <div className="space-y-4">
                   {question.min !== undefined ? (
