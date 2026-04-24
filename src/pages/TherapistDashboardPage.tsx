@@ -7,6 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useCurrentLocale } from "../hooks/useCurrentLocale";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { routePaths } from "../lib/routes";
+import { getSupabaseClient } from "../lib/supabase";
 import { getTherapistProfile, saveTherapistProfile } from "../repositories/therapistRepository";
 import { getTherapistQuiz } from "../features/therapist/quizData";
 import type { TherapistProfileRecord } from "../types/therapist";
@@ -36,7 +37,23 @@ export default function TherapistDashboardPage() {
       return;
     }
 
+    console.log("[debug] session user id:", user.id);
+
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      void supabase
+        .from("therapist_profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle()
+        .then(({ data, error }) => {
+          console.log("[debug] therapist_profiles raw data:", data);
+          console.log("[debug] therapist_profiles raw error:", error);
+        });
+    }
+
     void getTherapistProfile(user.id).then((record) => {
+      console.log("[debug] getTherapistProfile result:", record);
       if (record) {
         setProfile(record);
       }
