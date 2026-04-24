@@ -348,14 +348,7 @@ export default function TherapistLandingPage() {
                   className={`testimonial-entry${index === 0 ? " is-featured" : ""}`}
                   style={{ opacity: 0, transitionDelay: `${index * 0.15}s` }}
                 >
-                  <div
-                    className="testimonial-image"
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(30,22,16,0.14), rgba(30,22,16,0.14)), url(/images/pexels-polina-zimmerman-3958407.jpg)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                  <div className="testimonial-mark">“</div>
+                  <div className=”testimonial-mark”>”</div>
                   <div className="testimonial-quote">{item.quote}</div>
                   <div className="testimonial-meta">
                     <div className="testimonial-name">{item.name}</div>

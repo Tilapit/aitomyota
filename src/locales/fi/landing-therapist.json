@@ -42,9 +42,9 @@
     "directoryTitle": "Tyypillinen hakemisto"
   },
   "testimonials": {
-    "eyebrow": "Terapeuteilta",
+    "eyebrow": "Esimerkkejä pilottipalautteesta",
     "title": "Profiili, joka kuulostaa enemmän sinulta",
-    "description": "Muutama syy siihen, miksi tämä polku on rakennettu tuntumaan lähempänä oikeaa työtä kuin geneerinen listaus."
+    "description": "Näin terapeutit kuvailevat kokemustaan — esimerkkejä pilottivaiheen palautteesta. Nimet ovat muutettu."
   },
   "faq": {
     "eyebrow": "UKK",
@@ -71,17 +71,17 @@
       {
         "quote": "Tämä tuntuu lähempänä sitä, miten oikeasti kuvaan työskentelyäni kuin yksikään tavallinen profiililomake.",
         "name": "Laura, integratiivinen terapeutti",
-        "context": "Julkaisi onboarding-polun jälkeen"
+        "context": "Esimerkki — integratiivinen terapeutti"
       },
       {
         "quote": "Pidän siitä, että asiakas saapuu jo jonkinlaisen kontekstin kanssa. Se muuttaa ensimmäisen yhteydenoton tuntua.",
         "name": "Mikko, psykoterapeutti",
-        "context": "Pitää saatavuuden ajan tasalla hallintapaneelissa"
+        "context": "Esimerkki — psykoterapeutti"
       },
       {
         "quote": "Se, että voin kirjoittaa ensin englanniksi ja viimeistellä suomen myöhemmin, tekee koko asetelmasta paljon kevyemmän.",
         "name": "Sofia, traumainformoitu terapeutti",
-        "context": "Lokalisoidun profiilin muokkaus"
+        "context": "Esimerkki — traumainformoitu terapeutti"
       }
     ],
     "faqs": [

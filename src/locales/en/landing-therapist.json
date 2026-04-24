@@ -42,9 +42,9 @@
     "directoryTitle": "Typical directory"
   },
   "testimonials": {
-    "eyebrow": "From therapists",
+    "eyebrow": "Pilot feedback examples",
     "title": "A profile that sounds more like you",
-    "description": "A few reasons this flow is built to feel closer to real practice than a generic listing."
+    "description": "How therapists describe their experience — illustrative examples from pilot phase feedback. Names have been changed."
   },
   "faq": {
     "eyebrow": "FAQs",
@@ -71,17 +71,17 @@
       {
         "quote": "This feels closer to how I actually describe my work than a standard profile form ever has.",
         "name": "Laura, integrative therapist",
-        "context": "Published after the onboarding flow"
+        "context": "Example — integrative therapist"
       },
       {
         "quote": "I like that the client arrives with some context already. It changes the feeling of the first contact.",
         "name": "Mikko, psychotherapist",
-        "context": "Using the dashboard to keep availability current"
+        "context": "Example — psychotherapist"
       },
       {
         "quote": "Being able to write in English first and refine the Finnish version afterwards makes the whole setup much lighter.",
         "name": "Sofia, trauma-informed therapist",
-        "context": "Localized profile editing"
+        "context": "Example — trauma-informed therapist"
       }
     ],
     "faqs": [
