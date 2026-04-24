@@ -67,6 +67,29 @@ const Footer: React.FC<{ locale: Locale }> = ({ locale }) => {
             ))}
           </div>
 
+          <div style={{ marginBottom: "20px" }}>
+            <Link
+              to={routePaths.therapistLanding(locale)}
+              style={{
+                fontSize: "12px",
+                color: "rgba(250,246,240,0.35)",
+                textDecoration: "none",
+                fontWeight: 500,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(event) => {
+                event.currentTarget.style.color = "rgba(250,246,240,0.65)";
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.color = "rgba(250,246,240,0.35)";
+              }}
+            >
+              {locale === "fi"
+                ? "Oletko terapeutti? Liity Myötään →"
+                : "Are you a therapist? Join Myötä →"}
+            </Link>
+          </div>
+
           <div style={{ fontSize: "11px", color: "rgba(250,246,240,0.2)", letterSpacing: "0.05em" }}>
             © 2026 Myötä · Helsinki, Finland
           </div>
