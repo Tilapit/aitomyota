@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
 import Logo from "../components/layout/Logo";
-import AudienceTabs from "../components/layout/AudienceTabs";
+import { Link } from "react-router-dom";
 import { routePaths } from "../lib/routes";
 import { useCurrentLocale } from "../hooks/useCurrentLocale";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -123,8 +123,6 @@ export default function TherapistLandingPage() {
             }}
           >
             <div style={{ maxWidth: "680px", width: "100%" }}>
-              <AudienceTabs locale={locale} active="therapist" />
-
               <h1
                 style={{
                   fontFamily: "Lora, serif",
@@ -414,6 +412,28 @@ export default function TherapistLandingPage() {
           </div>
         </section>
       </main>
+      <div style={{ textAlign: "center", padding: "28px 24px", background: "var(--cream)" }}>
+        <Link
+          to={routePaths.clientQuiz(locale)}
+          style={{
+            fontSize: "12px",
+            color: "rgba(92,78,61,0.45)",
+            textDecoration: "none",
+            fontWeight: 500,
+            transition: "color 0.2s",
+          }}
+          onMouseEnter={(event) => {
+            event.currentTarget.style.color = "rgba(92,78,61,0.75)";
+          }}
+          onMouseLeave={(event) => {
+            event.currentTarget.style.color = "rgba(92,78,61,0.45)";
+          }}
+        >
+          {locale === "fi"
+            ? "Etsitkö terapeuttia? Aloita matchaus →"
+            : "Looking for a therapist? Start matching →"}
+        </Link>
+      </div>
       <Footer locale={locale} />
     </>
   );
