@@ -9,6 +9,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { useTherapistQuiz } from "../features/therapist/useTherapistQuiz";
 import { routePaths } from "../lib/routes";
 import { saveTherapistOnboardingDraft } from "../features/therapist/onboardingStorage";
+import { savePendingQuizAnswers } from "../features/therapist/quizAnswersStorage";
 
 export default function TherapistQuizPage() {
   const locale = useCurrentLocale();
@@ -120,6 +121,7 @@ export default function TherapistQuizPage() {
                 type="button"
                 className="bk-btn fill !w-auto !px-8"
                 onClick={() => {
+                  savePendingQuizAnswers(answers);
                   saveTherapistOnboardingDraft({
                     locale,
                     answers,

@@ -7,7 +7,15 @@ import { useAuth } from "../hooks/useAuth";
 import { useCurrentLocale } from "../hooks/useCurrentLocale";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { routePaths } from "../lib/routes";
+import { getSupabaseClient } from "../lib/supabase";
 import { getTherapistProfile, saveTherapistProfile } from "../repositories/therapistRepository";
+import {
+  readPendingQuizAnswers,
+  clearPendingQuizAnswers,
+  hasPendingInsertBeenAttempted,
+  markPendingInsertAttempted,
+  resetPendingInsertAttempted,
+} from "../features/therapist/quizAnswersStorage";
 import { getTherapistQuiz } from "../features/therapist/quizData";
 import type { TherapistProfileRecord } from "../types/therapist";
 
@@ -41,6 +49,57 @@ export default function TherapistDashboardPage() {
         setProfile(record);
       }
     });
+  }, [user]);
+
+  // Flush any quiz answers that were saved to localStorage before authentication.
+  // The module-level flag prevents a double-insert in React Strict Mode (mount → unmount → remount).
+  // localStorage is cleared only after a confirmed successful upsert.
+  useEffect(() => {
+    if (!user) return;
+    if (hasPendingInsertBeenAttempted()) return;
+
+    const pending = readPendingQuizAnswers();
+    if (!pending) return;
+
+    markPendingInsertAttempted();
+
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      // No Supabase configured (local dev without env) — discard pending answers.
+      clearPendingQuizAnswers();
+      return;
+    }
+
+    const rows = Object.entries(pending).map(([questionId, value]) => ({
+      therapist_id: user.id,
+      question_id: questionId,
+      answer_type: Array.isArray(value)
+        ? "multi"
+        : typeof value === "object" && value !== null
+          ? "json"
+          : typeof value === "number"
+            ? "number"
+            : "text",
+      answer_value_json:
+        Array.isArray(value) || (typeof value === "object" && value !== null) ? value : null,
+      answer_value_text:
+        Array.isArray(value) || (typeof value === "object" && value !== null)
+          ? null
+          : String(value),
+      source: "onboarding",
+    }));
+
+    void supabase
+      .from("therapist_quiz_responses")
+      .upsert(rows)
+      .then(({ error }) => {
+        if (error) {
+          console.error("[therapist] Failed to persist pending quiz answers:", error);
+          resetPendingInsertAttempted();
+        } else {
+          clearPendingQuizAnswers();
+        }
+      });
   }, [user]);
 
   useEffect(() => {
