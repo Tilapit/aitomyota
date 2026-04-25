@@ -7,7 +7,8 @@ type ClientPreferenceProfile = {
   concerns: string[];
   supportStyles: string[];
   preferredGender: string | null;
-  experienceNeed: "experienced" | "none" | null;
+  workStyle: number | null;
+  experienceImportance: number;
   budgetBand: "under_80" | "80_120" | "120_160" | "open" | null;
   kelaNeed: "required" | "preferred" | "unknown" | null;
   sessionFormat: "remote_only" | "in_person_only" | "either" | null;
@@ -92,34 +93,38 @@ function parseFirstNumber(value: string) {
 }
 
 function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPreferenceProfile {
-  const primarySituation = readSingle(answers, "s1", "l1");
-  const language = readSingle(answers, "s2", "l2");
-  const shortSupport = readSingle(answers, "s3");
-  const longSupport = readSingle(answers, "l7");
-  const genderPreference = readSingle(answers, "s4");
-  const budget = readSingle(answers, "s5", "l11");
-  const kela = readSingle(answers, "s6", "l12");
-  const sessionFormat = readSingle(answers, "s7", "l9");
+  const primarySituation = readSingle(answers, "q1", "l1");
+  const language = readSingle(answers, "q8", "l14");
+  const shortSupport = readSingle(answers, "q3");
+  const longSupport = readSingle(answers, "l6");
+  const genderPreference = readSingle(answers, "q4", "l15");
+  const budget = readSingle(answers, "q5", "l11");
+  const kela = readSingle(answers, "q6", "l12");
+  const sessionFormat = readSingle(answers, "q7", "l9");
   const longConcerns = readMulti(answers, "l4");
   const sessionFrequency = readSingle(answers, "l10");
   const pace = readSingle(answers, "l8");
   const history = readSingle(answers, "l13");
   const openText = readSingle(answers, "l16") ?? "";
 
+  const workStyleRaw = Number(answers["q_workstyle"] ?? 50);
+  const workStyle = Math.round((workStyleRaw / 100) * 4) + 1;
+  const experienceImportance = Number(answers["q_experience"] ?? 50);
+
   const concerns = new Set<string>();
 
-  if (primarySituation === "s1a" || primarySituation === "l1a") {
+  if (primarySituation === "q1a" || primarySituation === "l1a") {
     concerns.add("stress_burnout");
   }
-  if (primarySituation === "s1b" || primarySituation === "l1b") {
+  if (primarySituation === "q1b" || primarySituation === "l1b") {
     concerns.add("relationships_family");
     concerns.add("crises_grief");
   }
-  if (primarySituation === "s1c" || primarySituation === "l1c") {
+  if (primarySituation === "q1c" || primarySituation === "l1c") {
     concerns.add("crises_grief");
     concerns.add("identity_direction");
   }
-  if (primarySituation === "s1d" || primarySituation === "l1d") {
+  if (primarySituation === "q1d" || primarySituation === "l1d") {
     concerns.add("self_esteem_identity");
     concerns.add("anxiety_fears");
   }
@@ -140,53 +145,57 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
 
   const supportStyles = new Set<string>();
 
-  if (shortSupport === "s3a" || longSupport === "l7a") supportStyles.add("warm");
-  if (shortSupport === "s3b" || longSupport === "l7b") supportStyles.add("practical");
-  if (shortSupport === "s3c" || longSupport === "l7c") supportStyles.add("insight");
-  if (shortSupport === "s3d" || longSupport === "l7d") supportStyles.add("direct");
+  if (shortSupport === "q3a" || longSupport === "l6a") supportStyles.add("warm");
+  if (shortSupport === "q3b" || longSupport === "l6b") supportStyles.add("direct");
+  if (shortSupport === "q3c" || longSupport === "l6c") supportStyles.add("warm");
+  if (shortSupport === "q3d" || longSupport === "l6d") {
+    supportStyles.add("practical");
+    supportStyles.add("structured");
+  }
 
   return {
     preferredLanguage:
-      language === "s2a" || language === "l2a"
+      language === "q8a" || language === "l14a"
         ? "finnish"
-        : language === "s2b" || language === "l2b"
+        : language === "q8b" || language === "l14b"
           ? "swedish"
-          : language === "s2c" || language === "l2c"
+          : language === "q8c" || language === "l14c"
             ? "english"
             : null,
     concerns: [...concerns],
     supportStyles: [...supportStyles],
     preferredGender:
-      genderPreference === "s4a"
+      genderPreference === "q4a" || genderPreference === "l15a"
         ? "woman"
-        : genderPreference === "s4b"
+        : genderPreference === "q4b" || genderPreference === "l15b"
           ? "man"
-          : genderPreference === "s4c"
+          : genderPreference === "q4c" || genderPreference === "l15c"
             ? "non_binary"
             : null,
-    experienceNeed: null,
+    workStyle,
+    experienceImportance,
     budgetBand:
-      budget === "s5a" || budget === "l11a"
+      budget === "q5a" || budget === "l11a"
         ? "under_80"
-        : budget === "s5b" || budget === "l11b"
+        : budget === "q5b" || budget === "l11b"
           ? "80_120"
-          : budget === "s5c" || budget === "l11c"
+          : budget === "q5c" || budget === "l11c"
             ? "120_160"
-            : budget === "s5d" || budget === "l11d"
+            : budget === "q5d" || budget === "l11d"
               ? "open"
               : null,
     kelaNeed:
-      kela === "s6a" || kela === "l12a"
+      kela === "q6a" || kela === "l12a"
         ? "required"
-        : kela === "s6b" || kela === "l12b"
+        : kela === "q6b" || kela === "l12b"
           ? "preferred"
           : "unknown",
     sessionFormat:
-      sessionFormat === "s7a" || sessionFormat === "l9a"
+      sessionFormat === "q7a" || sessionFormat === "l9a"
         ? "remote_only"
-        : sessionFormat === "s7b" || sessionFormat === "l9b"
+        : sessionFormat === "q7b" || sessionFormat === "l9b"
           ? "in_person_only"
-          : sessionFormat === "s7c" || sessionFormat === "l9c"
+          : sessionFormat === "q7c" || sessionFormat === "l9c"
             ? "either"
             : null,
     sessionFrequency:
@@ -311,6 +320,11 @@ function scoreStyle(client: ClientPreferenceProfile, therapist: TherapistCapabil
   if (client.pacePreference === "calm" && (therapist.paceOfProgress ?? 3) <= 3) score += 4;
   if (client.pacePreference === "goal_oriented" && (therapist.paceOfProgress ?? 3) >= 4) score += 4;
   if (client.pacePreference === "flexible") score += 2;
+
+  if (therapist.workingStyle !== null) {
+    const diff = Math.abs(client.workStyle - therapist.workingStyle);
+    score += diff === 0 ? 6 : diff === 1 ? 4 : diff === 2 ? 1 : 0;
+  }
 
   return Math.min(score, 20);
 }
@@ -441,8 +455,13 @@ export function matchRecommendations(params: {
       score += Math.min(scoreStyle(client, therapist), MATCH_WEIGHTS.style);
 
       let experience = 0;
-      if (client.experienceNeed === "experienced" && (therapist.yearsExperience ?? 0) >= 10) experience += 6;
-      else if (client.experienceNeed === "experienced" && (therapist.yearsExperience ?? 0) >= 6) experience += 4;
+      if (client.experienceImportance >= 75) {
+        if ((therapist.yearsExperience ?? 0) >= 10) experience += 6;
+        else if ((therapist.yearsExperience ?? 0) >= 5) experience += 3;
+      } else if (client.experienceImportance >= 40) {
+        if ((therapist.yearsExperience ?? 0) >= 5) experience += 4;
+        else if ((therapist.yearsExperience ?? 0) >= 3) experience += 2;
+      }
       if (client.historyNeedsCare && therapist.supportsNegativeTherapyExperience) experience += 4;
       score += Math.min(experience, MATCH_WEIGHTS.experience);
 
