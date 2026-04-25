@@ -23,6 +23,7 @@ export type QuizQuestion = {
     max: number;
     labelMin: string;
     labelMax: string;
+    valueLabels?: Array<{ max: number; label: string }>;
   };
 };
 
@@ -103,6 +104,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Mostly listens",
             labelMax: "Actively guides",
+            valueLabels: [
+              { max: 20, label: "Listening and present" },
+              { max: 40, label: "Mostly listening" },
+              { max: 60, label: "Balanced" },
+              { max: 80, label: "Fairly guiding" },
+              { max: 100, label: "Actively guiding" },
+            ],
           },
         },
         {
@@ -115,6 +123,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Not important at all",
             labelMax: "Very important",
+            valueLabels: [
+              { max: 20, label: "Not important" },
+              { max: 40, label: "Slightly important" },
+              { max: 60, label: "Somewhat important" },
+              { max: 80, label: "Fairly important" },
+              { max: 100, label: "Very important" },
+            ],
           },
         },
         {
@@ -269,6 +284,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Mostly listens",
             labelMax: "Actively guides",
+            valueLabels: [
+              { max: 20, label: "Listening and present" },
+              { max: 40, label: "Mostly listening" },
+              { max: 60, label: "Balanced" },
+              { max: 80, label: "Fairly guiding" },
+              { max: 100, label: "Actively guiding" },
+            ],
           },
         },
         {
@@ -327,6 +349,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Not important at all",
             labelMax: "Very important",
+            valueLabels: [
+              { max: 20, label: "Not important" },
+              { max: 40, label: "Slightly important" },
+              { max: 60, label: "Somewhat important" },
+              { max: 80, label: "Fairly important" },
+              { max: 100, label: "Very important" },
+            ],
           },
         },
         {
@@ -453,6 +482,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Kuuntelee enimmäkseen",
             labelMax: "Ohjaa aktiivisesti",
+            valueLabels: [
+              { max: 20, label: "Kuunteleva ja läsnäoleva" },
+              { max: 40, label: "Enimmäkseen kuunteleva" },
+              { max: 60, label: "Tasapainoinen" },
+              { max: 80, label: "Melko ohjaava" },
+              { max: 100, label: "Aktiivisesti ohjaava" },
+            ],
           },
         },
         {
@@ -465,6 +501,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Ei lainkaan tärkeää",
             labelMax: "Erittäin tärkeää",
+            valueLabels: [
+              { max: 20, label: "Ei merkitystä" },
+              { max: 40, label: "Vähän merkitystä" },
+              { max: 60, label: "Jonkin verran tärkeää" },
+              { max: 80, label: "Melko tärkeää" },
+              { max: 100, label: "Erittäin tärkeää" },
+            ],
           },
         },
         {
@@ -619,6 +662,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Kuuntelee enimmäkseen",
             labelMax: "Ohjaa aktiivisesti",
+            valueLabels: [
+              { max: 20, label: "Kuunteleva ja läsnäoleva" },
+              { max: 40, label: "Enimmäkseen kuunteleva" },
+              { max: 60, label: "Tasapainoinen" },
+              { max: 80, label: "Melko ohjaava" },
+              { max: 100, label: "Aktiivisesti ohjaava" },
+            ],
           },
         },
         {
@@ -677,6 +727,13 @@ const quizzesByLocale: LocalizedQuizCollection = {
             max: 100,
             labelMin: "Ei lainkaan tärkeää",
             labelMax: "Erittäin tärkeää",
+            valueLabels: [
+              { max: 20, label: "Ei merkitystä" },
+              { max: 40, label: "Vähän merkitystä" },
+              { max: 60, label: "Jonkin verran tärkeää" },
+              { max: 80, label: "Melko tärkeää" },
+              { max: 100, label: "Erittäin tärkeää" },
+            ],
           },
         },
         {

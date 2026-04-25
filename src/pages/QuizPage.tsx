@@ -278,6 +278,7 @@ type QuestionCardProps = {
   isLast: boolean;
 };
 
+
 function QuestionCard({
   question,
   currentIndex,
@@ -335,7 +336,12 @@ function QuestionCard({
             />
           </label>
         ) : question.slider ? (
-          <div className="pt-4 pb-2">
+          <div style={{ marginTop: "24px", marginBottom: "8px" }}>
+            {question.slider.valueLabels && (
+              <p style={{ fontSize: "14px", color: "var(--ink-mid)", textAlign: "center", marginBottom: "16px" }}>
+                {question.slider.valueLabels.find((vl) => Number(selectedValue ?? 50) <= vl.max)?.label ?? ""}
+              </p>
+            )}
             <input
               type="range"
               min={question.slider.min}
@@ -343,15 +349,11 @@ function QuestionCard({
               step={1}
               value={Number(selectedValue ?? 50)}
               onChange={(event) => onSingleSelect(event.target.value)}
-              className="w-full cursor-pointer appearance-none"
-              style={{
-                accentColor: "#C4674A",
-                height: "4px",
-              }}
+              className="quiz-slider w-full"
             />
-            <div className="mt-3 flex justify-between">
-              <span className="text-[13px] text-[color:var(--ink-light)]">{question.slider.labelMin}</span>
-              <span className="text-[13px] text-[color:var(--ink-light)]">{question.slider.labelMax}</span>
+            <div className="mt-2 flex justify-between">
+              <span style={{ fontSize: "12px", color: "var(--ink-light)" }}>{question.slider.labelMin}</span>
+              <span style={{ fontSize: "12px", color: "var(--ink-light)" }}>{question.slider.labelMax}</span>
             </div>
           </div>
         ) : (

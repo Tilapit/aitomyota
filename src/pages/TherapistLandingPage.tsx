@@ -348,7 +348,7 @@ export default function TherapistLandingPage() {
                   className={`testimonial-entry${index === 0 ? " is-featured" : ""}`}
                   style={{ opacity: 0, transitionDelay: `${index * 0.15}s` }}
                 >
-                  <div className=”testimonial-mark”>{““”}</div>
+                  <div className="testimonial-mark">&ldquo;</div>
                   <div className="testimonial-quote">{item.quote}</div>
                   <div className="testimonial-meta">
                     <div className="testimonial-name">{item.name}</div>
