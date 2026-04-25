@@ -21,6 +21,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { useAuth } from "../hooks/useAuth";
 import { saveClientResultForUser } from "../repositories/clientResultsRepository";
 import { getPublishedTherapistProfiles } from "../repositories/therapistRepository";
+import { generateWhyMatch } from "../lib/whyMatch";
 
 type RecommendationMomentName = keyof typeof therapistExperiences & string;
 
@@ -460,6 +461,8 @@ export default function QuizPage() {
   } = useQuiz(quizId, locale);
   const [publishedRecommendations, setPublishedRecommendations] = useState<typeof recommendations | null>(null);
   const [isMatching, setIsMatching] = useState(false);
+  const [whyMatches, setWhyMatches] = useState<string[]>([]);
+  const [loadingWhy, setLoadingWhy] = useState(false);
   const [resultsSaved, setResultsSaved] = useState(false);
   const alternateQuizId = quizId === "short" ? "long" : "short";
   usePageMeta(
@@ -477,8 +480,8 @@ export default function QuizPage() {
     }
 
     setIsMatching(true);
-    void getPublishedTherapistProfiles().then((profiles) => {
-      setPublishedRecommendations(
+    void getPublishedTherapistProfiles().then(async (profiles) => {
+      const resolved =
         profiles.length > 0
           ? matchRecommendations({
               quizId,
@@ -486,9 +489,16 @@ export default function QuizPage() {
               locale,
               therapists: profiles,
             })
-          : recommendations,
-      );
+          : recommendations;
+      setPublishedRecommendations(resolved);
       setIsMatching(false);
+
+      setLoadingWhy(true);
+      const whys = await Promise.all(
+        resolved.map((r) => generateWhyMatch(r, answers, locale)),
+      );
+      setWhyMatches(whys);
+      setLoadingWhy(false);
     });
   }, [answers, isComplete, locale, quizId, recommendations]);
 
@@ -609,9 +619,19 @@ export default function QuizPage() {
                             <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
                               {t("meta.whyThisCouldFit")}
                             </div>
-                            <div className="text-[14px] leading-7 text-[color:var(--ink-mid)]">
-                              {recommendation.reason}
-                            </div>
+                            {loadingWhy ? (
+                              <div className="text-[14px] leading-7 italic text-[color:var(--ink-mid)]">
+                                {locale === "fi" ? "Analysoidaan sopivuutta..." : "Analysing your match..."}
+                              </div>
+                            ) : whyMatches[index] ? (
+                              <div className="text-[14px] leading-7 italic text-[#C4674A]">
+                                {whyMatches[index]}
+                              </div>
+                            ) : (
+                              <div className="text-[14px] leading-7 text-[color:var(--ink-mid)]">
+                                {recommendation.reason}
+                              </div>
+                            )}
                           </div>
                         </div>
 
