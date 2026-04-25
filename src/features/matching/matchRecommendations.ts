@@ -97,15 +97,13 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
   const shortSupport = readSingle(answers, "s3");
   const longSupport = readSingle(answers, "l7");
   const genderPreference = readSingle(answers, "s4");
-  const agePreference = readSingle(answers, "s5");
-  const budget = readSingle(answers, "s6", "l11");
-  const kela = readSingle(answers, "s7", "l12");
+  const budget = readSingle(answers, "s5", "l11");
+  const kela = readSingle(answers, "s6", "l12");
+  const sessionFormat = readSingle(answers, "s7", "l9");
   const longConcerns = readMulti(answers, "l4");
-  const sessionFormat = readSingle(answers, "l9");
   const sessionFrequency = readSingle(answers, "l10");
   const pace = readSingle(answers, "l8");
   const history = readSingle(answers, "l13");
-  const historyFollowup = readSingle(answers, "l14");
   const openText = readSingle(answers, "l16") ?? "";
 
   const concerns = new Set<string>();
@@ -129,7 +127,10 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
   for (const value of longConcerns) {
     if (value === "l4a") concerns.add("academic_pressure");
     if (value === "l4b") concerns.add("relationships_family");
-    if (value === "l4c") concerns.add("self_esteem_identity");
+    if (value === "l4c") {
+      concerns.add("identity_direction");
+      concerns.add("self_esteem_identity");
+    }
     if (value === "l4d") {
       concerns.add("anxiety_fears");
       concerns.add("depression_low_mood");
@@ -141,9 +142,8 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
 
   if (shortSupport === "s3a" || longSupport === "l7a") supportStyles.add("warm");
   if (shortSupport === "s3b" || longSupport === "l7b") supportStyles.add("practical");
-  if (shortSupport === "s3c") supportStyles.add("insight");
-  if (shortSupport === "s3d" || longSupport === "l7c") supportStyles.add("direct");
-  if (longSupport === "l7b") supportStyles.add("structured");
+  if (shortSupport === "s3c" || longSupport === "l7c") supportStyles.add("insight");
+  if (shortSupport === "s3d" || longSupport === "l7d") supportStyles.add("direct");
 
   return {
     preferredLanguage:
@@ -164,29 +164,29 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
           : genderPreference === "s4c"
             ? "non_binary"
             : null,
-    experienceNeed: agePreference === "s5b" ? "experienced" : agePreference === "s5c" ? "none" : null,
+    experienceNeed: null,
     budgetBand:
-      budget === "s6a" || budget === "l11a"
+      budget === "s5a" || budget === "l11a"
         ? "under_80"
-        : budget === "s6b" || budget === "l11b"
+        : budget === "s5b" || budget === "l11b"
           ? "80_120"
-          : budget === "s6c" || budget === "l11c"
+          : budget === "s5c" || budget === "l11c"
             ? "120_160"
-            : budget === "s6d" || budget === "l11d"
+            : budget === "s5d" || budget === "l11d"
               ? "open"
               : null,
     kelaNeed:
-      kela === "s7a" || kela === "l12a"
+      kela === "s6a" || kela === "l12a"
         ? "required"
-        : kela === "s7b" || kela === "l12b"
+        : kela === "s6b" || kela === "l12b"
           ? "preferred"
           : "unknown",
     sessionFormat:
-      sessionFormat === "l9a"
+      sessionFormat === "s7a" || sessionFormat === "l9a"
         ? "remote_only"
-        : sessionFormat === "l9b"
+        : sessionFormat === "s7b" || sessionFormat === "l9b"
           ? "in_person_only"
-          : sessionFormat === "l9c"
+          : sessionFormat === "s7c" || sessionFormat === "l9c"
             ? "either"
             : null,
     sessionFrequency:
@@ -208,7 +208,7 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
             ? "flexible"
             : null,
     openText,
-    historyNeedsCare: history === "l13c" || historyFollowup === "l14b",
+    historyNeedsCare: history === "l13c",
   };
 }
 
@@ -339,34 +339,38 @@ function getConcernOverlap(client: ClientPreferenceProfile, therapist: Therapist
   return [...overlap];
 }
 
-function buildReasons(client: ClientPreferenceProfile, therapist: TherapistCapabilityProfile) {
+function buildReasons(client: ClientPreferenceProfile, therapist: TherapistCapabilityProfile, locale: Locale): string[] {
   const reasons: string[] = [];
+  const fi = locale === "fi";
 
   if (client.preferredLanguage && therapist.languages.includes(client.preferredLanguage)) {
-    reasons.push(client.preferredLanguage === "finnish" ? "Works in Finnish" : client.preferredLanguage === "swedish" ? "Works in Swedish" : "Works in English");
+    if (client.preferredLanguage === "finnish") reasons.push(fi ? "Työskentelee suomeksi" : "Works in Finnish");
+    else if (client.preferredLanguage === "swedish") reasons.push(fi ? "Työskentelee ruotsiksi" : "Works in Swedish");
+    else reasons.push(fi ? "Työskentelee englanniksi" : "Works in English");
   }
 
   const specializationOverlap = therapist.specializations.filter((value) => client.concerns.includes(value));
   if (specializationOverlap.length > 0) {
-    reasons.push(`Matches ${specializationOverlap.slice(0, 2).join(" and ").replaceAll("_", " ")}`);
+    const tags = specializationOverlap.slice(0, 2).map((value) => formatConcernTag(value, locale));
+    reasons.push(fi ? tags.join(" ja ") : `Matches ${tags.join(" and ")}`);
   }
 
   if (client.kelaNeed !== "unknown" && therapist.kelaApproved) {
-    reasons.push("Kela pathway available");
+    reasons.push(fi ? "Kela-korvaus mahdollinen" : "Kela pathway available");
   }
 
   if (client.sessionFrequency && therapist.frequency === client.sessionFrequency) {
-    reasons.push("Session rhythm aligns");
+    reasons.push(fi ? "Tapaamistiheys sopii toiveisiisi" : "Session rhythm aligns");
   }
 
   if (client.supportStyles.includes("practical") && therapist.workFocus === "concrete_problems") {
-    reasons.push("Concrete, tool-oriented approach");
+    reasons.push(fi ? "Käytännönläheinen työskentelytapa" : "Concrete, tool-oriented approach");
   }
   if (client.supportStyles.includes("warm") && ["warm_encouraging", "calm_gentle"].includes(therapist.meetClientStyle ?? "")) {
-    reasons.push("Warm interpersonal style");
+    reasons.push(fi ? "Lämmin ja empaattinen tyyli" : "Warm interpersonal style");
   }
   if (client.historyNeedsCare && therapist.supportsNegativeTherapyExperience) {
-    reasons.push("Comfortable with previous difficult therapy experiences");
+    reasons.push(fi ? "Kokemusta asiakkaista joilla on aiempi negatiivinen terapiakokemus" : "Comfortable with previous difficult therapy experiences");
   }
 
   return reasons.slice(0, 3);
@@ -381,25 +385,27 @@ function formatConcernTag(value: string, locale: Locale) {
     crises_grief: locale === "fi" ? "Kriisit ja suru" : "Crises and grief",
     self_esteem_identity: locale === "fi" ? "Itsetunto ja identiteetti" : "Self-esteem and identity",
     academic_pressure: locale === "fi" ? "Opiskelu ja suoriutuspaineet" : "Academic and performance pressure",
+    identity_direction: locale === "fi" ? "Identiteetti ja suunta" : "Identity and direction",
+    parenthood: locale === "fi" ? "Vanhemmuus" : "Parenthood",
   };
 
   return labels[value] ?? value;
 }
 
 function buildRecommendationText(reasons: string[], therapist: TherapistCapabilityProfile, locale: Locale) {
+  const name = therapist.profile.base.displayName;
+
   if (locale === "fi") {
     if (reasons.length === 0) {
-      return `${therapist.profile.base.displayName} tuntuu harkitulta vaihtoehdolta, koska profiilin käytännöt, kieli ja työskentelytapa näyttävät sopivan hyvin yhteen vastaustesi kanssa.`;
+      return `${name} vaikuttaa sopivalta vaihtoehdolta vastaustesi perusteella.`;
     }
-
-    return `${therapist.profile.base.displayName} nousee esiin erityisesti siksi, että ${reasons.join(", ").toLowerCase()}. ${therapist.localizedIntro || therapist.localizedApproach}`;
+    return `${name} sopii sinulle erityisesti, koska ${reasons.map((r) => r.toLowerCase()).join(" ja ")}.`;
   }
 
   if (reasons.length === 0) {
-    return `${therapist.profile.base.displayName} stands out as a thoughtful option because their language, practical setup, and way of working fit well with what you described.`;
+    return `${name} looks like a good fit based on your answers.`;
   }
-
-  return `${therapist.profile.base.displayName} rises because ${reasons.join(", ").toLowerCase()}. ${therapist.localizedIntro || therapist.localizedApproach}`;
+  return `${name} stands out for you because ${reasons.map((r) => r.toLowerCase()).join(" and ")}.`;
 }
 
 export function matchRecommendations(params: {
@@ -446,7 +452,7 @@ export function matchRecommendations(params: {
 
       score += Math.min(scoreTextNuance(client, therapist), MATCH_WEIGHTS.nuance);
 
-      const reasons = buildReasons(client, therapist);
+      const reasons = buildReasons(client, therapist, params.locale);
       const tags = [
         ...specializationOverlap.slice(0, 2).map((item) => formatConcernTag(item, params.locale)),
         ...(client.preferredLanguage
