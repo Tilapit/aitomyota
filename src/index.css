@@ -895,6 +895,7 @@ input[type='range'].quiz-slider::-webkit-slider-thumb {
   border: 2px solid white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   cursor: pointer;
+  margin-top: -8px;
 }
 input[type='range'].quiz-slider::-moz-range-thumb {
   width: 20px;
@@ -908,9 +909,10 @@ input[type='range'].quiz-slider::-moz-range-thumb {
 input[type='range'].quiz-slider::-webkit-slider-runnable-track {
   height: 4px;
   border-radius: 2px;
+  background: #E8E3DC;
 }
 input[type='range'].quiz-slider::-moz-range-track {
   height: 4px;
   border-radius: 2px;
-  background: var(--cream-dark);
+  background: #E8E3DC;
 }

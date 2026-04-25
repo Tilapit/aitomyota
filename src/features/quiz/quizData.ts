@@ -67,6 +67,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "q1b", text: "There is one specific thing on my mind I want to talk about" },
             { id: "q1c", text: "A big life change is happening and I need support" },
             { id: "q1d", text: "I cannot name it yet — it just feels unclear and heavy" },
+            { id: "q1e", text: "I just want to explore — not sure I need support yet" },
           ],
         },
         {
@@ -208,6 +209,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "l1b", text: "There is one specific thing on my mind I want to talk about" },
             { id: "l1c", text: "A big life change is happening and I need support" },
             { id: "l1d", text: "I cannot name it yet — it just feels unclear and heavy" },
+            { id: "l1e", text: "I just want to explore — not sure I need support yet" },
           ],
         },
         {
@@ -445,6 +447,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "q1b", text: "Mielessäni on yksi tietty asia, josta haluaisin puhua" },
             { id: "q1c", text: "Elämässäni on iso muutos käynnissä ja tarvitsen tukea" },
             { id: "q1d", text: "En osaa vielä nimetä — tuntuu vain epäselvältä ja raskaalta" },
+            { id: "q1e", text: "Haluan vain tutustua — en ole varma tarvitsenko apua" },
           ],
         },
         {
@@ -586,6 +589,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "l1b", text: "Mielessäni on yksi tietty asia, josta haluaisin puhua" },
             { id: "l1c", text: "Elämässäni on iso muutos käynnissä ja tarvitsen tukea" },
             { id: "l1d", text: "En osaa vielä nimetä — tuntuu vain epäselvältä ja raskaalta" },
+            { id: "l1e", text: "Haluan vain tutustua — en ole varma tarvitsenko apua" },
           ],
         },
         {
