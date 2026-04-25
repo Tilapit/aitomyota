@@ -334,6 +334,26 @@ function QuestionCard({
               placeholder={t("meta.freeTextPlaceholder")}
             />
           </label>
+        ) : question.slider ? (
+          <div className="pt-4 pb-2">
+            <input
+              type="range"
+              min={question.slider.min}
+              max={question.slider.max}
+              step={1}
+              value={Number(selectedValue ?? 50)}
+              onChange={(event) => onSingleSelect(event.target.value)}
+              className="w-full cursor-pointer appearance-none"
+              style={{
+                accentColor: "#C4674A",
+                height: "4px",
+              }}
+            />
+            <div className="mt-3 flex justify-between">
+              <span className="text-[13px] text-[color:var(--ink-light)]">{question.slider.labelMin}</span>
+              <span className="text-[13px] text-[color:var(--ink-light)]">{question.slider.labelMax}</span>
+            </div>
+          </div>
         ) : (
           <div className="grid gap-3">
             {question.answers?.map((answer: QuizAnswer) => {
@@ -437,6 +457,7 @@ export default function QuizPage() {
     restart,
   } = useQuiz(quizId, locale);
   const [publishedRecommendations, setPublishedRecommendations] = useState<typeof recommendations | null>(null);
+  const [isMatching, setIsMatching] = useState(false);
   const [resultsSaved, setResultsSaved] = useState(false);
   const alternateQuizId = quizId === "short" ? "long" : "short";
   usePageMeta(
@@ -453,6 +474,7 @@ export default function QuizPage() {
       return;
     }
 
+    setIsMatching(true);
     void getPublishedTherapistProfiles().then((profiles) => {
       setPublishedRecommendations(
         profiles.length > 0
@@ -464,6 +486,7 @@ export default function QuizPage() {
             })
           : recommendations,
       );
+      setIsMatching(false);
     });
   }, [answers, isComplete, locale, quizId, recommendations]);
 
@@ -539,7 +562,12 @@ export default function QuizPage() {
                 </div>
 
                 <div className="space-y-5">
-                  {(publishedRecommendations ?? recommendations).map((recommendation, index) => (
+                  {isMatching && (
+                    <div className="py-12 text-center text-[15px] text-[color:var(--ink-mid)]">
+                      {locale === "fi" ? "Etsitään sinulle sopivia terapeutteja..." : "Finding your best matches..."}
+                    </div>
+                  )}
+                  {!isMatching && (publishedRecommendations ?? recommendations).map((recommendation, index) => (
                     <article
                       key={recommendation.name}
                       className="rounded-[28px] border border-[rgba(196,103,74,0.12)] bg-white p-7 shadow-[0_24px_70px_rgba(30,22,16,0.06)]"

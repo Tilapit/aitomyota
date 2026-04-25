@@ -152,6 +152,7 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
     supportStyles.add("practical");
     supportStyles.add("structured");
   }
+  if (shortSupport === "q3e" || longSupport === "l6e") supportStyles.add("any");
 
   return {
     preferredLanguage:
@@ -296,7 +297,9 @@ function scoreBudget(client: ClientPreferenceProfile, therapist: TherapistCapabi
 function scoreStyle(client: ClientPreferenceProfile, therapist: TherapistCapabilityProfile) {
   let score = 0;
 
-  if (client.supportStyles.includes("warm")) {
+  if (client.supportStyles.length === 0 || client.supportStyles.includes("any")) {
+    score += 8;
+  } else if (client.supportStyles.includes("warm")) {
     if (therapist.meetClientStyle === "warm_encouraging" || therapist.meetClientStyle === "calm_gentle") score += 6;
     if ((therapist.interactionStyle ?? 3) <= 3) score += 2;
   }

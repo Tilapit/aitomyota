@@ -21,7 +21,7 @@ export function useQuiz(quizId: QuizId, locale: Locale) {
   const isLast = currentStep === totalQuestions - 1;
 
   const canProceed = question
-    ? question.openText
+    ? question.openText || question.slider
       ? true
       : question.multiSelect
         ? Array.isArray(selectedValue) && selectedValue.length > 0

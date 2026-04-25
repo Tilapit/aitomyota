@@ -90,6 +90,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "q3b", text: "Honest and direct" },
             { id: "q3c", text: "Warm and encouraging" },
             { id: "q3d", text: "Structured and goal-oriented" },
+            { id: "q3e", text: "Not sure yet — any style works for me" },
           ],
         },
         {
@@ -255,6 +256,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "l6b", text: "Honest and direct" },
             { id: "l6c", text: "Warm and encouraging" },
             { id: "l6d", text: "Structured and goal-oriented" },
+            { id: "l6e", text: "Not sure yet — any style works for me" },
           ],
         },
         {
@@ -438,6 +440,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "q3b", text: "Rehellinen ja suora" },
             { id: "q3c", text: "Lämmin ja rohkaiseva" },
             { id: "q3d", text: "Strukturoitu ja tavoitteellinen" },
+            { id: "q3e", text: "En osaa vielä sanoa — kaikki käy" },
           ],
         },
         {
@@ -603,6 +606,7 @@ const quizzesByLocale: LocalizedQuizCollection = {
             { id: "l6b", text: "Rehellinen ja suora" },
             { id: "l6c", text: "Lämmin ja rohkaiseva" },
             { id: "l6d", text: "Strukturoitu ja tavoitteellinen" },
+            { id: "l6e", text: "En osaa vielä sanoa — kaikki käy" },
           ],
         },
         {
