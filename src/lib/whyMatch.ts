@@ -55,9 +55,12 @@ Rules:
 - Use client's own words if openText is not empty`;
 
   try {
-    const response = await fetch("/api/why-match", {
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/why-match`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+      },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 150,
