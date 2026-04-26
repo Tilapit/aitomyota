@@ -325,7 +325,7 @@ function scoreStyle(client: ClientPreferenceProfile, therapist: TherapistCapabil
   if (client.pacePreference === "flexible") score += 2;
 
   if (therapist.workingStyle !== null) {
-    const diff = Math.abs(client.workStyle - therapist.workingStyle);
+    const diff = Math.abs((client.workStyle ?? 3) - therapist.workingStyle);
     score += diff === 0 ? 6 : diff === 1 ? 4 : diff === 2 ? 1 : 0;
   }
 
