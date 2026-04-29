@@ -627,11 +627,7 @@ export default function QuizPage() {
                               <div className="text-[14px] leading-7 italic text-[#C4674A]">
                                 {whyMatches[index]}
                               </div>
-                            ) : (
-                              <div className="text-[14px] leading-7 text-[color:var(--ink-mid)]">
-                                {recommendation.reason}
-                              </div>
-                            )}
+                            ) : null}
                           </div>
                         </div>
 
