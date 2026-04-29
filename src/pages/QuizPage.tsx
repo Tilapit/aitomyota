@@ -171,12 +171,9 @@ function RecommendationActions({
       {openPanel === "video" && canShowVideo && (
         <div className="therapist-inline-panel">
           <div className="therapist-inline-kicker">{t("recommendations.introPreview")}</div>
-          <p className="therapist-inline-copy">
-            {details?.videoIntro ??
-              (recommendation.introVideoUrl
-                ? recommendation.introVideoUrl
-                : recommendation.reason)}
-          </p>
+          {details?.videoIntro && (
+            <p className="therapist-inline-copy">{details.videoIntro}</p>
+          )}
           {details?.videoPoints && (
             <div className="therapist-inline-points">
               {details.videoPoints.map((point: string) => (
@@ -189,10 +186,6 @@ function RecommendationActions({
           )}
         </div>
       )}
-
-      <p className="text-[13px] leading-6 text-[color:var(--ink-light)]">
-        {details?.preview ?? recommendation.reason}
-      </p>
 
       <div className="therapist-actions">
         <button
