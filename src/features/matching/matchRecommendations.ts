@@ -87,11 +87,13 @@ function readMulti(answers: QuizAnswers, ...keys: string[]) {
   return [];
 }
 
-function truncateAtWord(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  const truncated = text.slice(0, maxLength);
-  const lastSpace = Math.max(truncated.lastIndexOf(" "), truncated.lastIndexOf(","));
-  return lastSpace > 0 ? truncated.slice(0, lastSpace) + "..." : truncated + "...";
+function getEducationShort(education: string): string {
+  if (!education) return "";
+  const commaIdx = education.indexOf(",");
+  if (commaIdx > 0) return education.slice(0, commaIdx);
+  const yearMatch = education.match(/\d{4}/);
+  if (yearMatch?.index !== undefined) return education.slice(0, yearMatch.index + 4);
+  return education.length > 40 ? education.slice(0, 40) + "..." : education;
 }
 
 function parseFirstNumber(value: string) {
@@ -528,7 +530,7 @@ export function matchRecommendations(params: {
       const localizedFreeText = therapist.profile.localizations[params.locale]?.freeTextPublicAnswers;
       const rawEducation =
         String(localizedFreeText?.education ?? "") || String(freeText.education ?? "");
-      const education = rawEducation ? truncateAtWord(rawEducation, 35) : undefined;
+      const education = rawEducation ? getEducationShort(rawEducation) : undefined;
 
       return {
         score,

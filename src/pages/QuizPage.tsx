@@ -624,7 +624,7 @@ export default function QuizPage() {
                           </div>
                         </div>
 
-                        <div className="space-y-5">
+                        <div className="space-y-5" style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                           <div>
                             {[recommendation.location, recommendation.priceDisplay, recommendation.sessionFormatDisplay].some(Boolean) && (
                               <div style={{ marginTop: "8px", fontSize: "13px", color: "var(--ink-mid)" }}>
