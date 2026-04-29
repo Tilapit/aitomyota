@@ -87,6 +87,13 @@ function readMulti(answers: QuizAnswers, ...keys: string[]) {
   return [];
 }
 
+function truncateAtWord(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  const truncated = text.slice(0, maxLength);
+  const lastSpace = Math.max(truncated.lastIndexOf(" "), truncated.lastIndexOf(","));
+  return lastSpace > 0 ? truncated.slice(0, lastSpace) + "..." : truncated + "...";
+}
+
 function parseFirstNumber(value: string) {
   const match = value.match(/\d+/);
   return match ? Number(match[0]) : null;
@@ -487,10 +494,18 @@ export function matchRecommendations(params: {
 
       const freeText = therapist.profile.localizations.en.freeTextPublicAnswers;
       const rawOfficeLocation = therapist.profile.quizAnswers.office_location;
-      const city =
+      const cityFromAnswers =
         rawOfficeLocation && typeof rawOfficeLocation === "object" && !Array.isArray(rawOfficeLocation)
           ? String((rawOfficeLocation as Record<string, string>).city ?? "")
           : "";
+      const cityFromFreeText = cityFromAnswers
+        ? ""
+        : (() => {
+            // freeText.office_location is "street, postal_code, city, country"
+            const parts = String(freeText.office_location ?? "").split(",").map((p) => p.trim());
+            return parts[2] ?? parts[0] ?? "";
+          })();
+      const city = cityFromAnswers || cityFromFreeText;
       const rawPrice = String(freeText.price_per_session ?? "");
       const priceRange = rawPrice.match(/(\d+)\s*[-–]\s*(\d+)/);
       const priceSingle = rawPrice.match(/^(\d+)$/);
@@ -510,8 +525,10 @@ export function matchRecommendations(params: {
             : rawFormat === "both"
               ? params.locale === "fi" ? "Etä & kasvotusten" : "Remote & in person"
               : undefined;
-      const rawEducation = String(freeText.education ?? "");
-      const education = rawEducation ? rawEducation.slice(0, 40) : undefined;
+      const localizedFreeText = therapist.profile.localizations[params.locale]?.freeTextPublicAnswers;
+      const rawEducation =
+        String(localizedFreeText?.education ?? "") || String(freeText.education ?? "");
+      const education = rawEducation ? truncateAtWord(rawEducation, 35) : undefined;
 
       return {
         score,
