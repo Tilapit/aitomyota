@@ -625,24 +625,34 @@ export default function QuizPage() {
                         </div>
 
                         <div className="space-y-5" style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
-                          <div>
-                            {[recommendation.location, recommendation.priceDisplay, recommendation.sessionFormatDisplay].some(Boolean) && (
-                              <div style={{ marginTop: "8px", fontSize: "13px", color: "var(--ink-mid)" }}>
-                                {[recommendation.location, recommendation.priceDisplay, recommendation.sessionFormatDisplay].filter(Boolean).join("  •  ")}
-                              </div>
-                            )}
-                            {(recommendation.education ?? recommendation.yearsExperience !== undefined) && (
-                              <div style={{ marginTop: "4px", fontSize: "13px", color: "var(--ink-mid)" }}>
-                                {[
-                                  recommendation.education,
-                                  recommendation.yearsExperience !== undefined
-                                    ? locale === "fi"
-                                      ? `${recommendation.yearsExperience} vuotta kokemusta`
-                                      : `${recommendation.yearsExperience} years of experience`
-                                    : undefined,
-                                ].filter(Boolean).join("  •  ")}
-                              </div>
-                            )}
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
+                            {[
+                              recommendation.location,
+                              recommendation.priceDisplay,
+                              recommendation.sessionFormatDisplay,
+                              recommendation.education,
+                              recommendation.yearsExperience !== undefined
+                                ? locale === "fi"
+                                  ? `${recommendation.yearsExperience} vuotta kokemusta`
+                                  : `${recommendation.yearsExperience} years of experience`
+                                : undefined,
+                            ].filter(Boolean).map((tag) => (
+                              <span
+                                key={tag}
+                                style={{
+                                  background: "#FAF0EC",
+                                  color: "#C4674A",
+                                  border: "1px solid #F0D5CB",
+                                  borderRadius: "20px",
+                                  padding: "4px 12px",
+                                  fontSize: "12px",
+                                  fontWeight: 500,
+                                  display: "inline-block",
+                                }}
+                              >
+                                {tag}
+                              </span>
+                            ))}
                           </div>
 
                           <RecommendationActions
