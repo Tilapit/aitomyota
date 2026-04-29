@@ -50,6 +50,7 @@ export type Recommendation = {
   sessionFormatDisplay?: string;
   education?: string;
   yearsExperience?: number;
+  kelaNotAvailable?: boolean;
 };
 
 type LocalizedQuizCollection = Record<Locale, Record<QuizId, Quiz>>;
@@ -68,11 +69,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Situation",
           question: "What feels heaviest right now?",
           answers: [
-            { id: "q1a", text: "Daily life or work weighs on me, my energy is under strain" },
+            { id: "q1a", text: "Daily life, work or studies feel heavy — my energy is strained" },
             { id: "q1b", text: "There is one specific thing on my mind I want to talk about" },
-            { id: "q1c", text: "A big life change is happening and I need support" },
-            { id: "q1d", text: "I cannot name it yet — it just feels unclear and heavy" },
-            { id: "q1e", text: "I just want to explore — not sure I need support yet" },
+            { id: "q1c", text: "A big life change or crisis is happening" },
+            { id: "q1d", text: "I feel anxious, worried or low" },
+            { id: "q1e", text: "I cannot name it yet — it just feels heavy" },
+            { id: "q1f", text: "I am considering therapy but I am not sure yet" },
           ],
         },
         {
@@ -81,10 +83,11 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Goal",
           question: "What do you want from therapy right now?",
           answers: [
-            { id: "q2a", text: "I want to feel lighter" },
+            { id: "q2a", text: "I want to feel better" },
             { id: "q2b", text: "I want to understand myself better" },
             { id: "q2c", text: "I want to solve a specific problem" },
-            { id: "q2d", text: "I want to create real change" },
+            { id: "q2d", text: "I want practical tools for everyday life" },
+            { id: "q2e", text: "I want to create real change" },
           ],
         },
         {
@@ -93,10 +96,10 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Support style",
           question: "What kind of person helps you most in difficult moments?",
           answers: [
-            { id: "q3a", text: "Calm and gentle" },
+            { id: "q3a", text: "Calm and understanding — I can be exactly myself" },
             { id: "q3b", text: "Honest and direct" },
             { id: "q3c", text: "Warm and encouraging" },
-            { id: "q3d", text: "Structured and goal-oriented" },
+            { id: "q3d", text: "Structured and goal-oriented — I like a clear direction" },
             { id: "q3e", text: "Not sure yet — any style works for me" },
           ],
         },
@@ -166,12 +169,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           id: "q6",
           number: 8,
           category: "Practicalities",
-          question: "Would you like to use Kela reimbursement if possible?",
-          note: "Kela can reimburse part of psychotherapy costs in certain situations. Short-term therapy is not Kela-reimbursable.",
+          question: "Is Kela reimbursement important to you?",
+          note: "Short-term therapy is not Kela-reimbursable. Kela-covered therapy is available through other channels.",
           answers: [
-            { id: "q6a", text: "Yes, show only eligible therapists" },
-            { id: "q6b", text: "Would be nice but not essential" },
-            { id: "q6c", text: "I'm not sure yet" },
+            { id: "q6a", text: "Kela reimbursement is important to me" },
+            { id: "q6b", text: "I do not need Kela reimbursement" },
+            { id: "q6c", text: "I am not sure yet" },
           ],
         },
         {
@@ -210,11 +213,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Situation",
           question: "What feels heaviest right now?",
           answers: [
-            { id: "l1a", text: "Daily life or work weighs on me, my energy is under strain" },
+            { id: "l1a", text: "Daily life, work or studies feel heavy — my energy is strained" },
             { id: "l1b", text: "There is one specific thing on my mind I want to talk about" },
-            { id: "l1c", text: "A big life change is happening and I need support" },
-            { id: "l1d", text: "I cannot name it yet — it just feels unclear and heavy" },
-            { id: "l1e", text: "I just want to explore — not sure I need support yet" },
+            { id: "l1c", text: "A big life change or crisis is happening" },
+            { id: "l1d", text: "I feel anxious, worried or low" },
+            { id: "l1e", text: "I cannot name it yet — it just feels heavy" },
+            { id: "l1f", text: "I am considering therapy but I am not sure yet" },
           ],
         },
         {
@@ -223,10 +227,11 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Goal",
           question: "What do you want from therapy right now?",
           answers: [
-            { id: "l2a", text: "I want to feel lighter" },
+            { id: "l2a", text: "I want to feel better" },
             { id: "l2b", text: "I want to understand myself better" },
             { id: "l2c", text: "I want to solve a specific problem" },
-            { id: "l2d", text: "I want to create real change" },
+            { id: "l2d", text: "I want practical tools for everyday life" },
+            { id: "l2e", text: "I want to create real change" },
           ],
         },
         {
@@ -274,10 +279,10 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Support style",
           question: "What kind of person helps you most in difficult moments?",
           answers: [
-            { id: "l6a", text: "Calm and gentle" },
+            { id: "l6a", text: "Calm and understanding — I can be exactly myself" },
             { id: "l6b", text: "Honest and direct" },
             { id: "l6c", text: "Warm and encouraging" },
-            { id: "l6d", text: "Structured and goal-oriented" },
+            { id: "l6d", text: "Structured and goal-oriented — I like a clear direction" },
             { id: "l6e", text: "Not sure yet — any style works for me" },
           ],
         },
@@ -381,12 +386,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           id: "l12",
           number: 14,
           category: "Practicalities",
-          question: "Would you like to use Kela reimbursement if possible?",
-          note: "Kela can reimburse part of psychotherapy costs in certain situations. Short-term therapy is not Kela-reimbursable.",
+          question: "Is Kela reimbursement important to you?",
+          note: "Short-term therapy is not Kela-reimbursable. Kela-covered therapy is available through other channels.",
           answers: [
-            { id: "l12a", text: "Yes, it is important to me" },
-            { id: "l12b", text: "Would be nice but not essential" },
-            { id: "l12c", text: "I am not sure yet — I would like to hear more" },
+            { id: "l12a", text: "Kela reimbursement is important to me" },
+            { id: "l12b", text: "I do not need Kela reimbursement" },
+            { id: "l12c", text: "I am not sure yet" },
           ],
         },
         {
@@ -448,11 +453,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Tilanne",
           question: "Mikä tuntuu raskaimmalta juuri nyt?",
           answers: [
-            { id: "q1a", text: "Arki tai työ painaa, energiani on koetuksella" },
+            { id: "q1a", text: "Arki, työ tai opinnot painavat — jaksaminen on koetuksella" },
             { id: "q1b", text: "Mielessäni on yksi tietty asia, josta haluaisin puhua" },
-            { id: "q1c", text: "Elämässäni on iso muutos käynnissä ja tarvitsen tukea" },
-            { id: "q1d", text: "En osaa vielä nimetä — tuntuu vain epäselvältä ja raskaalta" },
-            { id: "q1e", text: "Haluan vain tutustua — en ole varma tarvitsenko apua" },
+            { id: "q1c", text: "Elämässäni on iso muutos tai kriisi käynnissä" },
+            { id: "q1d", text: "Tuntuu ahdistuneelta, huolestuneelta tai alakuloiselta" },
+            { id: "q1e", text: "En osaa vielä nimetä — tuntuu vain raskaalta" },
+            { id: "q1f", text: "Olen harkitsemassa terapiaa mutta en ole vielä varma" },
           ],
         },
         {
@@ -461,10 +467,11 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Tavoite",
           question: "Mitä haluat terapialta juuri nyt?",
           answers: [
-            { id: "q2a", text: "Haluan tuntea oloni kevyemmäksi" },
+            { id: "q2a", text: "Haluan voida paremmin" },
             { id: "q2b", text: "Haluan ymmärtää itseäni paremmin" },
             { id: "q2c", text: "Haluan ratkaista tietyn ongelman" },
-            { id: "q2d", text: "Haluan saada aikaan todellista muutosta" },
+            { id: "q2d", text: "Haluan käytännön työkaluja arkeen" },
+            { id: "q2e", text: "Haluan saada aikaan todellista muutosta" },
           ],
         },
         {
@@ -473,10 +480,10 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Kohtaamistapa",
           question: "Millainen ihminen auttaa sinua eniten vaikeissa hetkissä?",
           answers: [
-            { id: "q3a", text: "Rauhallinen ja lempeä" },
+            { id: "q3a", text: "Rauhallinen ja ymmärtäväinen — saan olla juuri itseni" },
             { id: "q3b", text: "Rehellinen ja suora" },
-            { id: "q3c", text: "Lämmin ja rohkaiseva" },
-            { id: "q3d", text: "Strukturoitu ja tavoitteellinen" },
+            { id: "q3c", text: "Lämmin ja kannustava" },
+            { id: "q3d", text: "Jäsennelty ja tavoitteellinen — pidän selkeästä suunnasta" },
             { id: "q3e", text: "En osaa vielä sanoa — kaikki käy" },
           ],
         },
@@ -546,11 +553,11 @@ const quizzesByLocale: LocalizedQuizCollection = {
           id: "q6",
           number: 8,
           category: "Käytännöt",
-          question: "Haluaisitko käyttää Kela-korvausta jos mahdollista?",
-          note: "Kela voi korvata osan psykoterapiakustannuksista tietyissä tilanteissa. Lyhytterapia ei ole Kela-korvattavaa.",
+          question: "Onko Kela-korvattavuus sinulle tärkeää?",
+          note: "Lyhytterapia ei ole Kela-korvattavaa. Kela-korvattavaa terapiaa on saatavilla muuta kautta.",
           answers: [
-            { id: "q6a", text: "Kyllä, näytä vain sopivat terapeutit" },
-            { id: "q6b", text: "Olisi kätevää mutta ei välttämätöntä" },
+            { id: "q6a", text: "Kela-korvaus on minulle tärkeä" },
+            { id: "q6b", text: "En tarvitse Kela-korvausta" },
             { id: "q6c", text: "En ole varma vielä" },
           ],
         },
@@ -590,11 +597,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Tilanne",
           question: "Mikä tuntuu raskaimmalta juuri nyt?",
           answers: [
-            { id: "l1a", text: "Arki tai työ painaa, energiani on koetuksella" },
+            { id: "l1a", text: "Arki, työ tai opinnot painavat — jaksaminen on koetuksella" },
             { id: "l1b", text: "Mielessäni on yksi tietty asia, josta haluaisin puhua" },
-            { id: "l1c", text: "Elämässäni on iso muutos käynnissä ja tarvitsen tukea" },
-            { id: "l1d", text: "En osaa vielä nimetä — tuntuu vain epäselvältä ja raskaalta" },
-            { id: "l1e", text: "Haluan vain tutustua — en ole varma tarvitsenko apua" },
+            { id: "l1c", text: "Elämässäni on iso muutos tai kriisi käynnissä" },
+            { id: "l1d", text: "Tuntuu ahdistuneelta, huolestuneelta tai alakuloiselta" },
+            { id: "l1e", text: "En osaa vielä nimetä — tuntuu vain raskaalta" },
+            { id: "l1f", text: "Olen harkitsemassa terapiaa mutta en ole vielä varma" },
           ],
         },
         {
@@ -603,10 +611,11 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Tavoite",
           question: "Mitä haluat terapialta juuri nyt?",
           answers: [
-            { id: "l2a", text: "Haluan tuntea oloni kevyemmäksi" },
+            { id: "l2a", text: "Haluan voida paremmin" },
             { id: "l2b", text: "Haluan ymmärtää itseäni paremmin" },
             { id: "l2c", text: "Haluan ratkaista tietyn ongelman" },
-            { id: "l2d", text: "Haluan saada aikaan todellista muutosta" },
+            { id: "l2d", text: "Haluan käytännön työkaluja arkeen" },
+            { id: "l2e", text: "Haluan saada aikaan todellista muutosta" },
           ],
         },
         {
@@ -654,10 +663,10 @@ const quizzesByLocale: LocalizedQuizCollection = {
           category: "Kohtaamistapa",
           question: "Millainen ihminen auttaa sinua eniten vaikeissa hetkissä?",
           answers: [
-            { id: "l6a", text: "Rauhallinen ja lempeä" },
+            { id: "l6a", text: "Rauhallinen ja ymmärtäväinen — saan olla juuri itseni" },
             { id: "l6b", text: "Rehellinen ja suora" },
-            { id: "l6c", text: "Lämmin ja rohkaiseva" },
-            { id: "l6d", text: "Strukturoitu ja tavoitteellinen" },
+            { id: "l6c", text: "Lämmin ja kannustava" },
+            { id: "l6d", text: "Jäsennelty ja tavoitteellinen — pidän selkeästä suunnasta" },
             { id: "l6e", text: "En osaa vielä sanoa — kaikki käy" },
           ],
         },
@@ -761,12 +770,12 @@ const quizzesByLocale: LocalizedQuizCollection = {
           id: "l12",
           number: 14,
           category: "Käytännöt",
-          question: "Haluaisitko käyttää Kela-korvausta jos mahdollista?",
-          note: "Kela voi korvata osan psykoterapiakustannuksista tietyissä tilanteissa. Lyhytterapia ei ole Kela-korvattavaa.",
+          question: "Onko Kela-korvattavuus sinulle tärkeää?",
+          note: "Lyhytterapia ei ole Kela-korvattavaa. Kela-korvattavaa terapiaa on saatavilla muuta kautta.",
           answers: [
-            { id: "l12a", text: "Kyllä, se on minulle tärkeää" },
-            { id: "l12b", text: "Olisi kätevää mutta ei välttämätöntä" },
-            { id: "l12c", text: "En ole varma vielä — haluaisin kuulla lisää" },
+            { id: "l12a", text: "Kela-korvaus on minulle tärkeä" },
+            { id: "l12b", text: "En tarvitse Kela-korvausta" },
+            { id: "l12c", text: "En ole varma vielä" },
           ],
         },
         {

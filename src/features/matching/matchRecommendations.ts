@@ -124,19 +124,23 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
 
   if (primarySituation === "q1a" || primarySituation === "l1a") {
     concerns.add("stress_burnout");
-  }
-  if (primarySituation === "q1b" || primarySituation === "l1b") {
-    concerns.add("relationships_family");
-    concerns.add("crises_grief");
+    concerns.add("academic_pressure");
   }
   if (primarySituation === "q1c" || primarySituation === "l1c") {
     concerns.add("crises_grief");
-    concerns.add("identity_direction");
+    concerns.add("relationships_family");
+    concerns.add("self_esteem_identity");
   }
   if (primarySituation === "q1d" || primarySituation === "l1d") {
-    concerns.add("self_esteem_identity");
     concerns.add("anxiety_fears");
+    concerns.add("depression_low_mood");
+    concerns.add("self_esteem_identity");
   }
+  if (primarySituation === "q1e" || primarySituation === "l1e") {
+    concerns.add("anxiety_fears");
+    concerns.add("depression_low_mood");
+  }
+  // q1b, q1f/l1f → concerns stays empty (broad search)
 
   for (const value of longConcerns) {
     if (value === "l4a") concerns.add("academic_pressure");
@@ -154,7 +158,7 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
 
   const supportStyles = new Set<string>();
 
-  if (shortSupport === "q3a" || longSupport === "l6a") supportStyles.add("warm");
+  if (shortSupport === "q3a" || longSupport === "l6a") supportStyles.add("calm_gentle");
   if (shortSupport === "q3b" || longSupport === "l6b") supportStyles.add("direct");
   if (shortSupport === "q3c" || longSupport === "l6c") supportStyles.add("warm");
   if (shortSupport === "q3d" || longSupport === "l6d") {
@@ -162,6 +166,9 @@ function normalizeClientAnswers(quizId: QuizId, answers: QuizAnswers): ClientPre
     supportStyles.add("structured");
   }
   if (shortSupport === "q3e" || longSupport === "l6e") supportStyles.add("any");
+
+  const goal = readSingle(answers, "q2", "l2");
+  if (goal === "q2d" || goal === "l2d") supportStyles.add("practical");
 
   return {
     preferredLanguage:
