@@ -556,7 +556,7 @@ export default function QuizPage() {
           <>
             <section className="bg-[color:var(--sand-pale)] px-6 py-16 sm:px-10 lg:px-[72px] lg:py-20">
               <div className="page-shell-tight">
-                <div className="mb-14 text-center">
+                <div className="mb-14 text-center" style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 3.5rem" }}>
                   <div className="s-label justify-center">
                     {t("meta.yourRecommendations")}
                   </div>
