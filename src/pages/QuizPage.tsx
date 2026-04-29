@@ -488,7 +488,7 @@ export default function QuizPage() {
 
       setLoadingWhy(true);
       const whys = await Promise.all(
-        resolved.map((r) => generateWhyMatch(r, answers, locale)),
+        resolved.map((r) => generateWhyMatch(r, answers, locale, quizId)),
       );
       setWhyMatches(whys);
       setLoadingWhy(false);
