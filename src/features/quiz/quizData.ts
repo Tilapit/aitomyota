@@ -51,6 +51,7 @@ export type Recommendation = {
   education?: string;
   yearsExperience?: number;
   kelaNotAvailable?: boolean;
+  bio?: string;
 };
 
 type LocalizedQuizCollection = Record<Locale, Record<QuizId, Quiz>>;

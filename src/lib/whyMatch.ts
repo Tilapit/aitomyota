@@ -91,7 +91,7 @@ export async function generateWhyMatch(
 
 Terapeutti: ${recommendation.name}
 Terapeutin erikoistumiset: ${tags}
-Terapeutin esittely: ${recommendation.reason.slice(0, 300)}
+Terapeutin esittely: ${(recommendation.bio || recommendation.reason || "").slice(0, 400)}
 
 Asiakkaan tilanne:
 - Mikä tuntuu raskaalta: ${primaryConcern}
@@ -111,7 +111,7 @@ Säännöt:
 
 Therapist: ${recommendation.name}
 Specializations: ${tags}
-Therapist bio: ${recommendation.reason.slice(0, 300)}
+Therapist bio: ${(recommendation.bio || recommendation.reason || "").slice(0, 400)}
 
 Client's situation:
 - What feels heavy: ${primaryConcern}

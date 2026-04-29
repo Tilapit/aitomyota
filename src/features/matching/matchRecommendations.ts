@@ -559,6 +559,7 @@ export function matchRecommendations(params: {
           sessionFormatDisplay,
           education,
           yearsExperience: therapist.yearsExperience ?? undefined,
+          bio: therapist.localizedIntro || therapist.localizedApproach || undefined,
         },
       };
     })
