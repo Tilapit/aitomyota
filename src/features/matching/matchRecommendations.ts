@@ -485,6 +485,34 @@ export function matchRecommendations(params: {
           : []),
       ].slice(0, 3);
 
+      const freeText = therapist.profile.localizations.en.freeTextPublicAnswers;
+      const rawOfficeLocation = therapist.profile.quizAnswers.office_location;
+      const city =
+        rawOfficeLocation && typeof rawOfficeLocation === "object" && !Array.isArray(rawOfficeLocation)
+          ? String((rawOfficeLocation as Record<string, string>).city ?? "")
+          : "";
+      const rawPrice = String(freeText.price_per_session ?? "");
+      const priceRange = rawPrice.match(/(\d+)\s*[-–]\s*(\d+)/);
+      const priceSingle = rawPrice.match(/^(\d+)$/);
+      const priceDisplay = priceRange
+        ? `${priceRange[1]}–${priceRange[2]} €`
+        : priceSingle
+          ? `${priceSingle[1]} €`
+          : rawPrice
+            ? `${rawPrice} €`
+            : undefined;
+      const rawFormat = String(freeText.session_format ?? "");
+      const sessionFormatDisplay =
+        rawFormat === "remote_only"
+          ? params.locale === "fi" ? "Etä" : "Remote"
+          : rawFormat === "in_person_only"
+            ? params.locale === "fi" ? "Kasvotusten" : "In person"
+            : rawFormat === "both"
+              ? params.locale === "fi" ? "Etä & kasvotusten" : "Remote & in person"
+              : undefined;
+      const rawEducation = String(freeText.education ?? "");
+      const education = rawEducation ? rawEducation.slice(0, 40) : undefined;
+
       return {
         score,
         recommendation: {
@@ -500,6 +528,11 @@ export function matchRecommendations(params: {
           headshotUrl: therapist.profile.base.headshotUrl || undefined,
           introVideoUrl: therapist.profile.base.introVideoUrl || undefined,
           score,
+          location: city || undefined,
+          priceDisplay,
+          sessionFormatDisplay,
+          education,
+          yearsExperience: therapist.yearsExperience ?? undefined,
         },
       };
     })

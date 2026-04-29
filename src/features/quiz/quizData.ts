@@ -45,6 +45,11 @@ export type Recommendation = {
   headshotUrl?: string;
   introVideoUrl?: string;
   score?: number;
+  location?: string;
+  priceDisplay?: string;
+  sessionFormatDisplay?: string;
+  education?: string;
+  yearsExperience?: number;
 };
 
 type LocalizedQuizCollection = Record<Locale, Record<QuizId, Quiz>>;

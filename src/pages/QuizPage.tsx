@@ -637,19 +637,23 @@ export default function QuizPage() {
 
                         <div className="space-y-5">
                           <div>
-                            <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--terra)]">
-                              {t("meta.matchNotes")}
-                            </div>
-                            <div className="mt-4 flex flex-wrap gap-2">
-                              {recommendation.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="rounded-full border border-[color:var(--cream-dark)] bg-white px-3 py-1 text-[12px] font-medium text-[color:var(--ink-mid)]"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
+                            {[recommendation.location, recommendation.priceDisplay, recommendation.sessionFormatDisplay].some(Boolean) && (
+                              <div style={{ marginTop: "8px", fontSize: "13px", color: "var(--ink-mid)" }}>
+                                {[recommendation.location, recommendation.priceDisplay, recommendation.sessionFormatDisplay].filter(Boolean).join("  •  ")}
+                              </div>
+                            )}
+                            {(recommendation.education ?? recommendation.yearsExperience !== undefined) && (
+                              <div style={{ marginTop: "4px", fontSize: "13px", color: "var(--ink-mid)" }}>
+                                {[
+                                  recommendation.education,
+                                  recommendation.yearsExperience !== undefined
+                                    ? locale === "fi"
+                                      ? `${recommendation.yearsExperience} vuotta kokemusta`
+                                      : `${recommendation.yearsExperience} years of experience`
+                                    : undefined,
+                                ].filter(Boolean).join("  •  ")}
+                              </div>
+                            )}
                           </div>
 
                           <RecommendationActions
